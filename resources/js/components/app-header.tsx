@@ -100,22 +100,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
 
           {/* Desktop Navigation */}
           <div className="ml-6 hidden h-full items-center space-x-6 lg:flex">
-            <NavigationMenu className="flex h-full items-stretch">
-              <NavigationMenuList className="flex h-full items-stretch space-x-2">
-                {mainNavItems.map((item, index) => (
-                  <NavigationMenuItem key={index} className="relative flex h-full items-center">
-                    <Link
-                      href={item.href}
-                      className={cn(navigationMenuTriggerStyle(), page.url === item.href && activeItemStyles, "h-9 cursor-pointer px-3")}
-                    >
-                      {item.icon && <Icon iconNode={item.icon} className="mr-2 h-4 w-4" />}
-                      {item.title}
-                    </Link>
-                    {page.url === item.href && <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>}
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
+            <Breadcrumbs breadcrumbs={breadcrumbs} />
           </div>
 
           <div className="ml-auto flex items-center space-x-2">
@@ -164,13 +149,26 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
           </div>
         </div>
       </div>
-      {breadcrumbs.length > 1 && (
-        <div className="border-sidebar-border/70 flex w-full border-b">
-          <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
-            <Breadcrumbs breadcrumbs={breadcrumbs} />
-          </div>
+      <div className="border-sidebar-border/70 flex w-full border-b">
+        <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
+          <NavigationMenu className="flex h-full items-stretch">
+            <NavigationMenuList className="flex h-full items-stretch space-x-2">
+              {mainNavItems.map((item, index) => (
+                <NavigationMenuItem key={index} className="relative flex h-full items-center">
+                  <Link
+                    href={item.href}
+                    className={cn(navigationMenuTriggerStyle(), page.url === item.href && activeItemStyles, "h-9 cursor-pointer px-3")}
+                  >
+                    {item.icon && <Icon iconNode={item.icon} className="mr-2 h-4 w-4" />}
+                    {item.title}
+                  </Link>
+                  {page.url === item.href && <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>}
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
-      )}
+      </div>
     </>
   )
 }
