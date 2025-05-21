@@ -11,17 +11,9 @@ import { useInitials } from "@/hooks/use-initials"
 import { cn } from "@/lib/utils"
 import { type NavItem, type SharedData } from "@/types"
 import { Link, usePage } from "@inertiajs/react"
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from "lucide-react"
+import { BookOpen, Folder, Menu, Search } from "lucide-react"
 import AppLogo from "./app-logo"
 import AppLogoIcon from "./app-logo-icon"
-
-const mainNavItems: NavItem[] = [
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    icon: LayoutGrid,
-  },
-]
 
 const rightNavItems: NavItem[] = [
   {
@@ -38,10 +30,15 @@ const rightNavItems: NavItem[] = [
 
 const activeItemStyles = "text-neutral-900 dark:text-neutral-100"
 
-export function AppHeader() {
+interface AppHeaderProps {
+  navigation: NavItem[]
+}
+
+export function AppHeader({ navigation }: AppHeaderProps) {
   const page = usePage<SharedData>()
   const { auth } = page.props
   const getInitials = useInitials()
+
   return (
     <>
       <div className="border-sidebar-border/80 bg-background border-b">
@@ -62,7 +59,7 @@ export function AppHeader() {
                 <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                   <div className="flex h-full flex-col justify-between text-sm">
                     <div className="flex flex-col space-y-4">
-                      {mainNavItems.map((item) => (
+                      {navigation.map((item) => (
                         <Link key={item.title} href={item.href} className="flex items-center space-x-2 font-medium">
                           {item.icon && <Icon iconNode={item.icon} className="h-5 w-5" />}
                           <span>{item.title}</span>
@@ -148,7 +145,7 @@ export function AppHeader() {
           <div className="mx-auto flex h-12 w-full items-center justify-start text-neutral-500 md:max-w-7xl">
             <NavigationMenu className="flex h-full items-stretch">
               <NavigationMenuList className="flex h-full items-stretch space-x-2">
-                {mainNavItems.map((item, index) => (
+                {navigation.map((item, index) => (
                   <NavigationMenuItem key={index} className="relative flex h-full items-center">
                     <Link
                       href={item.href}
