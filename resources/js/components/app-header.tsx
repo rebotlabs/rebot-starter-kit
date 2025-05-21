@@ -36,7 +36,7 @@ const rightNavItems: NavItem[] = [
   },
 ]
 
-const activeItemStyles = "text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100"
+const activeItemStyles = "text-neutral-900 dark:text-neutral-100"
 
 export function AppHeader() {
   const page = usePage<SharedData>()
@@ -45,7 +45,7 @@ export function AppHeader() {
   return (
     <>
       <div className="border-sidebar-border/80 bg-background border-b">
-        <div className="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
+        <div className="mx-auto flex h-16 items-center px-2.5 md:max-w-7xl">
           {/* Mobile Menu */}
           <div className="lg:hidden">
             <Sheet>
@@ -145,7 +145,7 @@ export function AppHeader() {
           </div>
         </div>
         <div className="flex w-full">
-          <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
+          <div className="mx-auto flex h-12 w-full items-center justify-start text-neutral-500 md:max-w-7xl">
             <NavigationMenu className="flex h-full items-stretch">
               <NavigationMenuList className="flex h-full items-stretch space-x-2">
                 {mainNavItems.map((item, index) => (
@@ -157,7 +157,9 @@ export function AppHeader() {
                       {item.icon && <Icon iconNode={item.icon} className="mr-2 h-4 w-4" />}
                       {item.title}
                     </Link>
-                    {page.url === item.href && <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>}
+                    {page.url === item.href && (
+                      <div className="absolute right-3 bottom-0 left-3 h-0.5 w-auto translate-y-px bg-black dark:bg-white"></div>
+                    )}
                   </NavigationMenuItem>
                 ))}
               </NavigationMenuList>
