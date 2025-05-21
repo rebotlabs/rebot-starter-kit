@@ -44,7 +44,7 @@ export function AppHeader() {
   const getInitials = useInitials()
   return (
     <>
-      <div className="border-sidebar-border/80 border-b">
+      <div className="border-sidebar-border/80 bg-background border-b">
         <div className="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
           {/* Mobile Menu */}
           <div className="lg:hidden">
@@ -144,25 +144,25 @@ export function AppHeader() {
             </DropdownMenu>
           </div>
         </div>
-      </div>
-      <div className="border-sidebar-border/70 flex w-full border-b">
-        <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
-          <NavigationMenu className="flex h-full items-stretch">
-            <NavigationMenuList className="flex h-full items-stretch space-x-2">
-              {mainNavItems.map((item, index) => (
-                <NavigationMenuItem key={index} className="relative flex h-full items-center">
-                  <Link
-                    href={item.href}
-                    className={cn(navigationMenuTriggerStyle(), page.url === item.href && activeItemStyles, "h-9 cursor-pointer px-3")}
-                  >
-                    {item.icon && <Icon iconNode={item.icon} className="mr-2 h-4 w-4" />}
-                    {item.title}
-                  </Link>
-                  {page.url === item.href && <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>}
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
+        <div className="flex w-full">
+          <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
+            <NavigationMenu className="flex h-full items-stretch">
+              <NavigationMenuList className="flex h-full items-stretch space-x-2">
+                {mainNavItems.map((item, index) => (
+                  <NavigationMenuItem key={index} className="relative flex h-full items-center">
+                    <Link
+                      href={item.href}
+                      className={cn(navigationMenuTriggerStyle(), page.url === item.href && activeItemStyles, "h-9 cursor-pointer px-3")}
+                    >
+                      {item.icon && <Icon iconNode={item.icon} className="mr-2 h-4 w-4" />}
+                      {item.title}
+                    </Link>
+                    {page.url === item.href && <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>}
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
         </div>
       </div>
     </>
