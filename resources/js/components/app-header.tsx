@@ -9,7 +9,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { UserMenuContent } from "@/components/user-menu-content"
 import { useInitials } from "@/hooks/use-initials"
 import { cn } from "@/lib/utils"
-import { type BreadcrumbItem, type NavItem, type SharedData } from "@/types"
+import { type NavItem, type SharedData } from "@/types"
 import { Link, usePage } from "@inertiajs/react"
 import { BookOpen, Folder, LayoutGrid, Menu, Search } from "lucide-react"
 import AppLogo from "./app-logo"
@@ -38,11 +38,7 @@ const rightNavItems: NavItem[] = [
 
 const activeItemStyles = "text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100"
 
-interface AppHeaderProps {
-  breadcrumbs?: BreadcrumbItem[]
-}
-
-export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
+export function AppHeader() {
   const page = usePage<SharedData>()
   const { auth } = page.props
   const getInitials = useInitials()
@@ -100,7 +96,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
 
           {/* Desktop Navigation */}
           <div className="ml-6 hidden h-full items-center space-x-6 lg:flex">
-            <Breadcrumbs breadcrumbs={breadcrumbs} />
+            <Breadcrumbs />
           </div>
 
           <div className="ml-auto flex items-center space-x-2">
