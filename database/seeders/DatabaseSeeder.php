@@ -22,9 +22,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Team::factory()->for($user, 'owner')->create([
+        $team = Team::factory()->for($user, 'owner')->create([
             'name' => 'Test Team',
             'slug' => 'test-team',
         ]);
+
+        $user->currentTeam()->associate($team)->save();
     }
 }
