@@ -1,27 +1,14 @@
-import { PlaceholderPattern } from "@/components/ui/placeholder-pattern"
-import { TeamLayout } from "@/layouts/app/team-layout"
+import HeadingSmall from "@/components/heading-small"
+import { TeamSettingsLayout } from "@/layouts/app/team-settings-layout"
 import { Head } from "@inertiajs/react"
 
 export default function TeamSettingsGeneral() {
   return (
-    <TeamLayout>
-      <Head title="Settings" />
-      <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border">
-            <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-          </div>
-          <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border">
-            <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-          </div>
-          <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border">
-            <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-          </div>
-        </div>
-        <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">
-          <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-        </div>
+    <TeamSettingsLayout>
+      <Head title="General" />
+      <div className="space-y-6">
+        <HeadingSmall title="General informations" description="Update your team informations" />
       </div>
-    </TeamLayout>
+    </TeamSettingsLayout>
   )
 }

@@ -141,28 +141,28 @@ export function AppHeader({ navigation }: AppHeaderProps) {
             </DropdownMenu>
           </div>
         </div>
-        <div className="flex w-full">
-          <div className="mx-auto flex h-12 w-full items-center justify-start text-neutral-500 md:max-w-7xl">
-            <NavigationMenu className="flex h-full items-stretch">
-              <NavigationMenuList className="flex h-full items-stretch space-x-2">
-                {navigation.map((item, index) => (
-                  <NavigationMenuItem key={index} className="relative flex h-full items-center">
-                    <Link
-                      href={item.href}
-                      className={cn(navigationMenuTriggerStyle(), page.url === item.href && activeItemStyles, "h-9 cursor-pointer px-3")}
-                    >
-                      {item.icon && <Icon iconNode={item.icon} className="mr-2 h-4 w-4" />}
-                      {item.title}
-                    </Link>
-                    {page.url === item.href && (
-                      <div className="absolute right-3 bottom-0 left-3 h-0.5 w-auto translate-y-px bg-black dark:bg-white"></div>
-                    )}
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
+        {navigation.length > 0 && (
+          <div className="flex w-full">
+            <div className="mx-auto flex h-12 w-full items-center justify-start text-neutral-500 md:max-w-7xl">
+              <NavigationMenu className="flex h-full items-stretch">
+                <NavigationMenuList className="flex h-full items-stretch space-x-2">
+                  {navigation.map((item, index) => (
+                    <NavigationMenuItem key={index} className="relative flex h-full items-center">
+                      <Link
+                        href={item.href}
+                        className={cn(navigationMenuTriggerStyle(), item.isActive && activeItemStyles, "h-9 cursor-pointer px-3")}
+                      >
+                        {item.icon && <Icon iconNode={item.icon} className="mr-2 h-4 w-4" />}
+                        {item.title}
+                      </Link>
+                      {item.isActive && <div className="absolute right-3 bottom-0 left-3 h-0.5 w-auto translate-y-px bg-black dark:bg-white"></div>}
+                    </NavigationMenuItem>
+                  ))}
+                </NavigationMenuList>
+              </NavigationMenu>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   )
