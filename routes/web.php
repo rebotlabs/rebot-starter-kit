@@ -21,6 +21,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('team/{team}/settings', function (Team $team) {
         return Inertia::render('team/settings/general');
     })->name('team.settings');
+
+    Route::get('team/{team}/settings/members', function (Team $team) {
+        return Inertia::render('team/settings/members');
+    })->name('team.settings.members');
+
+    Route::get('team/{team}/settings/billing', function (Team $team) {
+        return Inertia::render('team/settings/billing');
+    })->name('team.settings.billing');
 });
 
 require __DIR__ . '/settings.php';
