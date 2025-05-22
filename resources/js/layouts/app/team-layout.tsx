@@ -13,7 +13,7 @@ export const TeamLayout = ({ children }: PropsWithChildren) => {
     },
     {
       title: "Settings",
-      href: "#",
+      href: route("team.settings", [currentTeam], false),
     },
   ]
 

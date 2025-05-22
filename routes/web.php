@@ -15,9 +15,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::get('team/{team}', function (Team $team) {
-        return Inertia::render('dashboard');
+        return Inertia::render('team/overview');
     })->name('team.overview');
+
+    Route::get('team/{team}/settings', function (Team $team) {
+        return Inertia::render('team/settings/general');
+    })->name('team.settings');
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
