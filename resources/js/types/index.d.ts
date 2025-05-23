@@ -28,7 +28,7 @@ export interface SharedData {
   auth: Auth
   ziggy: Config & { location: string }
   sidebarOpen: boolean
-  currentTeam: Team | null
+  currentTeam: Team
   teams: Team[]
 
   [key: string]: unknown
