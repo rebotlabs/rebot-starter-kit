@@ -20,16 +20,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('team/overview');
     })->name('team.overview');
 
-    Route::get('team/{team}/settings', [GeneralController::class, "show"])->name('team.settings');
-    Route::patch('team/{team}/settings', [GeneralController::class, "update"])->name('team.settings.update');
+    Route::get('team/{team}/settings', [GeneralController::class, 'show'])->name('team.settings');
+    Route::patch('team/{team}/settings', [GeneralController::class, 'update'])->name('team.settings.update');
 
-    Route::get('team/{team}/settings/members', [MembersController::class, "show"])->name('team.settings.members');
-    Route::post('team/{team}/settings/members/invite', [MembersController::class, "invite"])->name('team.settings.members.invite');
+    Route::get('team/{team}/settings/members', [MembersController::class, 'show'])->name('team.settings.members');
+    Route::post('team/{team}/settings/members/invite', [MembersController::class, 'invite'])->name('team.settings.members.invite');
 
     Route::get('team/{team}/settings/billing', function (Team $team) {
         return Inertia::render('team/settings/billing');
     })->name('team.settings.billing');
 });
 
-require __DIR__ . '/settings.php';
-require __DIR__ . '/auth.php';
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';

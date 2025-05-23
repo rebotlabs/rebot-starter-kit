@@ -13,7 +13,7 @@ class GeneralController extends Controller
 {
     public function show(Request $request, Team $team)
     {
-        return Inertia::render("team/settings/general", [
+        return Inertia::render('team/settings/general', [
             'team' => $team,
         ]);
     }
@@ -22,7 +22,7 @@ class GeneralController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'alpha_dash', 'unique:teams,slug,' . $team->id],
+            'slug' => ['required', 'string', 'max:255', 'alpha_dash', 'unique:teams,slug,'.$team->id],
         ]);
 
         $team->update($data);
