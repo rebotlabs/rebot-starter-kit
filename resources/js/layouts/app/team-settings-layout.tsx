@@ -44,7 +44,7 @@ export const TeamSettingsLayout = ({ children }: PropsWithChildren) => {
                   variant="ghost"
                   asChild
                   className={cn("w-full justify-start", {
-                    "bg-muted": item.isActive,
+                    "bg-muted font-bold": item.isActive,
                   })}
                 >
                   <Link href={item.href} prefetch>
