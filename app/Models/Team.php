@@ -31,6 +31,11 @@ class Team extends Model
         return $this->hasMany(Invitation::class);
     }
 
+    public function members(): HasMany
+    {
+        return $this->hasMany(Member::class);
+    }
+
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id');
