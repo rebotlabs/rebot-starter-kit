@@ -76,7 +76,7 @@ export const Invitations = () => {
           ))}
         </ul>
       ) : (
-        <p>No invitations found.</p>
+        <p className="text-muted-foreground text-center text-sm">No invitations found.</p>
       )}
     </div>
   )
