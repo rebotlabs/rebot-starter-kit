@@ -17,6 +17,7 @@ class MembersController extends Controller
     {
         return Inertia::render('team/settings/members', [
             'invitations' => fn() => $team->invitations()->with(['user'])->get(),
+            'members' => fn() => $team->members()->with(['user'])->get(),
         ]);
     }
 
