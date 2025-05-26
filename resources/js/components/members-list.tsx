@@ -9,7 +9,7 @@ import { usePage } from "@inertiajs/react"
 import { LogOutIcon, MoreVerticalIcon, UserMinusIcon } from "lucide-react"
 
 export const MembersList = () => {
-  const { members, auth } = usePage<SharedData & { members: Member[] }>().props
+  const { members, auth, currentTeam } = usePage<SharedData & { members: Member[] }>().props
   const getInitials = useInitials()
 
   return (
@@ -53,7 +53,7 @@ export const MembersList = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   {member.user.id === auth.user.id ? (
-                    <DropdownMenuItem variant="destructive">
+                    <DropdownMenuItem variant="destructive" disabled={auth.user.id === currentTeam.owner_id}>
                       <LogOutIcon />
                       Leave team
                     </DropdownMenuItem>
