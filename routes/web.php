@@ -25,11 +25,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('team/{team}/settings/members', [MembersController::class, 'show'])->name('team.settings.members');
     Route::post('team/{team}/settings/members/invite', [MembersController::class, 'invite'])->name('team.settings.members.invite');
+    Route::post('team/{team}/settings/members/invitations/{invitation}/resend', [MembersController::class, 'resend'])->name('team.settings.members.invitations.resend');
+    Route::delete('team/{team}/settings/members/invitations/{invitation}', [MembersController::class, 'delete'])->name('team.settings.members.invitations.delete');
 
     Route::get('team/{team}/settings/billing', function (Team $team) {
         return Inertia::render('team/settings/billing');
     })->name('team.settings.billing');
+
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+Route::middleware(['signed'])->group(function () {
+    Route::get('invitation/accept', function () {
+        return '';
+    })->name('invitation.accept');
+
+    Route::get('invitation/reject', function () {
+        return '';
+    })->name('invitation.reject');
+});
+
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
