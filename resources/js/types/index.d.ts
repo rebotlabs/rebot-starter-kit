@@ -57,3 +57,17 @@ export interface Team {
 
   [key: string]: unknown
 }
+
+export interface Invitation {
+  id: number
+  email: string
+  team_id: number
+  user_id: number | null
+  user: User | null
+  role: string
+  status: string
+  created_at: string
+  updated_at: string
+
+  [key: string]: unknown
+}
