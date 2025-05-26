@@ -71,3 +71,13 @@ export interface Invitation {
 
   [key: string]: unknown
 }
+
+export interface Member {
+  id: number
+  user: User
+  role: string
+  created_at: string
+  updated_at: string
+
+  [key: string]: unknown
+}
