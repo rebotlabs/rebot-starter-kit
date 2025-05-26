@@ -2,12 +2,22 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
-import type { Invitation } from "@/types"
-import { usePage } from "@inertiajs/react"
+import type { Invitation, SharedData } from "@/types"
+import { useForm, usePage } from "@inertiajs/react"
 import { MoreVerticalIcon, SendIcon, TrashIcon } from "lucide-react"
 
 export const Invitations = () => {
-  const { invitations } = usePage<{ invitations: Invitation[] }>().props
+  const { invitations, currentTeam } = usePage<SharedData & { invitations: Invitation[] }>().props
+
+  const { post, delete: destroy, processing, recentlySuccessful } = useForm()
+
+  const resendInvitation = (invitationId: number) => {
+    post(route("team.settings.members.invitations.resend", [currentTeam, invitationId]))
+  }
+
+  const deleteInvitation = (invitationId: number) => {
+    destroy(route("team.settings.members.invitations.delete", [currentTeam, invitationId]))
+  }
 
   return (
     <div className="grid gap-4">
@@ -51,11 +61,11 @@ export const Invitations = () => {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem>
+                    <DropdownMenuItem disabled={processing} onClick={() => resendInvitation(invitation.id)}>
                       <SendIcon />
                       Resend
                     </DropdownMenuItem>
-                    <DropdownMenuItem variant="destructive">
+                    <DropdownMenuItem variant="destructive" disabled={processing} onClick={() => deleteInvitation(invitation.id)}>
                       <TrashIcon />
                       Delete
                     </DropdownMenuItem>
