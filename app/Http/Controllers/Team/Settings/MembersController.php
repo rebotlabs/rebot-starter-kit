@@ -18,8 +18,8 @@ class MembersController extends Controller
     public function show(Request $request, Team $team)
     {
         return Inertia::render('team/settings/members', [
-            'invitations' => fn() => $team->invitations()->with(['user'])->get(),
-            'members' => fn() => $team->members()->with(['user'])->get(),
+            'invitations' => fn () => $team->invitations()->with(['user'])->get(),
+            'members' => fn () => $team->members()->with(['user'])->get(),
         ]);
     }
 
@@ -38,12 +38,12 @@ class MembersController extends Controller
             'reject_token' => Str::random(32),
         ]);
 
-        $invitation->notify(new InvitationSent());
+        $invitation->notify(new InvitationSent);
     }
 
     public function resend(Request $request, Team $team, Invitation $invitation)
     {
-        $invitation->notify(new InvitationSent());
+        $invitation->notify(new InvitationSent);
     }
 
     public function delete(Request $request, Team $team, Invitation $invitation)
