@@ -15,14 +15,27 @@ class GeneralController extends Controller
     {
         return Inertia::render('team/settings/general', [
             'team' => $team,
+            'members' => fn() => $team->members()->with(['user'])->get(),
         ]);
+    }
+
+    public function changeOwnership(Request $request, Team $team)
+    {
+        $data = $request->validate([
+            'password' => ['required', 'string', 'current_password'],
+            'owner_id' => ['required', 'exists:users,id'],
+        ]);
+
+        $team->update(['owner_id' => $data['owner_id']]);
+
+        return redirect()->route('team.settings', ['team' => $team]);
     }
 
     public function update(Request $request, Team $team)
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'alpha_dash', 'unique:teams,slug,'.$team->id],
+            'slug' => ['required', 'string', 'max:255', 'alpha_dash', 'unique:teams,slug,' . $team->id],
         ]);
 
         $team->update($data);

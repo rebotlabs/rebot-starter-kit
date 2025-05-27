@@ -88,13 +88,13 @@ export default function DeleteUser() {
 
               <DialogFooter className="gap-2">
                 <DialogClose asChild>
-                  <Button variant="secondary" onClick={closeModal}>
+                  <Button variant="link" onClick={closeModal}>
                     Cancel
                   </Button>
                 </DialogClose>
 
-                <Button variant="destructive" disabled={processing} asChild>
-                  <button type="submit">Delete account</button>
+                <Button variant="destructive" type="submit" disabled={processing}>
+                  Delete account
                 </Button>
               </DialogFooter>
             </form>
