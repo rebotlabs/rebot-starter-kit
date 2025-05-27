@@ -9,7 +9,7 @@ import { MoreVerticalIcon, SendIcon, TrashIcon } from "lucide-react"
 export const Invitations = () => {
   const { invitations, currentTeam } = usePage<SharedData & { invitations: Invitation[] }>().props
 
-  const { post, delete: destroy, processing, recentlySuccessful } = useForm()
+  const { post, delete: destroy, processing } = useForm()
 
   const resendInvitation = (invitationId: number) => {
     post(route("team.settings.members.invitations.resend", [currentTeam, invitationId]))

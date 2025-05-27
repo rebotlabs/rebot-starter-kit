@@ -17,20 +17,20 @@ export function Breadcrumbs() {
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
             <Link href={route("team.overview", [currentTeam])} className={cn(buttonVariants({ variant: "ghost" }), "px-2 py-1")}>
-              <Avatar className={"size-6 rounded-md"}>
+              <Avatar className="size-6 rounded-md">
                 <AvatarImage src={currentTeam?.logo} />
-                <AvatarFallback className={"rounded-md text-xs font-black"}>{getInitials(currentTeam?.name ?? "")}</AvatarFallback>
+                <AvatarFallback className="rounded-md text-xs font-black">{getInitials(currentTeam?.name ?? "")}</AvatarFallback>
               </Avatar>
               {currentTeam?.name}
             </Link>
           </BreadcrumbLink>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant={"ghost"} size={"icon"} className={"w-6"}>
+              <Button variant="ghost" size="icon" className="w-6">
                 <ChevronsUpDownIcon />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align={"end"}></DropdownMenuContent>
+            <DropdownMenuContent align="end"></DropdownMenuContent>
           </DropdownMenu>
         </BreadcrumbItem>
       </BreadcrumbList>
