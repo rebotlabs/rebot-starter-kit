@@ -1,3 +1,4 @@
+import { ChangeOwner } from "@/components/change-owner"
 import { TeamProfile } from "@/components/team-profile"
 import { TeamSettingsLayout } from "@/layouts/app/team-settings-layout"
 import type { Team } from "@/types"
@@ -8,6 +9,7 @@ export default function TeamSettingsGeneral({ team }: { team: Team }) {
     <TeamSettingsLayout>
       <Head title="General" />
       <TeamProfile />
+      <ChangeOwner />
     </TeamSettingsLayout>
   )
 }
