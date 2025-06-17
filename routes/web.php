@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Organization\Settings\GeneralController;
 use App\Http\Controllers\Organization\Settings\MembersController;
+use App\Http\Middleware\EnsureCurrentOrganization;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -11,7 +12,7 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', EnsureCurrentOrganization::class])->group(function () {
     Route::get('dashboard', function (Request $request) {
         return redirect()->route('organization.overview', ['organization' => $request->user()->currentOrganization]);
     })->name('dashboard');
@@ -32,7 +33,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('org/{organization}/settings/billing', function (Organization $organization) {
         return Inertia::render('organization/settings/billing');
     })->name('organization.settings.billing');
+});
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('onboarding/organization', function (Request $request) { return Inertia::render('onboarding/create-organization'); })->name('onboarding.organization');
+    Route::post('onboarding/organization', function (Request $request) {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:organizations,slug',
+        ]);
+
+        $organization = $request->user()->organizations()->create(array_merge(
+            $data,
+            [
+                'owner_id' => $request->user()->id,
+            ]
+        ));
+        $request->user()->currentOrganization()->associate($organization)->save();
+
+        return redirect()->route('dashboard');
+    })->name('onboarding.organization.store');
 });
 
 Route::middleware(['signed'])->group(function () {

@@ -13,7 +13,7 @@ class GeneralController extends Controller
 {
     public function show(Request $request, Organization $organization)
     {
-        return Inertia::render('org/settings/general', [
+        return Inertia::render('organization/settings/general', [
             'organization' => $organization,
             'members' => fn () => $organization->members()->with(['user'])->get(),
         ]);
