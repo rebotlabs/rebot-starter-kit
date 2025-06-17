@@ -1,10 +1,10 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { TeamSettingsLayout } from "@/layouts/app/team-settings-layout"
+import { OrganizationSettingsLayout } from "@/layouts/app/organization-settings-layout"
 import { Head } from "@inertiajs/react"
 
-export default function TeamSettingsBilling() {
+export default function OrganizationSettingsBilling() {
   return (
-    <TeamSettingsLayout>
+    <OrganizationSettingsLayout>
       <Head title="Billing" />
       <Card>
         <CardHeader>
@@ -12,6 +12,6 @@ export default function TeamSettingsBilling() {
           <CardDescription>Update your billing information</CardDescription>
         </CardHeader>
       </Card>
-    </TeamSettingsLayout>
+    </OrganizationSettingsLayout>
   )
 }

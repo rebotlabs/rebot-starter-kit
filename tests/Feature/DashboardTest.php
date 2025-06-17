@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\Team;
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -20,10 +20,10 @@ class DashboardTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
 
-        $team = Team::factory()->for($user, 'owner')->create();
+        $organization = Organization::factory()->for($user, 'owner')->create();
 
-        $user->currentTeam()->associate($team)->save();
+        $user->currentOrganization()->associate($organization)->save();
 
-        $this->get('/dashboard')->assertRedirectToRoute('team.overview', ['team' => $team->slug]);
+        $this->get('/dashboard')->assertRedirectToRoute('organization.overview', ['organization' => $organization->slug]);
     }
 }

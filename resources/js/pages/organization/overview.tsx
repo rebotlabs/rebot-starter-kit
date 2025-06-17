@@ -1,10 +1,10 @@
 import { PlaceholderPattern } from "@/components/ui/placeholder-pattern"
-import { TeamLayout } from "@/layouts/app/team-layout"
+import { OrganizationLayout } from "@/layouts/app/organization-layout"
 import { Head } from "@inertiajs/react"
 
-export default function TeamOverview() {
+export default function OrganizationOverview() {
   return (
-    <TeamLayout>
+    <OrganizationLayout>
       <Head title="Overview" />
       <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
         <div className="grid auto-rows-min gap-4 md:grid-cols-3">
@@ -22,6 +22,6 @@ export default function TeamOverview() {
           <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
         </div>
       </div>
-    </TeamLayout>
+    </OrganizationLayout>
   )
 }

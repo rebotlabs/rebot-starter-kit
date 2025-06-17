@@ -7,16 +7,16 @@ import { useForm, usePage } from "@inertiajs/react"
 import { MoreVerticalIcon, SendIcon, TrashIcon } from "lucide-react"
 
 export const Invitations = () => {
-  const { invitations, currentTeam } = usePage<SharedData & { invitations: Invitation[] }>().props
+  const { invitations, currentOrganization } = usePage<SharedData & { invitations: Invitation[] }>().props
 
   const { post, delete: destroy, processing } = useForm()
 
   const resendInvitation = (invitationId: number) => {
-    post(route("team.settings.members.invitations.resend", [currentTeam, invitationId]))
+    post(route("organization.settings.members.invitations.resend", [currentOrganization, invitationId]))
   }
 
   const deleteInvitation = (invitationId: number) => {
-    destroy(route("team.settings.members.invitations.delete", [currentTeam, invitationId]))
+    destroy(route("organization.settings.members.invitations.delete", [currentOrganization, invitationId]))
   }
 
   return (

@@ -13,14 +13,14 @@ class Member extends Model
     use HasFactory;
 
     protected $fillable = [
-        'team_id',
+        'organization_id',
         'user_id',
         'role',
     ];
 
-    public function team(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function user(): BelongsTo

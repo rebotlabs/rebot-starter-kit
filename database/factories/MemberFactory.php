@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Member;
-use App\Models\Team;
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +20,7 @@ class MemberFactory extends Factory
     public function definition(): array
     {
         return [
-            'team_id' => Team::factory(),
+            'organization_id' => Organization::factory(),
             'user_id' => User::factory(),
             'role' => fake()->randomElement(['admin', 'member']),
         ];

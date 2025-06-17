@@ -10,18 +10,18 @@ import { ChevronsUpDownIcon } from "lucide-react"
 
 export function Breadcrumbs() {
   const getInitials = useInitials()
-  const { currentTeam } = usePage<SharedData>().props
+  const { currentOrganization } = usePage<SharedData>().props
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href={route("team.overview", [currentTeam])} className={cn(buttonVariants({ variant: "ghost" }), "px-2 py-1")}>
+            <Link href={route("organization.overview", [currentOrganization])} className={cn(buttonVariants({ variant: "ghost" }), "px-2 py-1")}>
               <Avatar className="size-6 rounded-md">
-                <AvatarImage src={currentTeam?.logo} />
-                <AvatarFallback className="rounded-md text-xs font-black">{getInitials(currentTeam?.name ?? "")}</AvatarFallback>
+                <AvatarImage src={currentOrganization?.logo} />
+                <AvatarFallback className="rounded-md text-xs font-black">{getInitials(currentOrganization?.name ?? "")}</AvatarFallback>
               </Avatar>
-              {currentTeam?.name}
+              {currentOrganization?.name}
             </Link>
           </BreadcrumbLink>
           <DropdownMenu>

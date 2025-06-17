@@ -28,8 +28,8 @@ export interface SharedData {
   auth: Auth
   ziggy: Config & { location: string }
   sidebarOpen: boolean
-  currentTeam: Team
-  teams: Team[]
+  currentOrganization: Organization
+  organizations: Organization[]
 
   [key: string]: unknown
 }
@@ -46,7 +46,7 @@ export interface User {
   [key: string]: unknown // This allows for additional properties...
 }
 
-export interface Team {
+export interface Organization {
   id: number
   name: string
   slug: string
@@ -61,7 +61,7 @@ export interface Team {
 export interface Invitation {
   id: number
   email: string
-  team_id: number
+  organization_id: number
   user_id: number | null
   user: User | null
   role: string

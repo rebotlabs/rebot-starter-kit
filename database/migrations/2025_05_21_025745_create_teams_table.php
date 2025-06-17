@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('teams', function (Blueprint $table) {
+        Schema::create('organizations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
@@ -18,15 +18,15 @@ return new class extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('current_team_id')->after('id')->nullable()->constrained('teams')->nullOnDelete();
+            $table->foreignId('current_organization_id')->after('id')->nullable()->constrained('organizations')->nullOnDelete();
         });
     }
 
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('current_team_id');
+            $table->dropConstrainedForeignId('current_organization_id');
         });
-        Schema::dropIfExists('teams');
+        Schema::dropIfExists('organizations');
     }
 };

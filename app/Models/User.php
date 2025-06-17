@@ -37,9 +37,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-    public function currentTeam(): BelongsTo
+    public function currentOrganization(): BelongsTo
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function invitations(): HasMany
@@ -47,15 +47,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Invitation::class);
     }
 
-    public function teams(): HasManyThrough
+    public function organizations(): HasManyThrough
     {
         return $this->hasManyThrough(
-            Team::class,
+            Organization::class,
             Member::class,
             'user_id',
             'id',
             'id',
-            'team_id'
+            'organization_id'
         );
     }
 

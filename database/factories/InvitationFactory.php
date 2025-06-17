@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Invitation;
-use App\Models\Team;
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -21,7 +21,7 @@ class InvitationFactory extends Factory
     public function definition(): array
     {
         return [
-            'team_id' => Team::factory(),
+            'organization_id' => Organization::factory(),
             'user_id' => User::factory(),
             'email' => fake()->unique()->email(),
             'role' => fake()->randomElement(['admin', 'member']),

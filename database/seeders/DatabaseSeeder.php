@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Team;
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -22,11 +22,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        $team = Team::factory()->for($user, 'owner')->create([
-            'name' => 'Test Team',
-            'slug' => 'test-team',
+        $organization = Organization::factory()->for($user, 'owner')->create([
+            'name' => 'Test Organization',
+            'slug' => 'test-organization',
         ]);
 
-        $user->currentTeam()->associate($team)->save();
+        $user->currentOrganization()->associate($organization)->save();
     }
 }

@@ -7,13 +7,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
-import type { Member, SharedData, Team } from "@/types"
+import type { Member, SharedData, Organization } from "@/types"
 import { useForm, usePage } from "@inertiajs/react"
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react"
 import { type FormEventHandler, useRef, useState } from "react"
 
 export const ChangeOwner = () => {
-  const { members, team } = usePage<SharedData & { team: Team; members: Member[] }>().props
+  const { members, organization } = usePage<SharedData & { organization: Organization; members: Member[] }>().props
   const [open, setOpen] = useState<boolean>(false)
   const [changingOwner, setChangingOwner] = useState<boolean>(false)
   const passwordInput = useRef<HTMLInputElement>(null)
@@ -25,13 +25,13 @@ export const ChangeOwner = () => {
     }>
   >({
     password: "",
-    owner_id: team.owner_id,
+    owner_id: organization.owner_id,
   })
 
   const changeOwner: FormEventHandler = (e) => {
     e.preventDefault()
 
-    patch(route("team.settings.ownership", [team]), {
+    patch(route("organization.settings.ownership", [organization]), {
       preserveScroll: true,
       onSuccess: () => closeModal(),
       onError: () => passwordInput.current?.focus(),
@@ -48,18 +48,18 @@ export const ChangeOwner = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Team Owner</CardTitle>
-        <CardDescription>Manage owner of the team</CardDescription>
+        <CardTitle>Organization Owner</CardTitle>
+        <CardDescription>Manage owner of the organization</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
           <p className="text-muted-foreground text-sm">
-            The team owner is the person who has full control over the team, including billing and settings.
+            The organization owner is the person who has full control over the organization, including billing and settings.
           </p>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button variant="outline" role="combobox" aria-expanded={open} className="w-[300px] justify-between">
-                {members.find((member) => member.user.id === team.owner_id)?.user?.name ?? "Select new owner"}
+                {members.find((member) => member.user.id === organization.owner_id)?.user?.name ?? "Select new owner"}
                 <ChevronsUpDownIcon />
               </Button>
             </PopoverTrigger>
@@ -79,7 +79,7 @@ export const ChangeOwner = () => {
                         }}
                       >
                         {member.user.name}
-                        <CheckIcon className={cn("ml-auto", team.owner_id === member.user.id ? "opacity-100" : "opacity-0")} />
+                        <CheckIcon className={cn("ml-auto", organization.owner_id === member.user.id ? "opacity-100" : "opacity-0")} />
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -90,9 +90,9 @@ export const ChangeOwner = () => {
         </div>
         <Dialog open={changingOwner} onOpenChange={setChangingOwner}>
           <DialogContent>
-            <DialogTitle>Are you sure you want to change team ownership?</DialogTitle>
+            <DialogTitle>Are you sure you want to change organization ownership?</DialogTitle>
             <DialogDescription>
-              Once you change the team owner, the new owner will have full control over the team, including billing and settings. Please confirm your
+              Once you change the organization owner, the new owner will have full control over the organization, including billing and settings. Please confirm your
               action.
             </DialogDescription>
             <form className="space-y-6" onSubmit={changeOwner}>

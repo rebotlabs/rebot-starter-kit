@@ -3,7 +3,7 @@
 
     Hello {{ $invitation->user?->name ?? '' }},
 
-    You have been invited to join the team **{{ $invitation->team->name }}** on **{{ config('app.name') }}**.
+    You have been invited to join the organization **{{ $invitation->organization->name }}** on **{{ config('app.name') }}**.
 
     <x-mail::button :url="$acceptUrl">
         Accept Invitation

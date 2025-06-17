@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Team\Settings\GeneralController;
-use App\Http\Controllers\Team\Settings\MembersController;
-use App\Models\Team;
+use App\Http\Controllers\Organization\Settings\GeneralController;
+use App\Http\Controllers\Organization\Settings\MembersController;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,25 +13,25 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function (Request $request) {
-        return redirect()->route('team.overview', ['team' => $request->user()->currentTeam]);
+        return redirect()->route('organization.overview', ['organization' => $request->user()->currentOrganization]);
     })->name('dashboard');
 
-    Route::get('team/{team}', function (Team $team) {
-        return Inertia::render('team/overview');
-    })->name('team.overview');
+    Route::get('org/{organization}', function (Organization $organization) {
+        return Inertia::render('organization/overview');
+    })->name('organization.overview');
 
-    Route::get('team/{team}/settings', [GeneralController::class, 'show'])->name('team.settings');
-    Route::patch('team/{team}/settings', [GeneralController::class, 'update'])->name('team.settings.update');
-    Route::patch('team/{team}/settings/ownership', [GeneralController::class, 'changeOwnership'])->name('team.settings.ownership');
+    Route::get('org/{organization}/settings', [GeneralController::class, 'show'])->name('organization.settings');
+    Route::patch('org/{organization}/settings', [GeneralController::class, 'update'])->name('organization.settings.update');
+    Route::patch('org/{organization}/settings/ownership', [GeneralController::class, 'changeOwnership'])->name('organization.settings.ownership');
 
-    Route::get('team/{team}/settings/members', [MembersController::class, 'show'])->name('team.settings.members');
-    Route::post('team/{team}/settings/members/invite', [MembersController::class, 'invite'])->name('team.settings.members.invite');
-    Route::post('team/{team}/settings/members/invitations/{invitation}/resend', [MembersController::class, 'resend'])->name('team.settings.members.invitations.resend');
-    Route::delete('team/{team}/settings/members/invitations/{invitation}', [MembersController::class, 'delete'])->name('team.settings.members.invitations.delete');
+    Route::get('org/{organization}/settings/members', [MembersController::class, 'show'])->name('organization.settings.members');
+    Route::post('org/{organization}/settings/members/invite', [MembersController::class, 'invite'])->name('organization.settings.members.invite');
+    Route::post('org/{organization}/settings/members/invitations/{invitation}/resend', [MembersController::class, 'resend'])->name('organization.settings.members.invitations.resend');
+    Route::delete('org/{organization}/settings/members/invitations/{invitation}', [MembersController::class, 'delete'])->name('organization.settings.members.invitations.delete');
 
-    Route::get('team/{team}/settings/billing', function (Team $team) {
-        return Inertia::render('team/settings/billing');
-    })->name('team.settings.billing');
+    Route::get('org/{organization}/settings/billing', function (Organization $organization) {
+        return Inertia::render('organization/settings/billing');
+    })->name('organization.settings.billing');
 
 });
 

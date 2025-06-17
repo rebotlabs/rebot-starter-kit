@@ -3,28 +3,28 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import type { Team } from "@/types"
+import type { Organization } from "@/types"
 import { Transition } from "@headlessui/react"
 import { useForm, usePage } from "@inertiajs/react"
 import type { FormEventHandler } from "react"
 
-type TeamForm = {
+type OrganizationForm = {
   name: string
   slug: string
 }
 
-export const TeamProfile = () => {
-  const { team } = usePage<{ team: Team }>().props
+export const OrganizationProfile = () => {
+  const { organization } = usePage<{ organization: Organization }>().props
 
-  const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<Required<TeamForm>>({
-    name: team.name,
-    slug: team.slug,
+  const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<Required<OrganizationForm>>({
+    name: organization.name,
+    slug: organization.slug,
   })
 
   const submit: FormEventHandler = (e) => {
     e.preventDefault()
 
-    patch(route("team.settings.update", [team]), {
+    patch(route("organization.settings.update", [organization]), {
       preserveScroll: true,
     })
   }
@@ -34,12 +34,12 @@ export const TeamProfile = () => {
       <Card>
         <CardHeader>
           <CardTitle>General information</CardTitle>
-          <CardDescription>Update your team information</CardDescription>
+          <CardDescription>Update your organization information</CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-6">
           <div className="grid gap-2">
-            <Label htmlFor="name">Team name</Label>
+            <Label htmlFor="name">Organization name</Label>
 
             <Input
               id="name"
@@ -48,14 +48,14 @@ export const TeamProfile = () => {
               onChange={(e) => setData("name", e.target.value)}
               required
               autoComplete="off"
-              placeholder="Team name"
+              placeholder="Organization name"
             />
 
             <InputError className="mt-2" message={errors.name} />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="slug">Team slug</Label>
+            <Label htmlFor="slug">Organization slug</Label>
 
             <Input
               id="slug"
@@ -64,7 +64,7 @@ export const TeamProfile = () => {
               onChange={(e) => setData("slug", e.target.value)}
               required
               autoComplete="off"
-              placeholder="Team slug"
+              placeholder="Organization slug"
             />
 
             <InputError className="mt-2" message={errors.slug} />

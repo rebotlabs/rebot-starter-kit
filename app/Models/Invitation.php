@@ -14,7 +14,7 @@ class Invitation extends Model
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'team_id',
+        'organization_id',
         'user_id',
         'email',
         'role',
@@ -23,9 +23,9 @@ class Invitation extends Model
         'status',
     ];
 
-    public function team(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function user(): BelongsTo

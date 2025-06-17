@@ -14,7 +14,7 @@ type InviteForm = {
 }
 
 export const InviteUser = () => {
-  const { currentTeam } = usePage<SharedData>().props
+  const { currentOrganization } = usePage<SharedData>().props
   const emailInput = useRef<HTMLInputElement>(null)
 
   const { data, setData, errors, post, processing } = useForm<Required<InviteForm>>({
@@ -26,7 +26,7 @@ export const InviteUser = () => {
     e.preventDefault()
     emailInput.current?.focus()
 
-    post(route("team.settings.members.invite", [currentTeam]), {
+    post(route("organization.settings.members.invite", [currentOrganization]), {
       preserveScroll: true,
       onSuccess: () => {
         setData("email", "")

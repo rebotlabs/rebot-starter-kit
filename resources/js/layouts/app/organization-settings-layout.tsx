@@ -1,36 +1,36 @@
 import Heading from "@/components/heading"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { TeamLayout } from "@/layouts/app/team-layout"
+import { OrganizationLayout } from "@/layouts/app/organization-layout"
 import { cn } from "@/lib/utils"
 import type { NavItem, SharedData } from "@/types"
 import { Link, usePage } from "@inertiajs/react"
 import type { PropsWithChildren } from "react"
 
-export const TeamSettingsLayout = ({ children }: PropsWithChildren) => {
+export const OrganizationSettingsLayout = ({ children }: PropsWithChildren) => {
   const page = usePage<SharedData>()
-  const { currentTeam } = page.props
+  const { currentOrganization } = page.props
 
   const navigation: NavItem[] = [
     {
       title: "General",
-      href: route("team.settings", [currentTeam], false),
-      isActive: route().current() === "team.settings",
+      href: route("organization.settings", [currentOrganization], false),
+      isActive: route().current() === "organization.settings",
     },
     {
       title: "Members",
-      href: route("team.settings.members", [currentTeam], false),
-      isActive: route().current() === "team.settings.members",
+      href: route("organization.settings.members", [currentOrganization], false),
+      isActive: route().current() === "organization.settings.members",
     },
     {
       title: "Billing",
-      href: route("team.settings.billing", [currentTeam], false),
-      isActive: route().current() === "team.settings.billing",
+      href: route("organization.settings.billing", [currentOrganization], false),
+      isActive: route().current() === "organization.settings.billing",
     },
   ]
 
   return (
-    <TeamLayout>
+    <OrganizationLayout>
       <div className="px-4 py-6">
         <Heading title="Settings" description="Manage your profile and account settings" />
 
@@ -62,6 +62,6 @@ export const TeamSettingsLayout = ({ children }: PropsWithChildren) => {
           </div>
         </div>
       </div>
-    </TeamLayout>
+    </OrganizationLayout>
   )
 }

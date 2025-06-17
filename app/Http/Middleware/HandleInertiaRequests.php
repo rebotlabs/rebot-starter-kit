@@ -47,8 +47,8 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
-            'currentTeam' => $request->user()?->currentTeam,
-            //          'teams' => $request->user()?->teams()->get(),
+            'currentOrganization' => $request->user()?->currentOrganization,
+            //          'organizations' => $request->user()?->organizations()->get(),
         ];
     }
 }

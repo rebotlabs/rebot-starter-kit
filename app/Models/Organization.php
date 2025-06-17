@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use Database\Factories\TeamFactory;
+use Database\Factories\OrganizationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Cashier\Billable;
 
-class Team extends Model
+class Organization extends Model
 {
-    /** @use HasFactory<TeamFactory> */
+    /** @use HasFactory<OrganizationFactory> */
     use Billable, HasFactory;
 
     protected $fillable = [
