@@ -3,19 +3,15 @@
 namespace App\Http\Controllers\Organization\Settings\Members;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Organization\LeaveOrganizationRequest;
 use App\Jobs\Member\LeaveMembershipJob;
 use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class LeaveOrganizationController extends Controller
 {
-    public function __invoke(Request $request, Organization $organization): RedirectResponse
+    public function __invoke(LeaveOrganizationRequest $request, Organization $organization): RedirectResponse
     {
-        $request->validate([
-            'password' => ['required', 'string', 'current_password'],
-        ]);
-
         try {
             LeaveMembershipJob::dispatch($organization, $request->user());
         } catch (\Exception $e) {

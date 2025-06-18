@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\EmailVerificationOtpRequest;
 use App\Notifications\EmailVerificationOtp;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,19 +25,9 @@ class EmailVerificationOtpController extends Controller
     /**
      * Handle OTP verification.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(EmailVerificationOtpRequest $request): RedirectResponse
     {
-        $request->validate([
-            'otp' => 'required|string',
-        ]);
-
         $user = $request->user();
-
-        if (! $user) {
-            throw ValidationException::withMessages([
-                'otp' => ['You must be logged in to verify your email.'],
-            ]);
-        }
 
         // Find and validate the OTP
         $result = $user->consumeOneTimePassword($request->otp);

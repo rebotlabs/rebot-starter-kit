@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\Settings\Appearance\ShowAppearanceController;
 use App\Http\Controllers\Settings\Password\ShowPasswordController;
 use App\Http\Controllers\Settings\Password\UpdatePasswordController;
 use App\Http\Controllers\Settings\Profile\DeleteAccountController;
 use App\Http\Controllers\Settings\Profile\ShowProfileController;
 use App\Http\Controllers\Settings\Profile\UpdateProfileController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::middleware('auth')->group(function () {
     Route::redirect('settings', 'settings/profile');
@@ -18,7 +18,5 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/password', ShowPasswordController::class)->name('settings.password');
     Route::put('settings/password', UpdatePasswordController::class)->name('settings.password.update');
 
-    Route::get('settings/appearance', function () {
-        return Inertia::render('settings/appearance');
-    })->name('appearance');
+    Route::get('settings/appearance', ShowAppearanceController::class)->name('appearance');
 });

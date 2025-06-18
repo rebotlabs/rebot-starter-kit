@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Invitation;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Invitation\AcceptInvitationRequest;
 use App\Jobs\Invitation\AcceptInvitationJob;
 use App\Models\Invitation;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules;
 
 class AcceptInvitationController extends Controller
 {
@@ -26,12 +26,8 @@ class AcceptInvitationController extends Controller
         $userData = null;
 
         if (! $user) {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            ]);
-
-            $userData = $validated;
+            $acceptRequest = app(AcceptInvitationRequest::class);
+            $userData = $acceptRequest->validated();
         } else {
             if (! Auth::check() || Auth::user()->email !== $invitation->email) {
                 return back()->withErrors([

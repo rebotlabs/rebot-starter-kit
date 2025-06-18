@@ -3,18 +3,14 @@
 namespace App\Http\Controllers\Settings\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Settings\DeleteAccountRequest;
 use App\Jobs\User\DeleteUserAccountJob;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class DeleteAccountController extends Controller
 {
-    public function __invoke(Request $request): RedirectResponse
+    public function __invoke(DeleteAccountRequest $request): RedirectResponse
     {
-        $request->validate([
-            'password' => ['required', 'current_password'],
-        ]);
-
         DeleteUserAccountJob::dispatch($request->user());
 
         return redirect('/');
