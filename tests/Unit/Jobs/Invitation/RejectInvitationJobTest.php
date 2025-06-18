@@ -27,8 +27,8 @@ describe('RejectInvitationJob', function () {
         $job = new RejectInvitationJob((string) $invitation->reject_token);
         $job->handle();
 
-        $invitation->refresh();
-        expect($invitation->status)->toBe('rejected');
+        // Invitation should be deleted after rejection
+        expect(Invitation::find($invitation->id))->toBeNull();
     });
 
     it('throws exception for invalid token', function () {
@@ -73,10 +73,8 @@ describe('RejectInvitationJob', function () {
         $job1->handle();
         $job2->handle();
 
-        $invitation1->refresh();
-        $invitation2->refresh();
-
-        expect($invitation1->status)->toBe('rejected')
-            ->and($invitation2->status)->toBe('rejected');
+        // Both invitations should be deleted after rejection
+        expect(Invitation::find($invitation1->id))->toBeNull()
+            ->and(Invitation::find($invitation2->id))->toBeNull();
     });
 });

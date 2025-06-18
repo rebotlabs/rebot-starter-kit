@@ -51,7 +51,7 @@ export const Invitations = () => {
                 </Select>
               </div>
               <div className="col-span-2 flex items-center justify-end">
-                <Badge>{invitation.status}</Badge>
+                <Badge variant={invitation.status === "sent" ? "default" : "secondary"}>{invitation.status}</Badge>
               </div>
               <div className="flex items-center justify-end">
                 <DropdownMenu>

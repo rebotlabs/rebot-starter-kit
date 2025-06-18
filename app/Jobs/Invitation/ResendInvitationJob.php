@@ -24,6 +24,13 @@ class ResendInvitationJob implements ShouldQueue
 
     public function handle(): void
     {
+        // Set status to 'sent' temporarily
+        $this->invitation->update(['status' => 'sent']);
+
+        // Send the notification
         $this->invitation->notify(new InvitationSentNotification);
+
+        // Revert status back to 'pending' after a brief delay
+        $this->invitation->update(['status' => 'pending']);
     }
 }

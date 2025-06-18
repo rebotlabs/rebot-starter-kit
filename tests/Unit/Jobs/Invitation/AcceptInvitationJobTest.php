@@ -42,8 +42,8 @@ describe('AcceptInvitationJob', function () {
             ->and($result['user']->id)->toBe($existingUser->id)
             ->and($result['organization']->id)->toBe($this->organization->id);
 
-        $invitation->refresh();
-        expect($invitation->status)->toBe('accepted');
+        // Invitation should be deleted after acceptance
+        expect(Invitation::find($invitation->id))->toBeNull();
 
         expect($existingUser->organizations)->toHaveCount(1)
             ->and($existingUser->hasRole('member'))->toBeTrue();
@@ -72,8 +72,8 @@ describe('AcceptInvitationJob', function () {
             ->and(Hash::check('password123', $newUser->password))->toBeTrue()
             ->and($newUser->hasRole('admin'))->toBeTrue();
 
-        $invitation->refresh();
-        expect($invitation->status)->toBe('accepted');
+        // Invitation should be deleted after acceptance
+        expect(Invitation::find($invitation->id))->toBeNull();
 
         Notification::assertSentTo($newUser, EmailVerificationOtpNotification::class);
     });

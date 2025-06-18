@@ -23,6 +23,7 @@ class RejectInvitationJob implements ShouldQueue
             ->where('status', 'pending')
             ->firstOrFail();
 
-        $invitation->update(['status' => 'rejected']);
+        // Delete the invitation after rejection
+        $invitation->delete();
     }
 }

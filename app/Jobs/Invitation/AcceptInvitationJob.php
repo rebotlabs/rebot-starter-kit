@@ -56,7 +56,8 @@ class AcceptInvitationJob implements ShouldQueue
             $user->assignRole($invitation->role);
         }
 
-        $invitation->update(['status' => 'accepted']);
+        // Delete the invitation after successful acceptance
+        $invitation->delete();
 
         if (! $user->currentOrganization) {
             $user->currentOrganization()->associate($invitation->organization)->save();

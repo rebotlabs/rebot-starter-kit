@@ -62,9 +62,9 @@ export const MembersList = () => {
               </div>
               <div className="col-span-3">
                 {member.role === "owner" ? (
-                  <Badge variant="outline" className="w-[100px] justify-center">
+                  <div className="border-input bg-background ring-offset-background flex h-10 w-[100px] items-center justify-center rounded-md border px-3 py-2 text-sm">
                     Owner
-                  </Badge>
+                  </div>
                 ) : (
                   <Select
                     value={member.role}

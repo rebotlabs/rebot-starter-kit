@@ -88,8 +88,8 @@ describe('AcceptInvitationController', function () {
 
         $response->assertRedirect(route('organization.overview', $this->organization->slug));
 
-        $invitation->refresh();
-        expect($invitation->status)->toBe('accepted');
+        // Invitation should be deleted after acceptance
+        expect(Invitation::find($invitation->id))->toBeNull();
         expect($user->organizations()->where('organizations.id', $this->organization->id)->exists())->toBeTrue();
     });
 
@@ -108,8 +108,8 @@ describe('AcceptInvitationController', function () {
 
         $response->assertRedirect(route('organization.overview', $this->organization->slug));
 
-        $invitation->refresh();
-        expect($invitation->status)->toBe('accepted');
+        // Invitation should be deleted after acceptance
+        expect(Invitation::find($invitation->id))->toBeNull();
 
         $newUser = User::where('email', 'newuser@example.com')->first();
         expect($newUser)->not->toBeNull();
@@ -174,8 +174,8 @@ describe('RejectInvitationController', function () {
 
         $response->assertRedirect('/');
 
-        $invitation->refresh();
-        expect($invitation->status)->toBe('rejected');
+        // Invitation should be deleted after rejection
+        expect(Invitation::find($invitation->id))->toBeNull();
     });
 
     it('returns 404 for invalid token', function () {

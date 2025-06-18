@@ -55,4 +55,16 @@ describe('ResendInvitationJob', function () {
         Notification::assertSentTo($this->invitation, InvitationSentNotification::class);
         Notification::assertCount(2);
     });
+
+    it('temporarily sets status to sent then reverts to pending', function () {
+        expect($this->invitation->status)->toBe('pending');
+
+        $job = new ResendInvitationJob($this->invitation, $this->user);
+        $job->handle();
+
+        $this->invitation->refresh();
+        expect($this->invitation->status)->toBe('pending');
+
+        Notification::assertSentTo($this->invitation, InvitationSentNotification::class);
+    });
 });
