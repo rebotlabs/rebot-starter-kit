@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import AuthLayout from "@/layouts/auth-layout";
 import { Head, useForm } from "@inertiajs/react";
 import { LoaderCircle } from "lucide-react";
+import slugify from "slugify";
 
 type FormData = {
     name: string;
@@ -39,7 +40,10 @@ export default function CreateOrganization() {
               autoComplete="current-name"
               value={data.name}
               autoFocus
-              onChange={(e) => setData("name", e.target.value)}
+              onChange={(e) => {
+                setData("name", e.target.value)
+                setData("slug", slugify(e.target.value, { lower: true, trim: true, strict: true }))
+              }}
             />
 
             <InputError message={errors.name} />

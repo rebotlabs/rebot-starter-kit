@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
+use App\Notifications\EmailVerificationOtp;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,10 +42,14 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        // Generate OTP for email verification
+        $otp = $user->createOneTimePassword(20);
+
+        // Send OTP via notification
+        $user->notify(new EmailVerificationOtp($otp->password));
 
         Auth::login($user);
 
-        return to_route('dashboard');
+        return to_route('verification.notice');
     }
 }
