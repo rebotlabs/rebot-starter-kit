@@ -21,6 +21,13 @@ class DeleteUserAccountJob implements ShouldQueue
     public function handle(): void
     {
         Auth::logout();
+
+        // Delete all organizations owned by this user
+        $this->user->ownedOrganizations()->delete();
+
+        // The user's memberships will be deleted by cascade
+        // The user's current_organization_id will be set to null by cascade
+
         $this->user->delete();
     }
 }

@@ -64,6 +64,11 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
+    public function ownedOrganizations(): HasMany
+    {
+        return $this->hasMany(Organization::class, 'owner_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
