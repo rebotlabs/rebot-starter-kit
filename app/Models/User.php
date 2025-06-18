@@ -27,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'current_organization_id',
     ];
 
     /**
@@ -41,7 +42,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function currentOrganization(): BelongsTo
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Organization::class, 'current_organization_id');
     }
 
     public function invitations(): HasMany

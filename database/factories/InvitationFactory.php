@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Invitation;
 use App\Models\Organization;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -22,12 +21,11 @@ class InvitationFactory extends Factory
     {
         return [
             'organization_id' => Organization::factory(),
-            'user_id' => User::factory(),
             'email' => fake()->unique()->email(),
             'role' => fake()->randomElement(['admin', 'member']),
-            'accept_token' => Str::random(32),
-            'reject_token' => Str::random(32),
-            'status' => fake()->randomElement(['pending', 'accepted', 'rejected']),
+            'accept_token' => Str::uuid(),
+            'reject_token' => Str::uuid(),
+            'status' => 'pending',
         ];
     }
 }

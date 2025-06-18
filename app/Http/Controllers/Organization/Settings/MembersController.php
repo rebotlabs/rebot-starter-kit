@@ -49,15 +49,21 @@ class MembersController extends Controller
         ]);
 
         $invitation->notify(new InvitationSent);
+
+        return back()->with('message', 'Invitation sent successfully.');
     }
 
     public function resend(Request $request, Organization $organization, Invitation $invitation)
     {
         $invitation->notify(new InvitationSent);
+
+        return back()->with('message', 'Invitation resent successfully.');
     }
 
     public function delete(Request $request, Organization $organization, Invitation $invitation)
     {
         $invitation->delete();
+
+        return back()->with('message', 'Invitation deleted successfully.');
     }
 }
