@@ -66,28 +66,17 @@ export default function VerifyEmailOtp({ status }: { status?: string }) {
 
         {status === "verification-code-sent" && (
           <div className="rounded-md bg-green-50 p-4 text-center">
-            <div className="text-sm font-medium text-green-800">
-              A new verification code has been sent to your email address.
-            </div>
+            <div className="text-sm font-medium text-green-800">A new verification code has been sent to your email address.</div>
           </div>
         )}
 
         <div className="text-center">
-          <p className="text-sm text-muted-foreground">
-            Enter the 6-digit code sent to your email address
-          </p>
+          <p className="text-muted-foreground text-sm">Enter the 6-digit code sent to your email address</p>
         </div>
 
         <form onSubmit={submit} className="w-full space-y-6">
           <div className="flex flex-col items-center space-y-4">
-            <InputOTP
-              maxLength={6}
-              value={otpValue}
-              onChange={handleOtpChange}
-              onComplete={handleOtpComplete}
-              disabled={processing}
-              autoFocus
-            >
+            <InputOTP maxLength={6} value={otpValue} onChange={handleOtpChange} onComplete={handleOtpComplete} disabled={processing} autoFocus>
               <InputOTPGroup className="gap-2">
                 <InputOTPSlot index={0} />
                 <InputOTPSlot index={1} />
@@ -103,22 +92,14 @@ export default function VerifyEmailOtp({ status }: { status?: string }) {
 
           <div className="flex flex-col space-y-4">
             <Button type="submit" disabled={processing || otpValue.length !== 6} className="w-full">
-              {processing && <LoaderCircle className="h-4 w-4 animate-spin mr-2" />}
+              {processing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
               Verify Email
             </Button>
 
-            <div className="text-center space-y-2">
-              <p className="text-sm text-muted-foreground">
-                Didn't receive the code?
-              </p>
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={resendOtp}
-                disabled={resendProcessing}
-                className="text-sm h-auto p-0 font-normal"
-              >
-                {resendProcessing && <LoaderCircle className="h-4 w-4 animate-spin mr-2" />}
+            <div className="space-y-2 text-center">
+              <p className="text-muted-foreground text-sm">Didn't receive the code?</p>
+              <Button type="button" variant="ghost" onClick={resendOtp} disabled={resendProcessing} className="h-auto p-0 text-sm font-normal">
+                {resendProcessing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
                 Resend verification code
               </Button>
             </div>

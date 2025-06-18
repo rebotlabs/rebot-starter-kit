@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
-import type { Member, SharedData, Organization } from "@/types"
+import type { Member, Organization, SharedData } from "@/types"
 import { useForm, usePage } from "@inertiajs/react"
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react"
 import { type FormEventHandler, useRef, useState } from "react"
@@ -92,8 +92,8 @@ export const ChangeOwner = () => {
           <DialogContent>
             <DialogTitle>Are you sure you want to change organization ownership?</DialogTitle>
             <DialogDescription>
-              Once you change the organization owner, the new owner will have full control over the organization, including billing and settings. Please confirm your
-              action.
+              Once you change the organization owner, the new owner will have full control over the organization, including billing and settings.
+              Please confirm your action.
             </DialogDescription>
             <form className="space-y-6" onSubmit={changeOwner}>
               <div className="grid gap-2">

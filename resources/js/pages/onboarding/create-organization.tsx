@@ -1,35 +1,35 @@
-import InputError from "@/components/input-error";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import AuthLayout from "@/layouts/auth-layout";
-import { Head, useForm } from "@inertiajs/react";
-import { LoaderCircle } from "lucide-react";
-import slugify from "slugify";
+import InputError from "@/components/input-error"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import AuthLayout from "@/layouts/auth-layout"
+import { Head, useForm } from "@inertiajs/react"
+import { LoaderCircle } from "lucide-react"
+import slugify from "slugify"
 
 type FormData = {
-    name: string;
-    slug: string;
-};
+  name: string
+  slug: string
+}
 
 export default function CreateOrganization() {
-    const { data, setData, errors, post, processing } = useForm<FormData>({
-        name: '',
-        slug: '',
-    });
+  const { data, setData, errors, post, processing } = useForm<FormData>({
+    name: "",
+    slug: "",
+  })
 
-    const submit = (e: React.FormEvent) => {
-        e.preventDefault();
-        
-        post(route('onboarding.organization.store'))
-    };
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault()
 
-    return (
+    post(route("onboarding.organization.store"))
+  }
+
+  return (
     <AuthLayout title="Create organization" description="Create your own organization.">
-        <Head title="Create an organization" />
+      <Head title="Create an organization" />
 
-        <form className="flex flex-col gap-6" onSubmit={submit}>
-            <div className="grid gap-6">
+      <form className="flex flex-col gap-6" onSubmit={submit}>
+        <div className="grid gap-6">
           <div className="grid gap-2">
             <Label htmlFor="name">Name</Label>
             <Input
@@ -63,15 +63,14 @@ export default function CreateOrganization() {
             <InputError message={errors.slug} />
           </div>
 
-
           <div className="flex items-center">
             <Button type="submit" className="w-full" disabled={processing}>
               {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
               Create organization
             </Button>
           </div>
-            </div>
-        </form>
-      </AuthLayout>
-    );
+        </div>
+      </form>
+    </AuthLayout>
+  )
 }

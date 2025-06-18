@@ -11,9 +11,9 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { SharedData } from "@/types"
 
 export const DeleteOrganization = () => {
-    const { currentOrganization } = usePage<SharedData>().props;
+  const { currentOrganization } = usePage<SharedData>().props
   const passwordInput = useRef<HTMLInputElement>(null)
-    const { 
+  const {
     data,
     setData,
     delete: destroy,
@@ -21,27 +21,26 @@ export const DeleteOrganization = () => {
     reset,
     errors,
     clearErrors,
-} = useForm<Required<{ password: string }>>({
-        password: '',
+  } = useForm<Required<{ password: string }>>({
+    password: "",
+  })
+
+  const deleteOrganization: FormEventHandler = (e) => {
+    e.preventDefault()
+
+    destroy(route("organization.delete", [currentOrganization]), {
+      preserveScroll: true,
+      onError: () => passwordInput.current?.focus(),
+      onFinish: () => reset(),
     })
-    
-      const deleteOrganization: FormEventHandler = (e) => {
-        e.preventDefault()
-    
-        destroy(route("organization.delete", [currentOrganization]), {
-          preserveScroll: true,
-          onError: () => passwordInput.current?.focus(),
-          onFinish: () => reset(),
-        })
-      }
-    
-      const closeModal = () => {
-        clearErrors()
-        reset()
-      }
+  }
 
-    return (
+  const closeModal = () => {
+    clearErrors()
+    reset()
+  }
 
+  return (
     <Card variant="destructive">
       <CardHeader>
         <CardTitle>Delete organization</CardTitle>
@@ -63,8 +62,8 @@ export const DeleteOrganization = () => {
           <DialogContent>
             <DialogTitle>Are you sure you want to delete your organization?</DialogTitle>
             <DialogDescription>
-              Once your organization is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you
-              would like to permanently delete your organization.
+              Once your organization is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm
+              you would like to permanently delete your organization.
             </DialogDescription>
             <form className="space-y-6" onSubmit={deleteOrganization}>
               <div className="grid gap-2">
@@ -102,5 +101,5 @@ export const DeleteOrganization = () => {
         </Dialog>
       </CardFooter>
     </Card>
-    )
+  )
 }

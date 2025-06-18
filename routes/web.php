@@ -37,7 +37,9 @@ Route::middleware(['auth', 'verified', EnsureCurrentOrganization::class])->group
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('onboarding/organization', function (Request $request) { return Inertia::render('onboarding/create-organization'); })->name('onboarding.organization');
+    Route::get('onboarding/organization', function (Request $request) {
+        return Inertia::render('onboarding/create-organization');
+    })->name('onboarding.organization');
     Route::post('onboarding/organization', function (Request $request) {
         $data = $request->validate([
             'name' => 'required|string|max:255',

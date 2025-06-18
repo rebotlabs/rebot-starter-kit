@@ -31,8 +31,8 @@ class EmailVerificationOtpController extends Controller
         ]);
 
         $user = $request->user();
-        
-        if (!$user) {
+
+        if (! $user) {
             throw ValidationException::withMessages([
                 'otp' => ['You must be logged in to verify your email.'],
             ]);
@@ -41,7 +41,7 @@ class EmailVerificationOtpController extends Controller
         // Find and validate the OTP
         $result = $user->consumeOneTimePassword($request->otp);
 
-        if (!$result->isOk()) {
+        if (! $result->isOk()) {
             throw ValidationException::withMessages([
                 'otp' => ['The verification code is invalid or has expired.'],
             ]);
@@ -59,8 +59,8 @@ class EmailVerificationOtpController extends Controller
     public function resend(Request $request): RedirectResponse
     {
         $user = Auth::user();
-        
-        if (!$user) {
+
+        if (! $user) {
             return back()->withErrors(['email' => 'You must be logged in to resend verification code.']);
         }
 
