@@ -56,10 +56,16 @@ class Organization extends Model
             return 'owner';
         }
 
-        // Check if user is a member
+        // Check if user is a member and get their role from spatie permissions
         $member = $this->members()->where('user_id', $user->id)->first();
+        if (! $member) {
+            return null;
+        }
 
-        return $member?->role;
+        // Get the user's roles and return the first one (assuming single role per organization context)
+        $roles = $user->getRoleNames();
+
+        return $roles->first() ?? 'member';
     }
 
     /**
@@ -77,9 +83,12 @@ class Organization extends Model
             return true;
         }
 
-        // Check if user is an admin member
+        // Check if user is an admin member using spatie permissions
         $member = $this->members()->where('user_id', $user->id)->first();
+        if (! $member) {
+            return false;
+        }
 
-        return $member && $member->role === 'admin';
+        return $user->hasRole('admin');
     }
 }

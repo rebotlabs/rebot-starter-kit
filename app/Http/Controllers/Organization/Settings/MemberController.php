@@ -26,9 +26,18 @@ class MemberController extends Controller
             abort(403, 'You are not a member of this organization.');
         }
 
+        // Get user's role from spatie permissions
+        $userRole = $request->user()->roles->first()?->name ?? 'member';
+
         return Inertia::render('organization/settings/leave', [
             'organization' => $organization,
-            'member' => $member,
+            'member' => [
+                'id' => $member->id,
+                'user' => $member->user,
+                'role' => $userRole,
+                'created_at' => $member->created_at,
+                'updated_at' => $member->updated_at,
+            ],
         ]);
     }
 

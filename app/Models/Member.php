@@ -15,7 +15,6 @@ class Member extends Model
     protected $fillable = [
         'organization_id',
         'user_id',
-        'role',
     ];
 
     public function organization(): BelongsTo

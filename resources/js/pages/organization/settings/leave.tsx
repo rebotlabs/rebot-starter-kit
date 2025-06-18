@@ -45,11 +45,6 @@ export default function LeaveOrganization() {
       <Head title="Leave Organization" />
 
       <div className="space-y-6">
-        <div>
-          <h3 className="text-lg font-medium">Leave Organization</h3>
-          <p className="text-muted-foreground text-sm">Remove yourself from {organization.name}</p>
-        </div>
-
         <Card variant="destructive">
           <CardHeader>
             <CardTitle>Leave organization</CardTitle>

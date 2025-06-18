@@ -77,8 +77,10 @@ class InvitationController extends Controller
         if (! $existingMember) {
             $invitation->organization->members()->create([
                 'user_id' => $user->id,
-                'role' => $invitation->role,
             ]);
+
+            // Assign role using spatie permissions
+            $user->assignRole($invitation->role);
         }
 
         // Update invitation status

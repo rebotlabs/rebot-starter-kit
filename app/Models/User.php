@@ -11,11 +11,12 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\OneTimePasswords\Models\Concerns\HasOneTimePasswords;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasOneTimePasswords, Notifiable;
+    use HasFactory, HasOneTimePasswords, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.

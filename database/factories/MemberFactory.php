@@ -22,7 +22,26 @@ class MemberFactory extends Factory
         return [
             'organization_id' => Organization::factory(),
             'user_id' => User::factory(),
-            'role' => fake()->randomElement(['admin', 'member']),
         ];
+    }
+
+    /**
+     * Create a member with admin role.
+     */
+    public function admin(): static
+    {
+        return $this->afterCreating(function (Member $member) {
+            $member->user->assignRole('admin');
+        });
+    }
+
+    /**
+     * Create a member with member role.
+     */
+    public function member(): static
+    {
+        return $this->afterCreating(function (Member $member) {
+            $member->user->assignRole('member');
+        });
     }
 }
