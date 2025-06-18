@@ -24,7 +24,7 @@ describe('RejectInvitationJob', function () {
             'status' => 'pending',
         ]);
 
-        $job = new RejectInvitationJob((string) $invitation->accept_token);
+        $job = new RejectInvitationJob((string) $invitation->reject_token);
         $job->handle();
 
         $invitation->refresh();
@@ -42,7 +42,7 @@ describe('RejectInvitationJob', function () {
             'status' => 'accepted',
         ]);
 
-        expect(fn () => (new RejectInvitationJob((string) $invitation->accept_token))->handle())
+        expect(fn () => (new RejectInvitationJob((string) $invitation->reject_token))->handle())
             ->toThrow(ModelNotFoundException::class);
     });
 
@@ -52,7 +52,7 @@ describe('RejectInvitationJob', function () {
             'status' => 'rejected',
         ]);
 
-        expect(fn () => (new RejectInvitationJob((string) $invitation->accept_token))->handle())
+        expect(fn () => (new RejectInvitationJob((string) $invitation->reject_token))->handle())
             ->toThrow(ModelNotFoundException::class);
     });
 
@@ -67,8 +67,8 @@ describe('RejectInvitationJob', function () {
             'email' => 'test2@example.com',
         ]);
 
-        $job1 = new RejectInvitationJob((string) $invitation1->accept_token);
-        $job2 = new RejectInvitationJob((string) $invitation2->accept_token);
+        $job1 = new RejectInvitationJob((string) $invitation1->reject_token);
+        $job2 = new RejectInvitationJob((string) $invitation2->reject_token);
 
         $job1->handle();
         $job2->handle();

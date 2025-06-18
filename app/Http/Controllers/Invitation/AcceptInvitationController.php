@@ -36,9 +36,9 @@ class AcceptInvitationController extends Controller
             }
         }
 
-        $result = AcceptInvitationJob::dispatchSync($token, $userData);
+        AcceptInvitationJob::dispatchSync($token, $userData);
 
-        return redirect()->route('organization.overview', $result['organization'])
+        return redirect()->route('organization.overview', $invitation->organization->slug)
             ->with('message', 'Invitation accepted successfully!');
     }
 }

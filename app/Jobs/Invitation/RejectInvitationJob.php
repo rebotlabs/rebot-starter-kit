@@ -19,7 +19,7 @@ class RejectInvitationJob implements ShouldQueue
 
     public function handle(): void
     {
-        $invitation = Invitation::where('accept_token', $this->token)
+        $invitation = Invitation::where('reject_token', $this->token)
             ->where('status', 'pending')
             ->firstOrFail();
 
