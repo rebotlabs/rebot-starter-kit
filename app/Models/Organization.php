@@ -40,4 +40,46 @@ class Organization extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
+
+    /**
+     * Get the current user's role in this organization
+     */
+    public function getCurrentUserRole(): ?string
+    {
+        $user = auth()->user();
+        if (! $user) {
+            return null;
+        }
+
+        // Check if user is the owner
+        if ($this->owner_id === $user->id) {
+            return 'owner';
+        }
+
+        // Check if user is a member
+        $member = $this->members()->where('user_id', $user->id)->first();
+
+        return $member?->role;
+    }
+
+    /**
+     * Check if current user can manage organization settings
+     */
+    public function currentUserCanManage(): bool
+    {
+        $user = auth()->user();
+        if (! $user) {
+            return false;
+        }
+
+        // Check if user is the owner
+        if ($this->owner_id === $user->id) {
+            return true;
+        }
+
+        // Check if user is an admin member
+        $member = $this->members()->where('user_id', $user->id)->first();
+
+        return $member && $member->role === 'admin';
+    }
 }

@@ -9,25 +9,33 @@ import type { PropsWithChildren } from "react"
 
 export const OrganizationSettingsLayout = ({ children }: PropsWithChildren) => {
   const page = usePage<SharedData>()
-  const { currentOrganization } = page.props
+  const { currentOrganization, currentUserCanManage } = page.props
 
-  const navigation: NavItem[] = [
-    {
-      title: "General",
-      href: route("organization.settings", [currentOrganization], false),
-      isActive: route().current() === "organization.settings",
-    },
-    {
-      title: "Members",
-      href: route("organization.settings.members", [currentOrganization], false),
-      isActive: route().current() === "organization.settings.members",
-    },
-    {
-      title: "Billing",
-      href: route("organization.settings.billing", [currentOrganization], false),
-      isActive: route().current() === "organization.settings.billing",
-    },
-  ]
+  const navigation: NavItem[] = currentUserCanManage
+    ? [
+        {
+          title: "General",
+          href: route("organization.settings", [currentOrganization], false),
+          isActive: route().current() === "organization.settings",
+        },
+        {
+          title: "Members",
+          href: route("organization.settings.members", [currentOrganization], false),
+          isActive: route().current() === "organization.settings.members",
+        },
+        {
+          title: "Billing",
+          href: route("organization.settings.billing", [currentOrganization], false),
+          isActive: route().current() === "organization.settings.billing",
+        },
+      ]
+    : [
+        {
+          title: "General",
+          href: route("organization.settings.leave", [currentOrganization], false),
+          isActive: route().current() === "organization.settings.leave",
+        },
+      ]
 
   return (
     <OrganizationLayout>

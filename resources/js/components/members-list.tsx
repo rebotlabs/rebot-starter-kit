@@ -53,7 +53,11 @@ export const MembersList = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   {member.user.id === auth.user.id ? (
-                    <DropdownMenuItem variant="destructive" disabled={auth.user.id === currentOrganization.owner_id}>
+                    <DropdownMenuItem
+                      variant="destructive"
+                      disabled={auth.user.id === currentOrganization.owner_id}
+                      onClick={() => (window.location.href = route("organization.settings.leave", [currentOrganization]))}
+                    >
                       <LogOutIcon />
                       Leave organization
                     </DropdownMenuItem>

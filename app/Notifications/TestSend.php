@@ -2,12 +2,11 @@
 
 namespace App\Notifications;
 
-use App\Models\Invitation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class InvitationSent extends Notification
+class TestSend extends Notification
 {
     use Queueable;
 
@@ -32,18 +31,9 @@ class InvitationSent extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(Invitation $notifiable): MailMessage
+    public function toMail(object $notifiable): MailMessage
     {
-        $invitationUrl = url()->temporarySignedRoute('invitation.handle', now()->addWeek(), [
-            'token' => $notifiable->accept_token,
-        ]);
-
-        return (new MailMessage)
-            ->subject('You have been invited!')
-            ->markdown('mail.invitation.sent', [
-                'invitation' => $notifiable,
-                'invitationUrl' => $invitationUrl,
-            ]);
+        return (new MailMessage)->markdown('mail.invitation.test');
     }
 
     /**
@@ -51,8 +41,10 @@ class InvitationSent extends Notification
      *
      * @return array<string, mixed>
      */
-    public function toArray(Invitation $notifiable): array
+    public function toArray(object $notifiable): array
     {
-        return $notifiable->toArray();
+        return [
+            //
+        ];
     }
 }

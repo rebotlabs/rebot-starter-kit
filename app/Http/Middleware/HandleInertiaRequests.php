@@ -49,6 +49,16 @@ class HandleInertiaRequests extends Middleware
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'currentOrganization' => $request->user()?->currentOrganization,
             'organizations' => $request->user()?->organizations()?->get(),
+            'currentUserRole' => function () use ($request) {
+                $organization = $request->user()?->currentOrganization;
+
+                return $organization?->getCurrentUserRole();
+            },
+            'currentUserCanManage' => function () use ($request) {
+                $organization = $request->user()?->currentOrganization;
+
+                return $organization?->currentUserCanManage() ?? false;
+            },
         ];
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Organization\Settings\GeneralController;
+use App\Http\Controllers\Organization\Settings\MemberController;
 use App\Http\Controllers\Organization\Settings\MembersController;
 use App\Http\Middleware\EnsureCurrentOrganization;
 use App\Models\Organization;
@@ -21,22 +22,49 @@ Route::middleware(['auth', 'verified', EnsureCurrentOrganization::class])->group
         return Inertia::render('organization/overview');
     })->name('organization.overview');
 
-    Route::get('org/{organization}/settings', [GeneralController::class, 'show'])->name('organization.settings');
-    Route::patch('org/{organization}/settings', [GeneralController::class, 'update'])->name('organization.settings.update');
-    Route::patch('org/{organization}/settings/ownership', [GeneralController::class, 'changeOwnership'])->name('organization.settings.ownership');
-    Route::delete('org/{organization}', [GeneralController::class, 'delete'])->name('organization.delete');
+    // Organization settings routes - admin/owner only
+    Route::middleware(['organization.admin'])->group(function () {
+        Route::get('org/{organization}/settings', [GeneralController::class, 'show'])->name('organization.settings');
+        Route::patch('org/{organization}/settings', [GeneralController::class, 'update'])->name('organization.settings.update');
+        Route::patch('org/{organization}/settings/ownership', [GeneralController::class, 'changeOwnership'])->name('organization.settings.ownership');
+        Route::delete('org/{organization}', [GeneralController::class, 'delete'])->name('organization.delete');
 
-    Route::get('org/{organization}/settings/members', [MembersController::class, 'show'])->name('organization.settings.members');
-    Route::post('org/{organization}/settings/members/invite', [MembersController::class, 'invite'])->name('organization.settings.members.invite');
-    Route::post('org/{organization}/settings/members/invitations/{invitation}/resend', [MembersController::class, 'resend'])->name('organization.settings.members.invitations.resend');
-    Route::delete('org/{organization}/settings/members/invitations/{invitation}', [MembersController::class, 'delete'])->name('organization.settings.members.invitations.delete');
+        Route::get('org/{organization}/settings/members', [MembersController::class, 'show'])->name('organization.settings.members');
+        Route::post('org/{organization}/settings/members/invite', [MembersController::class, 'invite'])->name('organization.settings.members.invite');
+        Route::post('org/{organization}/settings/members/invitations/{invitation}/resend', [MembersController::class, 'resend'])->name('organization.settings.members.invitations.resend');
+        Route::delete('org/{organization}/settings/members/invitations/{invitation}', [MembersController::class, 'delete'])->name('organization.settings.members.invitations.delete');
 
-    Route::get('org/{organization}/settings/billing', function (Organization $organization) {
-        return Inertia::render('organization/settings/billing');
-    })->name('organization.settings.billing');
+        Route::get('org/{organization}/settings/billing', function (Organization $organization) {
+            return Inertia::render('organization/settings/billing');
+        })->name('organization.settings.billing');
+    });
+
+    // Member settings routes - for regular members
+    Route::get('org/{organization}/settings/leave', [MemberController::class, 'show'])->name('organization.settings.leave');
+    Route::post('org/{organization}/settings/member/leave', [MemberController::class, 'leave'])->name('organization.settings.member.leave');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('organization/select', function (Request $request) {
+        $organizations = $request->user()->organizations()->get();
+
+        return Inertia::render('organization/select', [
+            'organizations' => $organizations,
+        ]);
+    })->name('organization.select');
+
+    Route::post('organization/{organization}/switch', function (Request $request, Organization $organization) {
+        // Ensure user is a member of this organization
+        $member = $organization->members()->where('user_id', $request->user()->id)->first();
+        if (! $member && $organization->owner_id !== $request->user()->id) {
+            abort(403, 'You are not a member of this organization.');
+        }
+
+        $request->user()->currentOrganization()->associate($organization)->save();
+
+        return redirect()->route('organization.overview', $organization);
+    })->name('organization.switch');
+
     Route::get('onboarding/organization', function (Request $request) {
         return Inertia::render('onboarding/create-organization');
     })->name('onboarding.organization');
@@ -59,14 +87,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['signed'])->group(function () {
-    Route::get('invitation/accept', function () {
-        return '';
-    })->name('invitation.accept');
-
-    Route::get('invitation/reject', function () {
-        return '';
-    })->name('invitation.reject');
+    Route::get('invitation/{token}', [App\Http\Controllers\InvitationController::class, 'handle'])->name('invitation.handle');
 });
+
+Route::post('invitation/{token}/accept', [App\Http\Controllers\InvitationController::class, 'accept'])->name('invitation.accept');
+Route::post('invitation/{token}/reject', [App\Http\Controllers\InvitationController::class, 'reject'])->name('invitation.reject');
+Route::post('invitation/{token}/login', [App\Http\Controllers\InvitationController::class, 'login'])->name('invitation.login');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

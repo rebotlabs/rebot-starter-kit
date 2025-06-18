@@ -30,6 +30,8 @@ export interface SharedData {
   sidebarOpen: boolean
   currentOrganization: Organization
   organizations: Organization[]
+  currentUserRole: string | null
+  currentUserCanManage: boolean
 
   [key: string]: unknown
 }
@@ -66,6 +68,8 @@ export interface Invitation {
   user: User | null
   role: string
   status: string
+  accept_token: string
+  reject_token: string
   created_at: string
   updated_at: string
 

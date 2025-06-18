@@ -25,6 +25,10 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
         ]);
+
+        $middleware->alias([
+            'organization.admin' => \App\Http\Middleware\EnsureOrganizationAdmin::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
