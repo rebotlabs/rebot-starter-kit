@@ -3,7 +3,7 @@
 namespace Tests\Unit\Notifications;
 
 use App\Models\User;
-use App\Notifications\EmailVerificationOtp;
+use App\Notifications\EmailVerificationOtpNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -20,7 +20,7 @@ class EmailVerificationOtpTest extends TestCase
         $otpCode = '123456';
 
         // When
-        $notification = new EmailVerificationOtp($otpCode);
+        $notification = new EmailVerificationOtpNotification($otpCode);
 
         // Then
         $this->assertEquals('123456', $notification->otpCode);
@@ -33,8 +33,8 @@ class EmailVerificationOtpTest extends TestCase
         $otpCode2 = '222222';
 
         // When
-        $notification1 = new EmailVerificationOtp($otpCode1);
-        $notification2 = new EmailVerificationOtp($otpCode2);
+        $notification1 = new EmailVerificationOtpNotification($otpCode1);
+        $notification2 = new EmailVerificationOtpNotification($otpCode2);
 
         // Then
         $this->assertEquals('111111', $notification1->otpCode);
@@ -46,7 +46,7 @@ class EmailVerificationOtpTest extends TestCase
     {
         // Given
         $user = User::factory()->make();
-        $notification = new EmailVerificationOtp('123456');
+        $notification = new EmailVerificationOtpNotification('123456');
 
         // When
         $channels = $notification->via($user);
@@ -61,7 +61,7 @@ class EmailVerificationOtpTest extends TestCase
         // Given
         $user = User::factory()->make(['email' => 'user@example.com']);
         $otpCode = '123456';
-        $notification = new EmailVerificationOtp($otpCode);
+        $notification = new EmailVerificationOtpNotification($otpCode);
 
         // When
         $mailMessage = $notification->toMail($user);
@@ -78,7 +78,7 @@ class EmailVerificationOtpTest extends TestCase
         // Given
         $user = User::factory()->make();
         $otpCode = '987654';
-        $notification = new EmailVerificationOtp($otpCode);
+        $notification = new EmailVerificationOtpNotification($otpCode);
 
         // When
         $mailMessage = $notification->toMail($user);
@@ -98,8 +98,8 @@ class EmailVerificationOtpTest extends TestCase
     {
         // Given
         $user = User::factory()->make();
-        $notification1 = new EmailVerificationOtp('111111');
-        $notification2 = new EmailVerificationOtp('222222');
+        $notification1 = new EmailVerificationOtpNotification('111111');
+        $notification2 = new EmailVerificationOtpNotification('222222');
 
         // When
         $mailMessage1 = $notification1->toMail($user);
@@ -131,7 +131,7 @@ class EmailVerificationOtpTest extends TestCase
     {
         // Given
         $user = User::factory()->make();
-        $notification = new EmailVerificationOtp('123456');
+        $notification = new EmailVerificationOtpNotification('123456');
 
         // When
         $mailMessage = $notification->toMail($user);
@@ -148,7 +148,7 @@ class EmailVerificationOtpTest extends TestCase
     {
         // Given
         $user = User::factory()->make();
-        $notification = new EmailVerificationOtp('123456');
+        $notification = new EmailVerificationOtpNotification('123456');
 
         // When
         $mailMessage = $notification->toMail($user);
@@ -165,7 +165,7 @@ class EmailVerificationOtpTest extends TestCase
     {
         // Given
         $user = User::factory()->make();
-        $notification = new EmailVerificationOtp('123456');
+        $notification = new EmailVerificationOtpNotification('123456');
 
         // When
         $array = $notification->toArray($user);
@@ -178,7 +178,7 @@ class EmailVerificationOtpTest extends TestCase
     public function test_given_notification_when_checking_if_it_should_be_queued_then_it_implements_should_queue()
     {
         // Given
-        $notification = new EmailVerificationOtp('123456');
+        $notification = new EmailVerificationOtpNotification('123456');
 
         // Then
         $this->assertInstanceOf(ShouldQueue::class, $notification);
@@ -187,7 +187,7 @@ class EmailVerificationOtpTest extends TestCase
     public function test_given_notification_when_checking_queueable_traits_then_it_uses_queueable_trait()
     {
         // Given
-        $notification = new EmailVerificationOtp('123456');
+        $notification = new EmailVerificationOtpNotification('123456');
 
         // Then
         $traits = class_uses_recursive(get_class($notification));

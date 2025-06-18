@@ -6,7 +6,7 @@ namespace App\Jobs\Invitation;
 
 use App\Models\Invitation;
 use App\Models\User;
-use App\Notifications\EmailVerificationOtp;
+use App\Notifications\EmailVerificationOtpNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -63,7 +63,7 @@ class AcceptInvitationJob implements ShouldQueue
         }
 
         $otp = $user->createOneTimePassword(20);
-        $user->notify(new EmailVerificationOtp($otp->password));
+        $user->notify(new EmailVerificationOtpNotification($otp->password));
 
         return [
             'success' => true,

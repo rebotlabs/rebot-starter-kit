@@ -1,13 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\EmailVerificationOtpRequest;
-use App\Notifications\EmailVerificationOtp;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -42,28 +41,5 @@ class EmailVerificationOtpController extends Controller
         $user->markEmailAsVerified();
 
         return to_route('dashboard')->with('message', 'Email verified successfully!');
-    }
-
-    /**
-     * Resend the OTP.
-     */
-    public function resend(Request $request): RedirectResponse
-    {
-        $user = Auth::user();
-
-        if (! $user) {
-            return back()->withErrors(['email' => 'You must be logged in to resend verification code.']);
-        }
-
-        if ($user->hasVerifiedEmail()) {
-            return to_route('dashboard');
-        }
-
-        $otp = $user->createOneTimePassword(20);
-
-        // Send OTP via notification
-        $user->notify(new EmailVerificationOtp($otp->password));
-
-        return back()->with('status', 'verification-code-sent');
     }
 }

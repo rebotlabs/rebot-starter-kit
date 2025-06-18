@@ -4,7 +4,7 @@ namespace Tests\Unit\Notifications;
 
 use App\Models\Invitation;
 use App\Models\Organization;
-use App\Notifications\InvitationSent;
+use App\Notifications\InvitationSentNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Notifications\Messages\MailMessage;
 use Tests\TestCase;
@@ -18,7 +18,7 @@ class InvitationSentTest extends TestCase
     {
         // Given
         $invitation = Invitation::factory()->make();
-        $notification = new InvitationSent;
+        $notification = new InvitationSentNotification;
 
         // When
         $channels = $notification->via($invitation);
@@ -37,7 +37,7 @@ class InvitationSentTest extends TestCase
             'email' => 'invited@example.com',
             'role' => 'member',
         ]);
-        $notification = new InvitationSent;
+        $notification = new InvitationSentNotification;
 
         // When
         $mailMessage = $notification->toMail($invitation);
@@ -61,7 +61,7 @@ class InvitationSentTest extends TestCase
         $invitation = Invitation::factory()->create([
             'organization_id' => $organization->id,
         ]);
-        $notification = new InvitationSent;
+        $notification = new InvitationSentNotification;
 
         // When
         $mailMessage = $notification->toMail($invitation);
@@ -78,7 +78,7 @@ class InvitationSentTest extends TestCase
         $organization = Organization::factory()->create();
         $invitation1 = Invitation::factory()->create(['organization_id' => $organization->id]);
         $invitation2 = Invitation::factory()->create(['organization_id' => $organization->id]);
-        $notification = new InvitationSent;
+        $notification = new InvitationSentNotification;
 
         // When
         $mailMessage1 = $notification->toMail($invitation1);
@@ -103,7 +103,7 @@ class InvitationSentTest extends TestCase
             'email' => 'invited@example.com',
             'role' => 'admin',
         ]);
-        $notification = new InvitationSent;
+        $notification = new InvitationSentNotification;
 
         // When
         $array = $notification->toArray($invitation);
@@ -132,7 +132,7 @@ class InvitationSentTest extends TestCase
             'email' => 'user2@example.com',
             'role' => 'admin',
         ]);
-        $notification = new InvitationSent;
+        $notification = new InvitationSentNotification;
 
         // When
         $array1 = $notification->toArray($invitation1);
@@ -149,9 +149,9 @@ class InvitationSentTest extends TestCase
     public function test_given_no_parameters_when_creating_notification_then_it_constructs_successfully()
     {
         // When
-        $notification = new InvitationSent;
+        $notification = new InvitationSentNotification;
 
         // Then
-        $this->assertInstanceOf(InvitationSent::class, $notification);
+        $this->assertInstanceOf(InvitationSentNotification::class, $notification);
     }
 }

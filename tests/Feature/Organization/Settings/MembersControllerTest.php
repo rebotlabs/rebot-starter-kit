@@ -4,7 +4,7 @@ use App\Models\Invitation;
 use App\Models\Member;
 use App\Models\Organization;
 use App\Models\User;
-use App\Notifications\InvitationSent;
+use App\Notifications\InvitationSentNotification;
 use Illuminate\Support\Facades\Notification;
 use Spatie\Permission\Models\Role;
 
@@ -150,7 +150,7 @@ describe('MembersController', function () {
 
             Notification::assertSentTo(
                 Invitation::where('email', 'newmember@example.com')->first(),
-                InvitationSent::class
+                InvitationSentNotification::class
             );
         });
 
@@ -255,7 +255,7 @@ describe('MembersController', function () {
 
             // Then the invitation notification should be sent again
             $response->assertRedirect();
-            Notification::assertSentTo($invitation, InvitationSent::class);
+            Notification::assertSentTo($invitation, InvitationSentNotification::class);
         });
 
         it('allows admins to delete invitations', function () {

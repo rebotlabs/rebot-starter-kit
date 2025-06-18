@@ -6,7 +6,7 @@ namespace App\Jobs\Invitation;
 
 use App\Models\Invitation;
 use App\Models\User;
-use App\Notifications\InvitationSent;
+use App\Notifications\InvitationSentNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -24,6 +24,6 @@ class ResendInvitationJob implements ShouldQueue
 
     public function handle(): void
     {
-        $this->invitation->notify(new InvitationSent);
+        $this->invitation->notify(new InvitationSentNotification);
     }
 }

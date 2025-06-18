@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
-use App\Notifications\EmailVerificationOtp;
+use App\Notifications\EmailVerificationOtpNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +42,7 @@ class RegisteredUserController extends Controller
         $otp = $user->createOneTimePassword(20);
 
         // Send OTP via notification
-        $user->notify(new EmailVerificationOtp($otp->password));
+        $user->notify(new EmailVerificationOtpNotification($otp->password));
 
         Auth::login($user);
 
