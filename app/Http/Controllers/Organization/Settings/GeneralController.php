@@ -42,4 +42,15 @@ class GeneralController extends Controller
 
         return redirect()->route('organization.settings', ['organization' => $organization]);
     }
+
+    public function delete(Request $request, Organization $organization)
+    {
+        $data = $request->validate([
+            'password' => ['required', 'string', 'current_password'],
+        ]);
+
+        $organization->delete();
+
+        return redirect()->route('dashboard');
+    }
 }

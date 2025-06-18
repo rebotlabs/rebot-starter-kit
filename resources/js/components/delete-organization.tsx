@@ -1,0 +1,106 @@
+import { useForm, usePage } from "@inertiajs/react"
+import { FormEventHandler, useRef } from "react"
+
+import InputError from "@/components/input-error"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { SharedData } from "@/types"
+
+export const DeleteOrganization = () => {
+    const { currentOrganization } = usePage<SharedData>().props;
+  const passwordInput = useRef<HTMLInputElement>(null)
+    const { 
+    data,
+    setData,
+    delete: destroy,
+    processing,
+    reset,
+    errors,
+    clearErrors,
+} = useForm<Required<{ password: string }>>({
+        password: '',
+    })
+    
+      const deleteOrganization: FormEventHandler = (e) => {
+        e.preventDefault()
+    
+        destroy(route("organization.delete", [currentOrganization]), {
+          preserveScroll: true,
+          onError: () => passwordInput.current?.focus(),
+          onFinish: () => reset(),
+        })
+      }
+    
+      const closeModal = () => {
+        clearErrors()
+        reset()
+      }
+
+    return (
+
+    <Card variant="destructive">
+      <CardHeader>
+        <CardTitle>Delete organization</CardTitle>
+        <CardDescription>Delete your organization and all of its resources</CardDescription>
+      </CardHeader>
+
+      <CardContent>
+        <div className="relative space-y-0.5">
+          <p className="font-medium">Warning</p>
+          <p className="text-sm">Please proceed with caution, this cannot be undone.</p>
+        </div>
+      </CardContent>
+
+      <CardFooter className="justify-end">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="destructive">Delete organization</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogTitle>Are you sure you want to delete your organization?</DialogTitle>
+            <DialogDescription>
+              Once your organization is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you
+              would like to permanently delete your organization.
+            </DialogDescription>
+            <form className="space-y-6" onSubmit={deleteOrganization}>
+              <div className="grid gap-2">
+                <Label htmlFor="password" className="sr-only">
+                  Password
+                </Label>
+
+                <Input
+                  id="password"
+                  type="password"
+                  name="password"
+                  ref={passwordInput}
+                  value={data.password}
+                  onChange={(e) => setData("password", e.target.value)}
+                  placeholder="Password"
+                  autoComplete="current-password"
+                />
+
+                <InputError message={errors.password} />
+              </div>
+
+              <DialogFooter className="gap-2">
+                <DialogClose asChild>
+                  <Button variant="link" onClick={closeModal}>
+                    Cancel
+                  </Button>
+                </DialogClose>
+
+                <Button variant="destructive" type="submit" disabled={processing}>
+                  Delete organization
+                </Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
+      </CardFooter>
+    </Card>
+    )
+}

@@ -24,6 +24,7 @@ Route::middleware(['auth', 'verified', EnsureCurrentOrganization::class])->group
     Route::get('org/{organization}/settings', [GeneralController::class, 'show'])->name('organization.settings');
     Route::patch('org/{organization}/settings', [GeneralController::class, 'update'])->name('organization.settings.update');
     Route::patch('org/{organization}/settings/ownership', [GeneralController::class, 'changeOwnership'])->name('organization.settings.ownership');
+    Route::delete('org/{organization}', [GeneralController::class, 'delete'])->name('organization.delete');
 
     Route::get('org/{organization}/settings/members', [MembersController::class, 'show'])->name('organization.settings.members');
     Route::post('org/{organization}/settings/members/invite', [MembersController::class, 'invite'])->name('organization.settings.members.invite');
