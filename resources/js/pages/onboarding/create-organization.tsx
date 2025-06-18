@@ -1,4 +1,5 @@
 import InputError from "@/components/input-error"
+import TextLink from "@/components/text-link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -71,6 +72,18 @@ export default function CreateOrganization() {
           </div>
         </div>
       </form>
+
+      <div className="mt-6 flex items-center">
+        <div className="border-border flex-1 border-t"></div>
+        <span className="text-muted-foreground px-4 text-sm">or</span>
+        <div className="border-border flex-1 border-t"></div>
+      </div>
+
+      <div className="mt-6 text-center">
+        <TextLink href={route("logout")} method="post" className="text-sm">
+          Log out
+        </TextLink>
+      </div>
     </AuthLayout>
   )
 }

@@ -93,11 +93,11 @@ export default function InvitationHandle({ invitation, existingUser, isAuthentic
     <>
       <Head title="Invitation" />
 
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+      <div className="bg-background flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
-            <h1 className="text-3xl font-bold text-gray-900">You're invited!</h1>
-            <p className="mt-2 text-gray-600">
+            <h1 className="text-foreground text-3xl font-bold">You're invited!</h1>
+            <p className="text-muted-foreground mt-2">
               Join <strong>{invitation.organization.name}</strong> and start collaborating
             </p>
           </div>
@@ -115,11 +115,11 @@ export default function InvitationHandle({ invitation, existingUser, isAuthentic
 
             <CardContent className="space-y-6">
               <div className="space-y-2 text-center">
-                <p className="text-sm text-gray-600">Organization</p>
+                <p className="text-muted-foreground text-sm">Organization</p>
                 <p className="font-semibold">{invitation.organization.name}</p>
-                <p className="text-sm text-gray-600">Email</p>
+                <p className="text-muted-foreground text-sm">Email</p>
                 <p className="font-semibold">{invitation.email}</p>
-                <p className="text-sm text-gray-600">Role</p>
+                <p className="text-muted-foreground text-sm">Role</p>
                 <p className="font-semibold capitalize">{invitation.role}</p>
               </div>
 
@@ -246,7 +246,7 @@ export default function InvitationHandle({ invitation, existingUser, isAuthentic
                         required
                         disabled={loginProcessing}
                         readOnly
-                        className="bg-gray-50"
+                        className="bg-muted"
                       />
                       <InputError className="mt-2" message={loginErrors.email} />
                     </div>
@@ -281,7 +281,7 @@ export default function InvitationHandle({ invitation, existingUser, isAuthentic
           </Card>
 
           <div className="text-center">
-            <p className="text-sm text-gray-500">By accepting this invitation, you agree to our terms of service and privacy policy.</p>
+            <p className="text-muted-foreground text-sm">By accepting this invitation, you agree to our terms of service and privacy policy.</p>
           </div>
         </div>
       </div>

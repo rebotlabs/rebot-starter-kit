@@ -16,6 +16,6 @@ class ResendInvitationController extends Controller
     {
         ResendInvitationJob::dispatch($invitation, auth()->user());
 
-        return back();
+        return redirect()->route('organization.settings.members', $organization);
     }
 }

@@ -14,10 +14,21 @@ class UpdateGeneralSettingsController extends Controller
 {
     public function __invoke(OrganizationUpdateRequest $request, Organization $organization): RedirectResponse
     {
-        UpdateOrganizationJob::dispatch(
+        $originalSlug = $organization->slug;
+        $validatedData = $request->validated();
+
+        UpdateOrganizationJob::dispatchSync(
             $organization,
-            $request->validated()
+            $validatedData
         );
+
+        // Refresh the organization model to get the updated data
+        $organization->refresh();
+
+        // If the slug changed, redirect to the new URL
+        if (isset($validatedData['slug']) && $validatedData['slug'] !== $originalSlug) {
+            return redirect()->route('organization.settings', $organization);
+        }
 
         return back();
     }

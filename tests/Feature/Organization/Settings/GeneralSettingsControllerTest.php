@@ -26,12 +26,14 @@ describe('ShowGeneralSettingsController', function () {
                 ->where('organization.id', $this->organization->id)
                 ->where('organization.name', $this->organization->name)
                 ->where('organization.slug', $this->organization->slug)
+                ->has('members')
+                ->where('members', [])
             );
     });
 
     it('displays general settings page for organization admin', function () {
         $admin = User::factory()->create();
-        Member::factory()->create([
+        $member = Member::factory()->create([
             'user_id' => $admin->id,
             'organization_id' => $this->organization->id,
         ]);
@@ -45,6 +47,10 @@ describe('ShowGeneralSettingsController', function () {
                 ->component('organization/settings/general')
                 ->has('organization')
                 ->where('organization.id', $this->organization->id)
+                ->has('members')
+                ->has('members.0')
+                ->where('members.0.id', $member->id)
+                ->where('members.0.user.id', $admin->id)
             );
     });
 
@@ -157,6 +163,21 @@ describe('UpdateGeneralSettingsController', function () {
             ])
             ->assertRedirect()
             ->assertSessionHasNoErrors();
+    });
+
+    it('redirects to new URL when slug changes', function () {
+        $newSlug = 'brand-new-slug';
+
+        $response = $this->actingAs($this->user)
+            ->patch(route('organization.settings.update', $this->organization), [
+                'name' => 'Updated Name',
+                'slug' => $newSlug,
+            ]);
+
+        $this->organization->refresh();
+        expect($this->organization->slug)->toBe($newSlug);
+
+        $response->assertRedirect(route('organization.settings', $this->organization));
     });
 
     it('denies access to regular members', function () {

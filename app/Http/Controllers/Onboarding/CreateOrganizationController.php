@@ -19,6 +19,14 @@ class CreateOrganizationController extends Controller
             ]
         ));
 
+        // Create a member record for the owner with admin role
+        $organization->members()->create([
+            'user_id' => $request->user()->id,
+        ]);
+
+        // Assign admin role to the owner
+        $request->user()->assignRole('admin');
+
         $request->user()->currentOrganization()->associate($organization)->save();
 
         return redirect()->route('dashboard');

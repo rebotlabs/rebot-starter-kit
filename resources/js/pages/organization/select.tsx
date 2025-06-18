@@ -19,12 +19,12 @@ export default function SelectOrganization() {
     <AppLayout navigation={[]}>
       <Head title="Select Organization" />
 
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-8">
+      <div className="bg-background flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+        <div className="w-full max-w-lg space-y-8">
           <div className="text-center">
-            <Building2 className="mx-auto h-12 w-12 text-gray-400" />
-            <h1 className="mt-4 text-3xl font-bold text-gray-900">Select Organization</h1>
-            <p className="mt-2 text-gray-600">Choose an organization to continue, or create a new one.</p>
+            <Building2 className="text-muted-foreground mx-auto h-12 w-12" />
+            <h1 className="text-foreground mt-4 text-3xl font-bold">Select Organization</h1>
+            <p className="text-muted-foreground mt-2">Choose an organization to continue, or create a new one.</p>
           </div>
 
           <div className="space-y-4">
@@ -39,8 +39,8 @@ export default function SelectOrganization() {
                             <AvatarFallback className="bg-blue-100 text-blue-600">{getInitials(organization.name)}</AvatarFallback>
                           </Avatar>
                           <div className="min-w-0 flex-1">
-                            <h3 className="truncate font-medium text-gray-900">{organization.name}</h3>
-                            <p className="text-sm text-gray-500">{organization.slug}</p>
+                            <h3 className="text-foreground truncate font-medium">{organization.name}</h3>
+                            <p className="text-muted-foreground text-sm">{organization.slug}</p>
                           </div>
                         </CardContent>
                       </Link>
@@ -50,10 +50,10 @@ export default function SelectOrganization() {
 
                 <div className="relative">
                   <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-300" />
+                    <div className="border-border w-full border-t" />
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="bg-gray-50 px-2 text-gray-500">or</span>
+                    <span className="bg-background text-muted-foreground px-2">or</span>
                   </div>
                 </div>
               </>

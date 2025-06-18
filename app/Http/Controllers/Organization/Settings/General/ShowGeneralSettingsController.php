@@ -13,8 +13,18 @@ class ShowGeneralSettingsController extends Controller
 {
     public function __invoke(Organization $organization): Response
     {
+        $members = $organization->members()->with(['user'])->get()->map(function ($member) {
+            return [
+                'id' => $member->id,
+                'user' => $member->user,
+                'created_at' => $member->created_at,
+                'updated_at' => $member->updated_at,
+            ];
+        });
+
         return Inertia::render('organization/settings/general', [
             'organization' => $organization,
+            'members' => $members,
         ]);
     }
 }

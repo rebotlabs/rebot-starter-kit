@@ -10,9 +10,11 @@ use App\Http\Controllers\Organization\Settings\General\UpdateGeneralSettingsCont
 use App\Http\Controllers\Organization\Settings\Members\DeleteInvitationController;
 use App\Http\Controllers\Organization\Settings\Members\InviteMemberController;
 use App\Http\Controllers\Organization\Settings\Members\LeaveOrganizationController;
+use App\Http\Controllers\Organization\Settings\Members\RemoveMemberController;
 use App\Http\Controllers\Organization\Settings\Members\ResendInvitationController;
 use App\Http\Controllers\Organization\Settings\Members\ShowLeaveOrganizationController;
 use App\Http\Controllers\Organization\Settings\Members\ShowMembersController;
+use App\Http\Controllers\Organization\Settings\Members\UpdateMemberRoleController;
 use App\Http\Controllers\Organization\ShowOrganizationOverviewController;
 use App\Http\Controllers\Organization\ShowOrganizationSelectController;
 use App\Http\Controllers\Organization\SwitchOrganizationController;
@@ -37,6 +39,8 @@ Route::middleware(['auth', 'verified', EnsureCurrentOrganization::class])->group
 
         Route::get('org/{organization}/settings/members', ShowMembersController::class)->name('organization.settings.members');
         Route::post('org/{organization}/settings/members/invite', InviteMemberController::class)->name('organization.settings.members.invite');
+        Route::patch('org/{organization}/settings/members/{member}/role', UpdateMemberRoleController::class)->name('organization.settings.members.update-role');
+        Route::delete('org/{organization}/settings/members/{member}', RemoveMemberController::class)->name('organization.settings.members.remove');
         Route::post('org/{organization}/settings/members/invitations/{invitation}/resend', ResendInvitationController::class)->name('organization.settings.members.invitations.resend');
         Route::delete('org/{organization}/settings/members/invitations/{invitation}', DeleteInvitationController::class)->name('organization.settings.members.invitations.delete');
 

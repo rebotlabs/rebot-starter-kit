@@ -20,6 +20,6 @@ class InviteMemberController extends Controller
             auth()->user()
         );
 
-        return back();
+        return redirect()->route('organization.settings.members', $organization);
     }
 }

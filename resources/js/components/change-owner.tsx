@@ -31,7 +31,7 @@ export const ChangeOwner = () => {
   const changeOwner: FormEventHandler = (e) => {
     e.preventDefault()
 
-    patch(route("organization.settings.general.change-ownership", [organization]), {
+    patch(route("organization.settings.ownership", [organization]), {
       preserveScroll: true,
       onSuccess: () => closeModal(),
       onError: () => passwordInput.current?.focus(),
