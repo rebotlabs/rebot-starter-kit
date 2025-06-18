@@ -1,8 +1,15 @@
 <?php
 
-use App\Http\Controllers\Organization\Settings\GeneralController;
-use App\Http\Controllers\Organization\Settings\MemberController;
-use App\Http\Controllers\Organization\Settings\MembersController;
+use App\Http\Controllers\Organization\Settings\General\ChangeOwnershipController;
+use App\Http\Controllers\Organization\Settings\General\DeleteOrganizationController;
+use App\Http\Controllers\Organization\Settings\General\ShowGeneralSettingsController;
+use App\Http\Controllers\Organization\Settings\General\UpdateGeneralSettingsController;
+use App\Http\Controllers\Organization\Settings\Members\DeleteInvitationController;
+use App\Http\Controllers\Organization\Settings\Members\InviteMemberController;
+use App\Http\Controllers\Organization\Settings\Members\LeaveOrganizationController;
+use App\Http\Controllers\Organization\Settings\Members\ResendInvitationController;
+use App\Http\Controllers\Organization\Settings\Members\ShowLeaveOrganizationController;
+use App\Http\Controllers\Organization\Settings\Members\ShowMembersController;
 use App\Http\Middleware\EnsureCurrentOrganization;
 use App\Models\Organization;
 use Illuminate\Http\Request;
@@ -24,15 +31,15 @@ Route::middleware(['auth', 'verified', EnsureCurrentOrganization::class])->group
 
     // Organization settings routes - admin/owner only
     Route::middleware(['organization.admin'])->group(function () {
-        Route::get('org/{organization}/settings', [GeneralController::class, 'show'])->name('organization.settings');
-        Route::patch('org/{organization}/settings', [GeneralController::class, 'update'])->name('organization.settings.update');
-        Route::patch('org/{organization}/settings/ownership', [GeneralController::class, 'changeOwnership'])->name('organization.settings.ownership');
-        Route::delete('org/{organization}', [GeneralController::class, 'delete'])->name('organization.delete');
+        Route::get('org/{organization}/settings', ShowGeneralSettingsController::class)->name('organization.settings');
+        Route::patch('org/{organization}/settings', UpdateGeneralSettingsController::class)->name('organization.settings.update');
+        Route::patch('org/{organization}/settings/ownership', ChangeOwnershipController::class)->name('organization.settings.ownership');
+        Route::delete('org/{organization}', DeleteOrganizationController::class)->name('organization.delete');
 
-        Route::get('org/{organization}/settings/members', [MembersController::class, 'show'])->name('organization.settings.members');
-        Route::post('org/{organization}/settings/members/invite', [MembersController::class, 'invite'])->name('organization.settings.members.invite');
-        Route::post('org/{organization}/settings/members/invitations/{invitation}/resend', [MembersController::class, 'resend'])->name('organization.settings.members.invitations.resend');
-        Route::delete('org/{organization}/settings/members/invitations/{invitation}', [MembersController::class, 'delete'])->name('organization.settings.members.invitations.delete');
+        Route::get('org/{organization}/settings/members', ShowMembersController::class)->name('organization.settings.members');
+        Route::post('org/{organization}/settings/members/invite', InviteMemberController::class)->name('organization.settings.members.invite');
+        Route::post('org/{organization}/settings/members/invitations/{invitation}/resend', ResendInvitationController::class)->name('organization.settings.members.invitations.resend');
+        Route::delete('org/{organization}/settings/members/invitations/{invitation}', DeleteInvitationController::class)->name('organization.settings.members.invitations.delete');
 
         Route::get('org/{organization}/settings/billing', function (Organization $organization) {
             return Inertia::render('organization/settings/billing');
@@ -40,8 +47,8 @@ Route::middleware(['auth', 'verified', EnsureCurrentOrganization::class])->group
     });
 
     // Member settings routes - for regular members
-    Route::get('org/{organization}/settings/leave', [MemberController::class, 'show'])->name('organization.settings.leave');
-    Route::post('org/{organization}/settings/member/leave', [MemberController::class, 'leave'])->name('organization.settings.member.leave');
+    Route::get('org/{organization}/settings/leave', ShowLeaveOrganizationController::class)->name('organization.settings.leave');
+    Route::post('org/{organization}/settings/member/leave', LeaveOrganizationController::class)->name('organization.settings.member.leave');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -87,12 +94,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['signed'])->group(function () {
-    Route::get('invitation/{token}', [App\Http\Controllers\InvitationController::class, 'handle'])->name('invitation.handle');
+    Route::get('invitation/{token}', [App\Http\Controllers\Invitation\ShowInvitationController::class, '__invoke'])->name('invitation.handle');
 });
 
-Route::post('invitation/{token}/accept', [App\Http\Controllers\InvitationController::class, 'accept'])->name('invitation.accept');
-Route::post('invitation/{token}/reject', [App\Http\Controllers\InvitationController::class, 'reject'])->name('invitation.reject');
-Route::post('invitation/{token}/login', [App\Http\Controllers\InvitationController::class, 'login'])->name('invitation.login');
+Route::post('invitation/{token}/accept', [App\Http\Controllers\Invitation\AcceptInvitationController::class, '__invoke'])->name('invitation.accept');
+Route::post('invitation/{token}/reject', [App\Http\Controllers\Invitation\RejectInvitationController::class, '__invoke'])->name('invitation.reject');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

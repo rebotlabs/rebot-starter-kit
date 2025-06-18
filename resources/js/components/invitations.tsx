@@ -12,11 +12,11 @@ export const Invitations = () => {
   const { post, delete: destroy, processing } = useForm()
 
   const resendInvitation = (invitationId: number) => {
-    post(route("organization.settings.members.invitations.resend", [currentOrganization, invitationId]))
+    post(route("organization.settings.members.resend", [currentOrganization, invitationId]))
   }
 
   const deleteInvitation = (invitationId: number) => {
-    destroy(route("organization.settings.members.invitations.delete", [currentOrganization, invitationId]))
+    destroy(route("organization.settings.members.delete", [currentOrganization, invitationId]))
   }
 
   return (

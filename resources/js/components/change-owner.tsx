@@ -21,17 +21,17 @@ export const ChangeOwner = () => {
   const { data, setData, processing, reset, errors, clearErrors, patch } = useForm<
     Required<{
       password: string
-      owner_id: number
+      member_id: number
     }>
   >({
     password: "",
-    owner_id: organization.owner_id,
+    member_id: 0,
   })
 
   const changeOwner: FormEventHandler = (e) => {
     e.preventDefault()
 
-    patch(route("organization.settings.ownership", [organization]), {
+    patch(route("organization.settings.general.change-ownership", [organization]), {
       preserveScroll: true,
       onSuccess: () => closeModal(),
       onError: () => passwordInput.current?.focus(),
@@ -74,7 +74,7 @@ export const ChangeOwner = () => {
                         key={member.user.id}
                         value={member.user.name}
                         onSelect={() => {
-                          setData("owner_id", member.user.id)
+                          setData("member_id", member.id)
                           setChangingOwner(true)
                         }}
                       >

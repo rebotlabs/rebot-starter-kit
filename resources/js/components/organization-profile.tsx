@@ -24,7 +24,7 @@ export const OrganizationProfile = () => {
   const submit: FormEventHandler = (e) => {
     e.preventDefault()
 
-    patch(route("organization.settings.update", [organization]), {
+    patch(route("organization.settings.general.update", [organization]), {
       preserveScroll: true,
     })
   }
