@@ -59,7 +59,7 @@ class LoginRequest extends FormRequest
             session(['2fa_user_id' => $user->id, '2fa_remember' => $this->boolean('remember')]);
 
             throw ValidationException::withMessages([
-                'two_factor_required' => 'Two-factor authentication is required.',
+                'two_factor_required' => __('auth.two_factor_required'),
             ]);
         }
     }

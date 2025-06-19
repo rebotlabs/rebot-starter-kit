@@ -6,6 +6,7 @@ import InputError from "@/components/input-error"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useTranslations } from "@/utils/translations"
 
 interface ResetPasswordFormProps {
   token: string
@@ -20,6 +21,7 @@ type ResetPasswordForm = {
 }
 
 export function ResetPasswordForm({ token, email }: ResetPasswordFormProps) {
+  const { __ } = useTranslations()
   const { data, setData, post, processing, errors, reset } = useForm<Required<ResetPasswordForm>>({
     token: token,
     email: email,
@@ -38,7 +40,7 @@ export function ResetPasswordForm({ token, email }: ResetPasswordFormProps) {
     <form onSubmit={submit}>
       <div className="grid gap-6">
         <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{__("auth.labels.email")}</Label>
           <Input
             id="email"
             type="email"
@@ -53,7 +55,7 @@ export function ResetPasswordForm({ token, email }: ResetPasswordFormProps) {
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{__("auth.labels.password")}</Label>
           <Input
             id="password"
             type="password"
@@ -63,13 +65,13 @@ export function ResetPasswordForm({ token, email }: ResetPasswordFormProps) {
             className="mt-1 block w-full"
             autoFocus
             onChange={(e) => setData("password", e.target.value)}
-            placeholder="Password"
+            placeholder={__("ui.password.password_placeholder")}
           />
           <InputError message={errors.password} />
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="password_confirmation">Confirm password</Label>
+          <Label htmlFor="password_confirmation">{__("ui.password.confirm")}</Label>
           <Input
             id="password_confirmation"
             type="password"
@@ -78,14 +80,14 @@ export function ResetPasswordForm({ token, email }: ResetPasswordFormProps) {
             value={data.password_confirmation}
             className="mt-1 block w-full"
             onChange={(e) => setData("password_confirmation", e.target.value)}
-            placeholder="Confirm password"
+            placeholder={__("ui.password.confirm_placeholder")}
           />
           <InputError message={errors.password_confirmation} className="mt-2" />
         </div>
 
         <Button type="submit" className="mt-4 w-full" disabled={processing}>
           {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-          Reset password
+          {__("ui.password.reset")}
         </Button>
       </div>
     </form>

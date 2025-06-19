@@ -2,7 +2,91 @@
     "auth": {
         "failed": "These credentials do not match our records.",
         "password": "The provided password is incorrect.",
-        "throttle": "Too many login attempts. Please try again in :seconds seconds."
+        "throttle": "Too many login attempts. Please try again in :seconds seconds.",
+        "two_factor_required": "Two-factor authentication is required.",
+        "login": {
+            "title": "Log in",
+            "description": "Enter your credentials to access your account",
+            "welcome_back": "Welcome back"
+        },
+        "register": {
+            "title": "Create account",
+            "description": "Create a new account to get started",
+            "welcome": "Welcome"
+        },
+        "forgot_password": {
+            "title": "Forgot password",
+            "description": "Enter your email address and we'll send you a link to reset your password",
+            "reset_link_sent": "We have emailed your password reset link."
+        },
+        "reset_password": {
+            "title": "Reset password",
+            "description": "Enter your new password below"
+        },
+        "confirm_password": {
+            "title": "Confirm password",
+            "description": "Please confirm your password before continuing",
+            "warning": "This is a secure area of the application. Please confirm your password before continuing."
+        },
+        "verify_email": {
+            "title": "Verify email",
+            "description": "Please verify your email address by clicking on the link we just emailed to you.",
+            "verification_sent": "A new verification link has been sent to the email address you provided during registration."
+        },
+        "verify_email_otp": {
+            "title": "Verify your email",
+            "description": "We've sent a 6-digit verification code to your email address. Please enter it below to verify your account.",
+            "code_sent": "A new verification code has been sent to your email address.",
+            "enter_code": "Enter the 6-digit code sent to your email address"
+        },
+        "two_factor": {
+            "title": "Two-Factor Authentication",
+            "description": "Please enter the 6-digit code from your authenticator app.",
+            "authentication_code": "Authentication Code",
+            "verify_code": "Verify Code",
+            "invalid_code": "The provided two-factor authentication code was invalid.",
+            "session_expired": "Your session has expired. Please log in again.",
+            "invalid_session": "Invalid authentication session."
+        },
+        "labels": {
+            "email": "Email address",
+            "password": "Password",
+            "confirm_password": "Confirm Password",
+            "new_password": "New Password",
+            "current_password": "Current Password",
+            "name": "Full Name",
+            "remember_me": "Remember me",
+            "code": "Verification Code"
+        },
+        "placeholders": {
+            "email": "Enter your email address",
+            "password": "Enter your password",
+            "confirm_password": "Confirm your password",
+            "new_password": "Enter your new password",
+            "current_password": "Enter your current password",
+            "name": "Enter your full name"
+        },
+        "buttons": {
+            "log_in": "Log in",
+            "register": "Create account",
+            "send_reset_link": "Email Password Reset Link",
+            "reset_password": "Reset Password",
+            "confirm": "Confirm",
+            "verify_email": "Resend Verification Email",
+            "verify_code": "Verify Code",
+            "back_to_login": "← Back to login",
+            "resend_code": "Resend Code"
+        },
+        "links": {
+            "forgot_password": "Forgot your password?",
+            "remember_password": "Remembered your password?",
+            "already_registered": "Already registered?",
+            "no_account": "Don't have an account?"
+        },
+        "messages": {
+            "unverified_email": "Your email address is unverified.",
+            "verification_link_sent": "A new verification link has been sent to your email address."
+        }
     },
     "invitations": {
         "page": {
@@ -119,7 +203,27 @@
             "description": "Are you sure you want to leave this organization?",
             "warning": "This action cannot be undone. You will lose access to all resources and data associated with this organization.",
             "confirm_button": "Leave Organization",
-            "cancel_button": "Cancel"
+            "cancel_button": "Cancel",
+            "card_title": "Leave organization",
+            "card_description": "Leave this organization and remove your access to all its resources",
+            "card_warning": "Please proceed with caution, this cannot be undone.",
+            "button": "Leave organization",
+            "confirm_dialog_title": "Are you sure you want to leave this organization?",
+            "confirm_dialog_description": "Once you leave <strong>:name<\/strong>, you will lose access to all its resources and will need to be re-invited to rejoin. Please enter your password to confirm you would like to leave this organization.",
+            "password_label": "Password",
+            "password_placeholder": "Password"
+        },
+        "settings": {
+            "general_info": "General information",
+            "update_info": "Update your organization information",
+            "name_label": "Organization name",
+            "name_placeholder": "Organization name",
+            "slug_label": "Organization slug",
+            "slug_placeholder": "Organization slug"
+        },
+        "members": {
+            "role_label": "User's role",
+            "leave_action": "Leave organization"
         }
     },
     "pagination": {
@@ -132,6 +236,42 @@
         "throttled": "Please wait before retrying.",
         "token": "This password reset token is invalid.",
         "user": "We can't find a user with that email address."
+    },
+    "settings": {
+        "profile": {
+            "title": "Profile",
+            "description": "Update your name and email address",
+            "name_label": "Name",
+            "name_placeholder": "Your name",
+            "email_label": "Email address",
+            "email_placeholder": "Email address",
+            "email_unverified": "Your email address is unverified.",
+            "email_verification_sent": "A new verification link has been sent to your email address.",
+            "save_changes": "Save Changes",
+            "delete_account": "Delete Account",
+            "delete_account_description": "Once your account is deleted, all of its resources and data will be permanently deleted.",
+            "delete_account_warning": "Before deleting your account, please download any data or information that you wish to retain."
+        },
+        "password": {
+            "title": "Update Password",
+            "description": "Ensure your account is using a long, random password to stay secure.",
+            "current_password": "Current Password",
+            "new_password": "New Password",
+            "confirm_password": "Confirm Password",
+            "update_password": "Update Password"
+        },
+        "security": {
+            "title": "Security",
+            "description": "Manage your account security settings."
+        },
+        "appearance": {
+            "title": "Appearance",
+            "description": "Customize the appearance of the app. Automatically switch between day and night themes.",
+            "theme": "Theme",
+            "light": "Light",
+            "dark": "Dark",
+            "system": "System"
+        }
     },
     "ui": {
         "buttons": {
@@ -208,6 +348,65 @@
             "copy": "Copy",
             "download": "Download",
             "print": "Print"
+        },
+        "password": {
+            "reset": "Reset password",
+            "confirm": "Confirm password",
+            "confirm_placeholder": "Confirm password"
+        },
+        "verification": {
+            "verify_email": "Verify Email",
+            "code_sent": "A new verification code has been sent to your email address.",
+            "enter_code": "Enter the 6-digit code sent to your email address",
+            "didnt_receive": "Didn't receive the code?",
+            "resend_code": "Resend verification code"
+        },
+        "organization": {
+            "name": "Organization name",
+            "name_placeholder": "Organization name",
+            "slug": "Organization slug",
+            "slug_placeholder": "Organization slug",
+            "general_info": "General information",
+            "update_info": "Update your organization information",
+            "leave": "Leave organization",
+            "leave_description": "Leave this organization and remove your access to all its resources",
+            "leave_warning": "Please proceed with caution, this cannot be undone.",
+            "leave_confirm_title": "Are you sure you want to leave this organization?",
+            "leave_confirm_description": "Once you leave <strong>:name<\/strong>, you will lose access to all its resources and will need to be re-invited to rejoin. Please enter your password to confirm you would like to leave this organization.",
+            "owner_title": "Organization Owner",
+            "owner_description": "Manage owner of the organization",
+            "owner_info": "The organization owner is the person who has full control over the organization, including billing and settings.",
+            "select_owner": "Select new owner",
+            "search_user": "Search for a user...",
+            "change_owner_title": "Are you sure you want to change organization ownership?",
+            "change_owner_description": "Once you change the organization owner, the new owner will have full control over the organization, including billing and settings. Please confirm your action.",
+            "change_owner_button": "Change Owner",
+            "delete_title": "Delete organization",
+            "delete_description": "Delete your organization and all of its resources",
+            "delete_warning": "Please proceed with caution, this cannot be undone.",
+            "delete_button": "Delete organization",
+            "delete_confirm_title": "Are you sure you want to delete your organization?",
+            "delete_confirm_description": "Once your organization is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you would like to permanently delete your organization."
+        },
+        "user": {
+            "delete_title": "Delete account",
+            "delete_description": "Delete your account and all of its resources",
+            "delete_warning": "Please proceed with caution, this cannot be undone.",
+            "delete_button": "Delete account",
+            "delete_confirm_title": "Are you sure you want to delete your account?",
+            "delete_confirm_description": "Once your account is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you would like to permanently delete your account."
+        },
+        "roles": {
+            "user_role": "User's role",
+            "role": "Role",
+            "owner": "Owner",
+            "admin": "Admin",
+            "member": "Member"
+        },
+        "members": {
+            "remove_title": "Remove Member",
+            "remove_description": "Are you sure you want to remove <strong>:name<\/strong> from this organization? This action cannot be undone.",
+            "remove_button": "Remove Member"
         }
     },
     "validation": {

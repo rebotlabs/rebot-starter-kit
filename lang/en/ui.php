@@ -85,4 +85,77 @@ return [
         'download' => 'Download',
         'print' => 'Print',
     ],
+
+    // Password related
+    'password' => [
+        'reset' => 'Reset password',
+        'confirm' => 'Confirm password',
+        'confirm_placeholder' => 'Confirm password',
+    ],
+
+    // Verification
+    'verification' => [
+        'verify_email' => 'Verify Email',
+        'code_sent' => 'A new verification code has been sent to your email address.',
+        'enter_code' => 'Enter the 6-digit code sent to your email address',
+        'didnt_receive' => 'Didn\'t receive the code?',
+        'resend_code' => 'Resend verification code',
+    ],
+
+    // Organization specific
+    'organization' => [
+        'name' => 'Organization name',
+        'name_placeholder' => 'Organization name',
+        'slug' => 'Organization slug',
+        'slug_placeholder' => 'Organization slug',
+        'general_info' => 'General information',
+        'update_info' => 'Update your organization information',
+        'leave' => 'Leave organization',
+        'leave_description' => 'Leave this organization and remove your access to all its resources',
+        'leave_warning' => 'Please proceed with caution, this cannot be undone.',
+        'leave_confirm_title' => 'Are you sure you want to leave this organization?',
+        'leave_confirm_description' => 'Once you leave <strong>:name</strong>, you will lose access to all its resources and will need to be re-invited to rejoin. Please enter your password to confirm you would like to leave this organization.',
+        // Owner management
+        'owner_title' => 'Organization Owner',
+        'owner_description' => 'Manage owner of the organization',
+        'owner_info' => 'The organization owner is the person who has full control over the organization, including billing and settings.',
+        'select_owner' => 'Select new owner',
+        'search_user' => 'Search for a user...',
+        'change_owner_title' => 'Are you sure you want to change organization ownership?',
+        'change_owner_description' => 'Once you change the organization owner, the new owner will have full control over the organization, including billing and settings. Please confirm your action.',
+        'change_owner_button' => 'Change Owner',
+        // Delete organization
+        'delete_title' => 'Delete organization',
+        'delete_description' => 'Delete your organization and all of its resources',
+        'delete_warning' => 'Please proceed with caution, this cannot be undone.',
+        'delete_button' => 'Delete organization',
+        'delete_confirm_title' => 'Are you sure you want to delete your organization?',
+        'delete_confirm_description' => 'Once your organization is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you would like to permanently delete your organization.',
+    ],
+
+    // User account management
+    'user' => [
+        'delete_title' => 'Delete account',
+        'delete_description' => 'Delete your account and all of its resources',
+        'delete_warning' => 'Please proceed with caution, this cannot be undone.',
+        'delete_button' => 'Delete account',
+        'delete_confirm_title' => 'Are you sure you want to delete your account?',
+        'delete_confirm_description' => 'Once your account is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.',
+    ],
+
+    // User roles and permissions
+    'roles' => [
+        'user_role' => 'User\'s role',
+        'role' => 'Role',
+        'owner' => 'Owner',
+        'admin' => 'Admin',
+        'member' => 'Member',
+    ],
+
+    // Members management
+    'members' => [
+        'remove_title' => 'Remove Member',
+        'remove_description' => 'Are you sure you want to remove <strong>:name</strong> from this organization? This action cannot be undone.',
+        'remove_button' => 'Remove Member',
+    ],
 ];

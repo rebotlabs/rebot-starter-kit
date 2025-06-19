@@ -2,6 +2,7 @@ import { Head } from "@inertiajs/react"
 
 import { LoginForm } from "@/components/auth/login-form"
 import AuthLayout from "@/layouts/auth-layout"
+import { useTranslations } from "@/utils/translations"
 
 interface LoginProps {
   status?: string
@@ -9,9 +10,11 @@ interface LoginProps {
 }
 
 export default function Login({ status, canResetPassword }: LoginProps) {
+  const { __ } = useTranslations()
+
   return (
-    <AuthLayout title="Log in to your account" description="Enter your email and password below to log in">
-      <Head title="Log in" />
+    <AuthLayout title={__("auth.login.welcome_back")} description={__("auth.login.description")}>
+      <Head title={__("auth.login.title")} />
       <LoginForm status={status} canResetPassword={canResetPassword} />
     </AuthLayout>
   )

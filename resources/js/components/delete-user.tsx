@@ -8,8 +8,10 @@ import { Label } from "@/components/ui/label"
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { useTranslations } from "@/utils/translations"
 
 export default function DeleteUser() {
+  const { __ } = useTranslations()
   const passwordInput = useRef<HTMLInputElement>(null)
   const {
     data,
@@ -44,32 +46,31 @@ export default function DeleteUser() {
   return (
     <Card variant="destructive">
       <CardHeader>
-        <CardTitle>Delete account</CardTitle>
-        <CardDescription>Delete your account and all of its resources</CardDescription>
+        <CardTitle>{__("ui.user.delete_title")}</CardTitle>
+        <CardDescription>{__("ui.user.delete_description")}</CardDescription>
       </CardHeader>
 
       <CardContent>
         <div className="relative space-y-0.5">
-          <p className="font-medium">Warning</p>
-          <p className="text-sm">Please proceed with caution, this cannot be undone.</p>
+          <p className="font-medium">{__("ui.actions.warning")}</p>
+          <p className="text-sm">{__("ui.user.delete_warning")}</p>
         </div>
       </CardContent>
 
       <CardFooter className="justify-end">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="destructive">Delete account</Button>
+            <Button variant="destructive">{__("ui.user.delete_button")}</Button>
           </DialogTrigger>
           <DialogContent>
-            <DialogTitle>Are you sure you want to delete your account?</DialogTitle>
+            <DialogTitle>{__("ui.user.delete_confirm_title")}</DialogTitle>
             <DialogDescription>
-              Once your account is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you
-              would like to permanently delete your account.
+              {__("ui.user.delete_confirm_description")}
             </DialogDescription>
             <form className="space-y-6" onSubmit={deleteUser}>
               <div className="grid gap-2">
                 <Label htmlFor="password" className="sr-only">
-                  Password
+                  {__("auth.labels.password")}
                 </Label>
 
                 <Input
@@ -79,7 +80,7 @@ export default function DeleteUser() {
                   ref={passwordInput}
                   value={data.password}
                   onChange={(e) => setData("password", e.target.value)}
-                  placeholder="Password"
+                  placeholder={__("ui.password.password_placeholder")}
                   autoComplete="current-password"
                 />
 
@@ -89,12 +90,12 @@ export default function DeleteUser() {
               <DialogFooter className="gap-2">
                 <DialogClose asChild>
                   <Button variant="link" onClick={closeModal}>
-                    Cancel
+                    {__("ui.actions.cancel")}
                   </Button>
                 </DialogClose>
 
                 <Button variant="destructive" type="submit" disabled={processing}>
-                  Delete account
+                  {__("ui.user.delete_button")}
                 </Button>
               </DialogFooter>
             </form>

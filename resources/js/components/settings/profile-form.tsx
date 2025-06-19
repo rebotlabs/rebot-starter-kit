@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useTranslations } from "@/utils/translations"
 
 type ProfileForm = {
   name: string
@@ -20,6 +21,7 @@ interface ProfileFormProps {
 }
 
 export function ProfileForm({ mustVerifyEmail, status }: ProfileFormProps) {
+  const { __ } = useTranslations()
   const { auth } = usePage<SharedData>().props
 
   const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<Required<ProfileForm>>({
@@ -39,13 +41,13 @@ export function ProfileForm({ mustVerifyEmail, status }: ProfileFormProps) {
     <form onSubmit={submit}>
       <Card>
         <CardHeader>
-          <CardTitle>Profile information</CardTitle>
-          <CardDescription>Update your name and email address</CardDescription>
+          <CardTitle>{__("settings.profile.title")}</CardTitle>
+          <CardDescription>{__("settings.profile.description")}</CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-6">
           <div className="grid gap-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name">{__("settings.profile.name_label")}</Label>
 
             <Input
               id="name"
@@ -54,14 +56,14 @@ export function ProfileForm({ mustVerifyEmail, status }: ProfileFormProps) {
               onChange={(e) => setData("name", e.target.value)}
               required
               autoComplete="name"
-              placeholder="Full name"
+              placeholder={__("settings.profile.name_placeholder")}
             />
 
             <InputError className="mt-2" message={errors.name} />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="email">Email address</Label>
+            <Label htmlFor="email">{__("settings.profile.email_label")}</Label>
 
             <Input
               id="email"
@@ -71,7 +73,7 @@ export function ProfileForm({ mustVerifyEmail, status }: ProfileFormProps) {
               onChange={(e) => setData("email", e.target.value)}
               required
               autoComplete="username"
-              placeholder="Email address"
+              placeholder={__("settings.profile.email_placeholder")}
             />
 
             <InputError className="mt-2" message={errors.email} />
@@ -80,19 +82,19 @@ export function ProfileForm({ mustVerifyEmail, status }: ProfileFormProps) {
           {mustVerifyEmail && auth.user.email_verified_at === null && (
             <div>
               <p className="text-muted-foreground -mt-4 text-sm">
-                Your email address is unverified.{" "}
+                {__("settings.profile.email_unverified")}{" "}
                 <Link
                   href={route("verification.send")}
                   method="post"
                   as="button"
                   className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                 >
-                  Click here to resend the verification email.
+                  {__("auth.buttons.verify_email")}
                 </Link>
               </p>
 
               {status === "verification-link-sent" && (
-                <div className="mt-2 text-sm font-medium text-green-600">A new verification link has been sent to your email address.</div>
+                <div className="mt-2 text-sm font-medium text-green-600">{__("settings.profile.email_verification_sent")}</div>
               )}
             </div>
           )}
@@ -105,10 +107,10 @@ export function ProfileForm({ mustVerifyEmail, status }: ProfileFormProps) {
             leave="transition ease-in-out"
             leaveTo="opacity-0"
           >
-            <p className="text-muted-foreground text-sm">Saved</p>
+            <p className="text-muted-foreground text-sm">{__("ui.buttons.save")}</p>
           </Transition>
 
-          <Button disabled={processing}>Save</Button>
+          <Button disabled={processing}>{__("settings.profile.save_changes")}</Button>
         </CardFooter>
       </Card>
     </form>

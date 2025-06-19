@@ -5,6 +5,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import type { Organization } from "@/types"
+import { useTranslations } from "@/utils/translations"
 import { useForm } from "@inertiajs/react"
 import { type FormEventHandler, useRef } from "react"
 
@@ -13,6 +14,7 @@ interface LeaveOrganizationCardProps {
 }
 
 export function LeaveOrganizationCard({ organization }: LeaveOrganizationCardProps) {
+  const { __ } = useTranslations()
   const passwordInput = useRef<HTMLInputElement>(null)
 
   const { data, setData, processing, reset, errors, clearErrors, post } = useForm<{
@@ -39,32 +41,29 @@ export function LeaveOrganizationCard({ organization }: LeaveOrganizationCardPro
   return (
     <Card variant="destructive">
       <CardHeader>
-        <CardTitle>Leave organization</CardTitle>
-        <CardDescription>Leave this organization and remove your access to all its resources</CardDescription>
+        <CardTitle>{__("organizations.leave.card_title")}</CardTitle>
+        <CardDescription>{__("organizations.leave.card_description")}</CardDescription>
       </CardHeader>
 
       <CardContent>
         <div className="relative space-y-0.5">
-          <p className="font-medium">Warning</p>
-          <p className="text-sm">Please proceed with caution, this cannot be undone.</p>
+          <p className="font-medium">{__("ui.actions.warning")}</p>
+          <p className="text-sm">{__("organizations.leave.card_warning")}</p>
         </div>
       </CardContent>
 
       <CardFooter className="justify-end">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="destructive">Leave organization</Button>
+            <Button variant="destructive">{__("organizations.leave.button")}</Button>
           </DialogTrigger>
           <DialogContent>
-            <DialogTitle>Are you sure you want to leave this organization?</DialogTitle>
-            <DialogDescription>
-              Once you leave <strong>{organization.name}</strong>, you will lose access to all its resources and will need to be re-invited to rejoin.
-              Please enter your password to confirm you would like to leave this organization.
-            </DialogDescription>
+            <DialogTitle>{__("organizations.leave.confirm_dialog_title")}</DialogTitle>
+            <DialogDescription dangerouslySetInnerHTML={{ __html: __("organizations.leave.confirm_dialog_description", { name: organization.name }) }} />
             <form className="space-y-6" onSubmit={leaveOrganization}>
               <div className="grid gap-2">
                 <Label htmlFor="password" className="sr-only">
-                  Password
+                  {__("organizations.leave.password_label")}
                 </Label>
 
                 <Input
@@ -74,7 +73,7 @@ export function LeaveOrganizationCard({ organization }: LeaveOrganizationCardPro
                   ref={passwordInput}
                   value={data.password}
                   onChange={(e) => setData("password", e.target.value)}
-                  placeholder="Password"
+                  placeholder={__("organizations.leave.password_placeholder")}
                   autoComplete="current-password"
                 />
 
@@ -84,12 +83,12 @@ export function LeaveOrganizationCard({ organization }: LeaveOrganizationCardPro
               <DialogFooter className="gap-2">
                 <DialogClose asChild>
                   <Button variant="link" onClick={closeModal}>
-                    Cancel
+                    {__("ui.actions.cancel")}
                   </Button>
                 </DialogClose>
 
                 <Button variant="destructive" type="submit" disabled={processing}>
-                  Leave organization
+                  {__("organizations.leave.button")}
                 </Button>
               </DialogFooter>
             </form>

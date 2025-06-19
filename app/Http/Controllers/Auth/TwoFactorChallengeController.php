@@ -46,7 +46,7 @@ class TwoFactorChallengeController extends Controller
 
         if (! $userId) {
             throw ValidationException::withMessages([
-                'code' => 'Your session has expired. Please log in again.',
+                'code' => __('auth.two_factor.session_expired'),
             ]);
         }
 
@@ -56,7 +56,7 @@ class TwoFactorChallengeController extends Controller
             session()->forget(['2fa_user_id', '2fa_remember']);
 
             throw ValidationException::withMessages([
-                'code' => 'Invalid authentication session.',
+                'code' => __('auth.two_factor.invalid_session'),
             ]);
         }
 
@@ -64,7 +64,7 @@ class TwoFactorChallengeController extends Controller
 
         if (! $this->twoFactorService->verifyCode($secret, $request->string('code')->toString())) {
             throw ValidationException::withMessages([
-                'code' => 'The provided two-factor authentication code was invalid.',
+                'code' => __('auth.two_factor.invalid_code'),
             ]);
         }
 

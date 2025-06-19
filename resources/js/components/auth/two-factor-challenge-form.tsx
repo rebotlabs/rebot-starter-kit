@@ -7,12 +7,14 @@ import TextLink from "@/components/text-link"
 import { Button } from "@/components/ui/button"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
 import { Label } from "@/components/ui/label"
+import { useTranslations } from "@/utils/translations"
 
 type TwoFactorChallengeForm = {
   code: string
 }
 
 export function TwoFactorChallengeForm() {
+  const { __ } = useTranslations()
   const { data, setData, post, processing, errors } = useForm<Required<TwoFactorChallengeForm>>({
     code: "",
   })
@@ -35,8 +37,8 @@ export function TwoFactorChallengeForm() {
         <div className="grid gap-6">
           <div className="grid gap-4 text-center">
             <div className="grid gap-2">
-              <Label htmlFor="code">Authentication Code</Label>
-              <p className="text-muted-foreground text-sm">Please enter the 6-digit code from your authenticator app.</p>
+              <Label htmlFor="code">{__("auth.two_factor.authentication_code")}</Label>
+              <p className="text-muted-foreground text-sm">{__("auth.two_factor.description")}</p>
             </div>
 
             <div className="flex justify-center">
@@ -63,12 +65,12 @@ export function TwoFactorChallengeForm() {
 
           <Button type="submit" className="w-full" disabled={processing || data.code.length < 6}>
             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-            Verify Code
+            {__("auth.two_factor.verify_code")}
           </Button>
         </div>
 
         <div className="text-muted-foreground text-center text-sm">
-          <TextLink href={route("login")}>← Back to login</TextLink>
+          <TextLink href={route("login")}>{__("auth.buttons.back_to_login")}</TextLink>
         </div>
       </form>
     </>

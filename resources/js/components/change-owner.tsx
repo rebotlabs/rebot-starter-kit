@@ -8,11 +8,13 @@ import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 import type { Member, Organization, SharedData } from "@/types"
+import { useTranslations } from "@/utils/translations"
 import { useForm, usePage } from "@inertiajs/react"
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react"
 import { type FormEventHandler, useRef, useState } from "react"
 
 export const ChangeOwner = () => {
+  const { __ } = useTranslations()
   const { members, organization } = usePage<SharedData & { organization: Organization; members: Member[] }>().props
   const [open, setOpen] = useState<boolean>(false)
   const [changingOwner, setChangingOwner] = useState<boolean>(false)
@@ -48,24 +50,24 @@ export const ChangeOwner = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Organization Owner</CardTitle>
-        <CardDescription>Manage owner of the organization</CardDescription>
+        <CardTitle>{__("ui.organization.owner_title")}</CardTitle>
+        <CardDescription>{__("ui.organization.owner_description")}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
           <p className="text-muted-foreground text-sm">
-            The organization owner is the person who has full control over the organization, including billing and settings.
+            {__("ui.organization.owner_info")}
           </p>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button variant="outline" role="combobox" aria-expanded={open} className="w-[300px] justify-between">
-                {members.find((member) => member.user.id === organization.owner_id)?.user?.name ?? "Select new owner"}
+                {members.find((member) => member.user.id === organization.owner_id)?.user?.name ?? __("ui.organization.select_owner")}
                 <ChevronsUpDownIcon />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[300px] p-0">
               <Command>
-                <CommandInput placeholder="Search for a user..." className="h-9" />
+                <CommandInput placeholder={__("ui.organization.search_user")} className="h-9" />
                 <CommandList>
                   <CommandEmpty>No user found.</CommandEmpty>
                   <CommandGroup>
@@ -90,15 +92,14 @@ export const ChangeOwner = () => {
         </div>
         <Dialog open={changingOwner} onOpenChange={setChangingOwner}>
           <DialogContent>
-            <DialogTitle>Are you sure you want to change organization ownership?</DialogTitle>
+            <DialogTitle>{__("ui.organization.change_owner_title")}</DialogTitle>
             <DialogDescription>
-              Once you change the organization owner, the new owner will have full control over the organization, including billing and settings.
-              Please confirm your action.
+              {__("ui.organization.change_owner_description")}
             </DialogDescription>
             <form className="space-y-6" onSubmit={changeOwner}>
               <div className="grid gap-2">
                 <Label htmlFor="password" className="sr-only">
-                  Password
+                  {__("auth.labels.password")}
                 </Label>
 
                 <Input
@@ -108,7 +109,7 @@ export const ChangeOwner = () => {
                   ref={passwordInput}
                   value={data.password}
                   onChange={(e) => setData("password", e.target.value)}
-                  placeholder="Password"
+                  placeholder={__("ui.password.password_placeholder")}
                   autoComplete="current-password"
                 />
 
@@ -118,12 +119,12 @@ export const ChangeOwner = () => {
               <DialogFooter className="gap-2">
                 <DialogClose asChild>
                   <Button variant="link" onClick={closeModal}>
-                    Cancel
+                    {__("ui.actions.cancel")}
                   </Button>
                 </DialogClose>
 
                 <Button disabled={processing} type="submit">
-                  Change Owner
+                  {__("ui.organization.change_owner_button")}
                 </Button>
               </DialogFooter>
             </form>

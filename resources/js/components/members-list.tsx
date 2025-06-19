@@ -6,11 +6,13 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useInitials } from "@/hooks/use-initials"
 import type { Member, SharedData } from "@/types"
+import { useTranslations } from "@/utils/translations"
 import { router, usePage } from "@inertiajs/react"
 import { LogOutIcon, MoreVerticalIcon, UserMinusIcon } from "lucide-react"
 import { useState } from "react"
 
 export const MembersList = () => {
+  const { __ } = useTranslations()
   const { members, auth, currentOrganization } = usePage<SharedData & { members: Member[] }>().props
   const getInitials = useInitials()
   const [memberToRemove, setMemberToRemove] = useState<Member | null>(null)
@@ -63,7 +65,7 @@ export const MembersList = () => {
               <div className="col-span-3">
                 {member.role === "owner" ? (
                   <div className="border-input bg-background ring-offset-background flex h-10 w-[100px] items-center justify-center rounded-md border px-3 py-2 text-sm">
-                    Owner
+                    {__("ui.roles.owner")}
                   </div>
                 ) : (
                   <Select
@@ -71,14 +73,14 @@ export const MembersList = () => {
                     disabled={member.user.id === auth.user.id || member.user.id === currentOrganization.owner_id || isRoleUpdating === member.id}
                     onValueChange={(value) => handleRoleChange(member, value)}
                   >
-                    <SelectTrigger className="w-[100px]" aria-label="User's role">
+                    <SelectTrigger className="w-[100px]" aria-label={__("organizations.members.role_label")}>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent align="end">
                       <SelectGroup>
-                        <SelectLabel>Role</SelectLabel>
-                        <SelectItem value="admin">Admin</SelectItem>
-                        <SelectItem value="member">Member</SelectItem>
+                        <SelectLabel>{__("ui.roles.role")}</SelectLabel>
+                        <SelectItem value="admin">{__("ui.roles.admin")}</SelectItem>
+                        <SelectItem value="member">{__("ui.roles.member")}</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -99,7 +101,7 @@ export const MembersList = () => {
                         onClick={() => (window.location.href = route("organization.settings.leave", [currentOrganization]))}
                       >
                         <LogOutIcon />
-                        Leave organization
+                        {__("organizations.members.leave_action")}
                       </DropdownMenuItem>
                     ) : (
                       <DropdownMenuItem
@@ -108,7 +110,7 @@ export const MembersList = () => {
                         onClick={() => setMemberToRemove(member)}
                       >
                         <UserMinusIcon />
-                        Remove
+                        {__("ui.actions.remove")}
                       </DropdownMenuItem>
                     )}
                   </DropdownMenuContent>
@@ -122,17 +124,17 @@ export const MembersList = () => {
       <Dialog open={!!memberToRemove} onOpenChange={() => setMemberToRemove(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Remove Member</DialogTitle>
+            <DialogTitle>{__("ui.members.remove_title")}</DialogTitle>
             <DialogDescription>
-              Are you sure you want to remove <strong>{memberToRemove?.user.name}</strong> from this organization? This action cannot be undone.
+              {memberToRemove && __("ui.members.remove_description", { name: memberToRemove.user.name })}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setMemberToRemove(null)}>
-              Cancel
+              {__("ui.actions.cancel")}
             </Button>
             <Button variant="destructive" onClick={handleRemoveMember}>
-              Remove Member
+              {__("ui.members.remove_button")}
             </Button>
           </DialogFooter>
         </DialogContent>
