@@ -55,9 +55,7 @@ export const ChangeOwner = () => {
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
-          <p className="text-muted-foreground text-sm">
-            {__("ui.organization.owner_info")}
-          </p>
+          <p className="text-muted-foreground text-sm">{__("ui.organization.owner_info")}</p>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button variant="outline" role="combobox" aria-expanded={open} className="w-[300px] justify-between">
@@ -93,9 +91,7 @@ export const ChangeOwner = () => {
         <Dialog open={changingOwner} onOpenChange={setChangingOwner}>
           <DialogContent>
             <DialogTitle>{__("ui.organization.change_owner_title")}</DialogTitle>
-            <DialogDescription>
-              {__("ui.organization.change_owner_description")}
-            </DialogDescription>
+            <DialogDescription>{__("ui.organization.change_owner_description")}</DialogDescription>
             <form className="space-y-6" onSubmit={changeOwner}>
               <div className="grid gap-2">
                 <Label htmlFor="password" className="sr-only">

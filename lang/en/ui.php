@@ -131,6 +131,11 @@ return [
         'delete_button' => 'Delete organization',
         'delete_confirm_title' => 'Are you sure you want to delete your organization?',
         'delete_confirm_description' => 'Once your organization is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you would like to permanently delete your organization.',
+        // Success messages for organization deletion
+        'delete_success' => 'Organization deleted successfully.',
+        'delete_success_no_orgs' => 'Organization deleted successfully. You can now create a new organization or join an existing one.',
+        'delete_success_switched' => 'Organization deleted successfully. You have been switched to your remaining organization.',
+        'delete_success_select' => 'Organization deleted successfully. Please select an organization to continue.',
     ],
 
     // User account management

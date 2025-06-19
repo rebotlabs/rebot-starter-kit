@@ -125,9 +125,7 @@ export const MembersList = () => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{__("ui.members.remove_title")}</DialogTitle>
-            <DialogDescription>
-              {memberToRemove && __("ui.members.remove_description", { name: memberToRemove.user.name })}
-            </DialogDescription>
+            <DialogDescription>{memberToRemove && __("ui.members.remove_description", { name: memberToRemove.user.name })}</DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setMemberToRemove(null)}>

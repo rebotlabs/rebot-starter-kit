@@ -47,7 +47,7 @@ return [
         'update_info' => 'Update your organization information',
         'name_label' => 'Organization name',
         'name_placeholder' => 'Organization name',
-        'slug_label' => 'Organization slug', 
+        'slug_label' => 'Organization slug',
         'slug_placeholder' => 'Organization slug',
     ],
 

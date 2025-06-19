@@ -272,6 +272,11 @@ describe('DeleteOrganizationController', function () {
     beforeEach(function () {
         $this->user = User::factory()->create();
         $this->organization = Organization::factory()->create(['owner_id' => $this->user->id]);
+        // Create member record for the user in their own organization
+        Member::factory()->create([
+            'user_id' => $this->user->id,
+            'organization_id' => $this->organization->id,
+        ]);
         $this->user->update(['current_organization_id' => $this->organization->id]);
     });
 
@@ -280,7 +285,7 @@ describe('DeleteOrganizationController', function () {
 
         $this->actingAs($this->user)
             ->delete(route('organization.delete', $this->organization))
-            ->assertRedirect(route('dashboard'));
+            ->assertRedirect(route('onboarding.organization'));
 
         $this->assertDatabaseMissing('organizations', ['id' => $organizationId]);
     });
@@ -298,9 +303,83 @@ describe('DeleteOrganizationController', function () {
 
         $this->actingAs($admin)
             ->delete(route('organization.delete', $this->organization))
-            ->assertRedirect(route('dashboard'));
+            ->assertRedirect(route('onboarding.organization'));
 
         $this->assertDatabaseMissing('organizations', ['id' => $organizationId]);
+    });
+
+    it('redirects to current organization when deleting non-current organization', function () {
+        // Create a second organization for the user
+        $secondOrg = Organization::factory()->create(['owner_id' => $this->user->id]);
+        // Create member record for the user in the second organization
+        Member::factory()->create([
+            'user_id' => $this->user->id,
+            'organization_id' => $secondOrg->id,
+        ]);
+
+        // Set the second organization as current
+        $this->user->update(['current_organization_id' => $secondOrg->id]);
+
+        $organizationId = $this->organization->id;
+
+        $this->actingAs($this->user)
+            ->delete(route('organization.delete', $this->organization))
+            ->assertRedirect(route('organization.overview', $secondOrg));
+
+        $this->assertDatabaseMissing('organizations', ['id' => $organizationId]);
+
+        // Verify the user's current organization didn't change
+        $this->user->refresh();
+        expect($this->user->current_organization_id)->toBe($secondOrg->id);
+    });
+
+    it('switches to another organization when deleting current organization with multiple orgs', function () {
+        // Create a second organization for the user
+        $secondOrg = Organization::factory()->create(['owner_id' => $this->user->id]);
+        // Create member record for the user in the second organization
+        Member::factory()->create([
+            'user_id' => $this->user->id,
+            'organization_id' => $secondOrg->id,
+        ]);
+
+        // Keep the first organization as current
+        $organizationId = $this->organization->id;
+
+        $this->actingAs($this->user)
+            ->delete(route('organization.delete', $this->organization))
+            ->assertRedirect(route('organization.overview', $secondOrg));
+
+        $this->assertDatabaseMissing('organizations', ['id' => $organizationId]);
+
+        // Verify the user's current organization switched to the remaining one
+        $this->user->refresh();
+        expect($this->user->current_organization_id)->toBe($secondOrg->id);
+    });
+
+    it('redirects to organization selection when user has multiple organizations after deletion', function () {
+        // Create multiple organizations for the user
+        $secondOrg = Organization::factory()->create(['owner_id' => $this->user->id]);
+        Member::factory()->create([
+            'user_id' => $this->user->id,
+            'organization_id' => $secondOrg->id,
+        ]);
+        $thirdOrg = Organization::factory()->create(['owner_id' => $this->user->id]);
+        Member::factory()->create([
+            'user_id' => $this->user->id,
+            'organization_id' => $thirdOrg->id,
+        ]);
+
+        $organizationId = $this->organization->id;
+
+        $this->actingAs($this->user)
+            ->delete(route('organization.delete', $this->organization))
+            ->assertRedirect(route('organization.select'));
+
+        $this->assertDatabaseMissing('organizations', ['id' => $organizationId]);
+
+        // Verify the user's current organization switched to one of the remaining ones
+        $this->user->refresh();
+        expect($this->user->current_organization_id)->toBeIn([$secondOrg->id, $thirdOrg->id]);
     });
 
     it('denies access to regular members', function () {

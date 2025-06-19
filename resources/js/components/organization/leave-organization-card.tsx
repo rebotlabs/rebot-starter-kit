@@ -59,7 +59,9 @@ export function LeaveOrganizationCard({ organization }: LeaveOrganizationCardPro
           </DialogTrigger>
           <DialogContent>
             <DialogTitle>{__("organizations.leave.confirm_dialog_title")}</DialogTitle>
-            <DialogDescription dangerouslySetInnerHTML={{ __html: __("organizations.leave.confirm_dialog_description", { name: organization.name }) }} />
+            <DialogDescription
+              dangerouslySetInnerHTML={{ __html: __("organizations.leave.confirm_dialog_description", { name: organization.name }) }}
+            />
             <form className="space-y-6" onSubmit={leaveOrganization}>
               <div className="grid gap-2">
                 <Label htmlFor="password" className="sr-only">

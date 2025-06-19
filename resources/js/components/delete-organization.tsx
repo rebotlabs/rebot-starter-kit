@@ -63,9 +63,7 @@ export const DeleteOrganization = () => {
           </DialogTrigger>
           <DialogContent>
             <DialogTitle>{__("ui.organization.delete_confirm_title")}</DialogTitle>
-            <DialogDescription>
-              {__("ui.organization.delete_confirm_description")}
-            </DialogDescription>
+            <DialogDescription>{__("ui.organization.delete_confirm_description")}</DialogDescription>
             <form className="space-y-6" onSubmit={deleteOrganization}>
               <div className="grid gap-2">
                 <Label htmlFor="password" className="sr-only">
