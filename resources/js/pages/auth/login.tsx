@@ -1,8 +1,8 @@
 import { Head } from "@inertiajs/react"
 
 import { LoginForm } from "@/components/auth/login-form"
+import { useLang } from "@/hooks/useLang"
 import AuthLayout from "@/layouts/auth-layout"
-import { useTranslations } from "@/utils/translations"
 
 interface LoginProps {
   status?: string
@@ -10,7 +10,7 @@ interface LoginProps {
 }
 
 export default function Login({ status, canResetPassword }: LoginProps) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
 
   return (
     <AuthLayout title={__("auth.login.welcome_back")} description={__("auth.login.description")}>

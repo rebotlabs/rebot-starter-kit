@@ -7,14 +7,14 @@ import TextLink from "@/components/text-link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useTranslations } from "@/utils/translations"
+import { useLang } from "@/hooks/useLang"
 
 interface ForgotPasswordFormProps {
   status?: string
 }
 
 export function ForgotPasswordForm({ status }: ForgotPasswordFormProps) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const { data, setData, post, processing, errors } = useForm<Required<{ email: string }>>({
     email: "",
   })

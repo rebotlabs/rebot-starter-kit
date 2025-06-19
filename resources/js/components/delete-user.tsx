@@ -8,10 +8,10 @@ import { Label } from "@/components/ui/label"
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { useTranslations } from "@/utils/translations"
+import { useLang } from "@/hooks/useLang"
 
 export default function DeleteUser() {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const passwordInput = useRef<HTMLInputElement>(null)
   const {
     data,

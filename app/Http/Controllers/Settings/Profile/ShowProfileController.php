@@ -14,9 +14,11 @@ class ShowProfileController extends Controller
 {
     public function __invoke(Request $request): Response
     {
+        syncLangFiles(['ui', 'settings']);
+
         return Inertia::render('settings/profile', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => $request->session()->get('status'),
+            'status' => session('status'),
         ]);
     }
 }

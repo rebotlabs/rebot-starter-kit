@@ -3,8 +3,8 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useLang } from "@/hooks/useLang"
 import type { Invitation } from "@/types"
-import { useTranslations } from "@/utils/translations"
 import { useForm } from "@inertiajs/react"
 import { LockIcon } from "lucide-react"
 import { type FormEventHandler } from "react"
@@ -25,7 +25,7 @@ interface InvitationLoginFormProps {
 }
 
 export function InvitationLoginForm({ invitation, onCancel }: InvitationLoginFormProps) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
 
   const {
     data: loginData,

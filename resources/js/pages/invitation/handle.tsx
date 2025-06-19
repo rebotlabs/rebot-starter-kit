@@ -1,6 +1,6 @@
 import { InvitationCard } from "@/components/invitation/invitation-card"
+import { useLang } from "@/hooks/useLang"
 import type { Invitation } from "@/types"
-import { useTranslations } from "@/utils/translations"
 import { Head } from "@inertiajs/react"
 
 interface InvitationHandleProps {
@@ -16,7 +16,7 @@ interface InvitationHandleProps {
 }
 
 export default function InvitationHandle({ invitation, existingUser, isAuthenticated, currentUserEmail }: InvitationHandleProps) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
 
   return (
     <>

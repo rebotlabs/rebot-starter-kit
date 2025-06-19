@@ -3,13 +3,13 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useTranslations } from "@/utils/translations"
+import { useLang } from "@/hooks/useLang"
 import { Transition } from "@headlessui/react"
 import { useForm } from "@inertiajs/react"
 import { FormEventHandler, useRef } from "react"
 
 export default function PasswordManagement() {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const passwordInput = useRef<HTMLInputElement>(null)
   const currentPasswordInput = useRef<HTMLInputElement>(null)
 

@@ -7,7 +7,7 @@ import TextLink from "@/components/text-link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useTranslations } from "@/utils/translations"
+import { useLang } from "@/hooks/useLang"
 
 type RegisterForm = {
   name: string
@@ -17,7 +17,7 @@ type RegisterForm = {
 }
 
 export function RegisterForm() {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
     name: "",
     email: "",

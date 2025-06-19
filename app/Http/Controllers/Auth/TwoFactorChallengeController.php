@@ -29,6 +29,8 @@ class TwoFactorChallengeController extends Controller
             return redirect()->route('login');
         }
 
+        syncLangFiles(['auth', 'ui']);
+
         return Inertia::render('auth/two-factor-challenge');
     }
 

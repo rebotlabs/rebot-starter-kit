@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { useLang } from "@/hooks/useLang"
 import type { Invitation } from "@/types"
-import { useTranslations } from "@/utils/translations"
 import { useForm } from "@inertiajs/react"
 import { MailIcon } from "lucide-react"
 import { useState } from "react"
@@ -24,7 +24,7 @@ interface InvitationCardProps {
 
 export function InvitationCard({ invitation, existingUser, isAuthenticated, currentUserEmail }: InvitationCardProps) {
   const [mode, setMode] = useState<"view" | "register" | "login">("view")
-  const { __ } = useTranslations()
+  const { __ } = useLang()
 
   const { post: postAccept, processing: acceptProcessing } = useForm()
   const { post: postReject, processing: rejectProcessing } = useForm()

@@ -3,9 +3,9 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from "@/co
 import { Button, buttonVariants } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useInitials } from "@/hooks/use-initials"
+import { useLang } from "@/hooks/useLang"
 import { cn } from "@/lib/utils"
 import { type SharedData } from "@/types"
-import { useTranslations } from "@/utils/translations"
 import { Link, router, usePage } from "@inertiajs/react"
 import { CheckIcon, ChevronsUpDownIcon, Plus } from "lucide-react"
 import { useState } from "react"
@@ -13,7 +13,7 @@ import { useState } from "react"
 import { CreateOrganizationModal } from "./organization/create-organization-modal"
 
 export function Breadcrumbs() {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const getInitials = useInitials()
   const { currentOrganization, organizations } = usePage<SharedData>().props
   const [createModalOpen, setCreateModalOpen] = useState(false)

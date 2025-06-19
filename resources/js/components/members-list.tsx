@@ -5,14 +5,14 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useInitials } from "@/hooks/use-initials"
+import { useLang } from "@/hooks/useLang"
 import type { Member, SharedData } from "@/types"
-import { useTranslations } from "@/utils/translations"
 import { router, usePage } from "@inertiajs/react"
 import { LogOutIcon, MoreVerticalIcon, UserMinusIcon } from "lucide-react"
 import { useState } from "react"
 
 export const MembersList = () => {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const { members, auth, currentOrganization } = usePage<SharedData & { members: Member[] }>().props
   const getInitials = useInitials()
   const [memberToRemove, setMemberToRemove] = useState<Member | null>(null)

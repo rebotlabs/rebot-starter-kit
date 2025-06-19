@@ -3,7 +3,7 @@ import TextLink from "@/components/text-link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useTranslations } from "@/utils/translations"
+import { useLang } from "@/hooks/useLang"
 import { useForm } from "@inertiajs/react"
 import { LoaderCircle } from "lucide-react"
 import slugify from "slugify"
@@ -14,7 +14,7 @@ type FormData = {
 }
 
 export function CreateOrganizationForm() {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const { data, setData, errors, post, processing } = useForm<FormData>({
     name: "",
     slug: "",

@@ -7,14 +7,14 @@ import TextLink from "@/components/text-link"
 import { Button } from "@/components/ui/button"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
 import { Label } from "@/components/ui/label"
-import { useTranslations } from "@/utils/translations"
+import { useLang } from "@/hooks/useLang"
 
 type TwoFactorChallengeForm = {
   code: string
 }
 
 export function TwoFactorChallengeForm() {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const { data, setData, post, processing, errors } = useForm<Required<TwoFactorChallengeForm>>({
     code: "",
   })

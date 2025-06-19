@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Input } from "@/components/ui/input"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
 import { Label } from "@/components/ui/label"
-import { useTranslations } from "@/utils/translations"
+import { useLang } from "@/hooks/useLang"
 import { Check, Copy, Download, Printer, Shield, ShieldCheck } from "lucide-react"
 import { useState } from "react"
 
@@ -25,7 +25,7 @@ interface ConfirmResponse {
 }
 
 export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCodes }: Props) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
 
   // Two-Factor Authentication state
   const [showSetupModal, setShowSetupModal] = useState(false)

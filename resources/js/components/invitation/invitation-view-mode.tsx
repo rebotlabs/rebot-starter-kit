@@ -1,7 +1,7 @@
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
+import { useLang } from "@/hooks/useLang"
 import type { Invitation } from "@/types"
-import { useTranslations } from "@/utils/translations"
 import { CheckCircleIcon, LockIcon, UserIcon, XCircleIcon } from "lucide-react"
 
 interface InvitationViewModeProps {
@@ -32,7 +32,7 @@ export function InvitationViewMode({
   acceptProcessing,
   rejectProcessing,
 }: InvitationViewModeProps) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
 
   const canDirectlyAccept = !existingUser || (isAuthenticated && currentUserEmail === invitation.email)
 

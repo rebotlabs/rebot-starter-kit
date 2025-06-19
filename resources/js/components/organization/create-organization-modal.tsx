@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useTranslations } from "@/utils/translations"
+import { useLang } from "@/hooks/useLang"
 import { useForm } from "@inertiajs/react"
 import { LoaderCircle } from "lucide-react"
 import { useEffect } from "react"
@@ -20,7 +20,7 @@ interface CreateOrganizationModalProps {
 }
 
 export function CreateOrganizationModal({ open, onOpenChange }: CreateOrganizationModalProps) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const { data, setData, errors, post, processing, reset } = useForm<FormData>({
     name: "",
     slug: "",

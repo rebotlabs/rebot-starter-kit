@@ -6,15 +6,15 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { useLang } from "@/hooks/useLang"
 import { cn } from "@/lib/utils"
 import type { Member, Organization, SharedData } from "@/types"
-import { useTranslations } from "@/utils/translations"
 import { useForm, usePage } from "@inertiajs/react"
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react"
 import { type FormEventHandler, useRef, useState } from "react"
 
 export const ChangeOwner = () => {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const { members, organization } = usePage<SharedData & { organization: Organization; members: Member[] }>().props
   const [open, setOpen] = useState<boolean>(false)
   const [changingOwner, setChangingOwner] = useState<boolean>(false)

@@ -1,6 +1,6 @@
+import { useLang } from "@/hooks/useLang"
 import AppLayout from "@/layouts/app-layout"
 import type { Organization, SharedData } from "@/types"
-import { useTranslations } from "@/utils/translations"
 import { Head, usePage } from "@inertiajs/react"
 import { Building2 } from "lucide-react"
 
@@ -12,7 +12,7 @@ interface SelectOrganizationProps extends SharedData {
 
 export default function SelectOrganization() {
   const { organizations } = usePage<SelectOrganizationProps>().props
-  const { __ } = useTranslations()
+  const { __ } = useLang()
 
   return (
     <AppLayout navigation={[]}>

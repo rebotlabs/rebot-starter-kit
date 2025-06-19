@@ -6,7 +6,7 @@ import InputError from "@/components/input-error"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useTranslations } from "@/utils/translations"
+import { useLang } from "@/hooks/useLang"
 
 interface ResetPasswordFormProps {
   token: string
@@ -21,7 +21,7 @@ type ResetPasswordForm = {
 }
 
 export function ResetPasswordForm({ token, email }: ResetPasswordFormProps) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const { data, setData, post, processing, errors, reset } = useForm<Required<ResetPasswordForm>>({
     token: token,
     email: email,

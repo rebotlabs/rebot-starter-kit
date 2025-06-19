@@ -6,14 +6,14 @@ import InputError from "@/components/input-error"
 import TextLink from "@/components/text-link"
 import { Button } from "@/components/ui/button"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
-import { useTranslations } from "@/utils/translations"
+import { useLang } from "@/hooks/useLang"
 
 interface VerifyEmailOtpFormProps {
   status?: string
 }
 
 export function VerifyEmailOtpForm({ status }: VerifyEmailOtpFormProps) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const [otpValue, setOtpValue] = useState("")
   const { setData, post, processing, errors, reset } = useForm({
     otp: "",

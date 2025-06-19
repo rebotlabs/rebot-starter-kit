@@ -16,6 +16,8 @@ class ShowInvitationController extends Controller
 {
     public function __invoke(Request $request, string $token): Response
     {
+        syncLangFiles(['ui', 'organizations', 'invitations']);
+
         $invitation = Invitation::where('accept_token', $token)
             ->where('status', 'pending')
             ->with('organization')

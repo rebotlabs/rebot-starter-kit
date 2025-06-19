@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useLang } from "@/hooks/useLang"
 import type { Organization } from "@/types"
-import { useTranslations } from "@/utils/translations"
 import { Transition } from "@headlessui/react"
 import { useForm, usePage } from "@inertiajs/react"
 import type { FormEventHandler } from "react"
@@ -15,7 +15,7 @@ type OrganizationForm = {
 }
 
 export const OrganizationProfile = () => {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const { organization } = usePage<{ organization: Organization }>().props
 
   const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<Required<OrganizationForm>>({

@@ -13,6 +13,8 @@ class ShowOrganizationSelectController extends Controller
 {
     public function __invoke(Request $request): Response
     {
+        syncLangFiles(['ui', 'organizations']);
+
         $organizations = $request->user()->organizations()->get();
 
         return Inertia::render('organization/select', [

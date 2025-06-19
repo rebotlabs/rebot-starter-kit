@@ -13,6 +13,8 @@ class ShowOrganizationOverviewController extends Controller
 {
     public function __invoke(Organization $organization): Response
     {
+        syncLangFiles(['ui', 'organizations']);
+
         return Inertia::render('organization/overview');
     }
 }

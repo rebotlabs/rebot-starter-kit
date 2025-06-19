@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useTranslations } from "@/utils/translations"
+import { useLang } from "@/hooks/useLang"
 
 type LoginForm = {
   email: string
@@ -22,7 +22,7 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ status, canResetPassword }: LoginFormProps) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
     email: "",
     password: "",

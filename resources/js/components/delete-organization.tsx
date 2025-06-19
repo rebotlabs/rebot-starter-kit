@@ -8,11 +8,11 @@ import { Label } from "@/components/ui/label"
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { useLang } from "@/hooks/useLang"
 import { SharedData } from "@/types"
-import { useTranslations } from "@/utils/translations"
 
 export const DeleteOrganization = () => {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const { currentOrganization } = usePage<SharedData>().props
   const passwordInput = useRef<HTMLInputElement>(null)
   const {

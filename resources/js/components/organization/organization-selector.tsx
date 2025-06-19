@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { useLang } from "@/hooks/useLang"
 import type { Organization } from "@/types"
-import { useTranslations } from "@/utils/translations"
 import { Link } from "@inertiajs/react"
 import { Plus } from "lucide-react"
 
@@ -12,7 +12,7 @@ interface OrganizationSelectorProps {
 }
 
 export function OrganizationSelector({ organizations }: OrganizationSelectorProps) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
 
   return (
     <div className="space-y-4">

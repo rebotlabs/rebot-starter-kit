@@ -4,8 +4,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useLang } from "@/hooks/useLang"
 import type { Organization } from "@/types"
-import { useTranslations } from "@/utils/translations"
 import { useForm } from "@inertiajs/react"
 import { type FormEventHandler, useRef } from "react"
 
@@ -14,7 +14,7 @@ interface LeaveOrganizationCardProps {
 }
 
 export function LeaveOrganizationCard({ organization }: LeaveOrganizationCardProps) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
   const passwordInput = useRef<HTMLInputElement>(null)
 
   const { data, setData, processing, reset, errors, clearErrors, post } = useForm<{

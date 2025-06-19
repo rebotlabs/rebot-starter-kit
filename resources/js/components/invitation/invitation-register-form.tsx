@@ -2,8 +2,8 @@ import InputError from "@/components/input-error"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useLang } from "@/hooks/useLang"
 import type { Invitation } from "@/types"
-import { useTranslations } from "@/utils/translations"
 import { useForm } from "@inertiajs/react"
 import { CheckCircleIcon, XCircleIcon } from "lucide-react"
 import { type FormEventHandler } from "react"
@@ -26,7 +26,7 @@ interface InvitationRegisterFormProps {
 }
 
 export function InvitationRegisterForm({ invitation, onReject, rejectProcessing }: InvitationRegisterFormProps) {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
 
   const {
     data: acceptData,

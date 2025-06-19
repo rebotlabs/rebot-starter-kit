@@ -1,11 +1,11 @@
 import { Head } from "@inertiajs/react"
 
 import { TwoFactorChallengeForm } from "@/components/auth/two-factor-challenge-form"
+import { useLang } from "@/hooks/useLang"
 import AuthLayout from "@/layouts/auth-layout"
-import { useTranslations } from "@/utils/translations"
 
 export default function TwoFactorChallenge() {
-  const { __ } = useTranslations()
+  const { __ } = useLang()
 
   return (
     <AuthLayout title={__("auth.two_factor.title")} description={__("auth.two_factor.description")}>
