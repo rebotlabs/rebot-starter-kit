@@ -37,14 +37,14 @@ class EmailVerificationOtpNotification extends Notification implements ShouldQue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Verify Your Email Address')
-            ->greeting('Hello!')
-            ->line('Welcome to our platform! Please verify your email address to complete your registration.')
-            ->line('Your verification code is:')
+            ->subject(__('mail.subject.verify_email'))
+            ->greeting(__('mail.greeting.hello'))
+            ->line(__('mail.verification.welcome'))
+            ->line(__('mail.verification.your_code'))
             ->line("## {$this->otpCode}")
-            ->line('This code will expire in 10 minutes.')
-            ->line('If you did not create an account, no further action is required.')
-            ->salutation('Thank you for joining us!');
+            ->line(__('mail.verification.code_expires'))
+            ->line(__('mail.verification.no_action_required'))
+            ->salutation(__('mail.salutation.thank_you_joining'));
     }
 
     /**

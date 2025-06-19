@@ -17,7 +17,7 @@ final class ResendEmailVerificationOtpController extends Controller
         $user = Auth::user();
 
         if (! $user) {
-            return back()->withErrors(['email' => 'You must be logged in to resend verification code.']);
+            return back()->withErrors(['email' => __('messages.error.login_required')]);
         }
 
         if ($user->hasVerifiedEmail()) {
@@ -28,6 +28,6 @@ final class ResendEmailVerificationOtpController extends Controller
 
         $user->notify(new EmailVerificationOtpNotification($otp->password));
 
-        return back()->with('status', 'verification-code-sent');
+        return back()->with('status', __('messages.status.verification_code_sent'));
     }
 }

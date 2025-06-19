@@ -1,15 +1,18 @@
 <x-mail::message>
-# You have been invited!
+# {{ __('mail.invitation.you_have_been_invited') }}
 
-Hello {{ $invitation->user?->name ?? '' }},
+@if($invitation->user?->name)
+{{ __('mail.invitation.hello_with_name', ['name' => $invitation->user->name]) }}
+@else
+{{ __('mail.invitation.hello_without_name') }}
+@endif
 
-You have been invited to join the organization **{{ $invitation->organization->name }}**
- on **{{ config('app.name') }}**.
+{{ __('mail.invitation.invited_to_join', ['organization' => $invitation->organization->name, 'app_name' => config('app.name')]) }}
 
 <x-mail::button :url="$invitationUrl">
-View Invitation
+{{ __('mail.invitation.view_invitation') }}
 </x-mail::button>
 
-Thanks,<br>
+{{ __('mail.salutation.thanks') }}<br>
 {{ config('app.name') }}
 </x-mail::message>

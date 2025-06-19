@@ -28,7 +28,7 @@ export const DeleteOrganization = () => {
   const deleteOrganization: FormEventHandler = (e) => {
     e.preventDefault()
 
-    destroy(route("organization.settings.general.delete", [currentOrganization]), {
+    destroy(route("organization.delete", [currentOrganization]), {
       preserveScroll: true,
       onError: () => passwordInput.current?.focus(),
       onFinish: () => reset(),

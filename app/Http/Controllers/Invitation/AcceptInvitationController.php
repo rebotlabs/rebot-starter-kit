@@ -31,7 +31,7 @@ class AcceptInvitationController extends Controller
         } else {
             if (! Auth::check() || Auth::user()->email !== $invitation->email) {
                 return back()->withErrors([
-                    'auth' => 'Please log in with the invited email address to accept this invitation.',
+                    'auth' => __('messages.error.auth_required'),
                 ]);
             }
         }
@@ -39,6 +39,6 @@ class AcceptInvitationController extends Controller
         AcceptInvitationJob::dispatchSync($token, $userData);
 
         return redirect()->route('organization.overview', $invitation->organization->slug)
-            ->with('message', 'Invitation accepted successfully!');
+            ->with('message', __('messages.success.invitation_accepted'));
     }
 }

@@ -40,6 +40,6 @@ class EmailVerificationOtpController extends Controller
         // Mark email as verified and delete the OTP
         $user->markEmailAsVerified();
 
-        return to_route('dashboard')->with('message', 'Email verified successfully!');
+        return to_route('dashboard')->with('message', __('messages.success.email_verified'));
     }
 }

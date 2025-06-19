@@ -16,6 +16,6 @@ class DeleteInvitationController extends Controller
     {
         DeleteInvitationJob::dispatch($invitation);
 
-        return redirect()->route('organization.settings.members', $organization)->with('message', 'Invitation deleted successfully.');
+        return redirect()->route('organization.settings.members', $organization)->with('message', __('messages.success.invitation_deleted'));
     }
 }

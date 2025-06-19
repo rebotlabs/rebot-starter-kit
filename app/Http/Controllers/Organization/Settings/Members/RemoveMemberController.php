@@ -37,6 +37,6 @@ class RemoveMemberController extends Controller
             }
         }
 
-        return back()->with('success', 'Member removed successfully.');
+        return back()->with('success', __('messages.success.member_removed'));
     }
 }

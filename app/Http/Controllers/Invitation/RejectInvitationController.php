@@ -16,6 +16,6 @@ class RejectInvitationController extends Controller
         RejectInvitationJob::dispatchSync($token);
 
         return redirect()->route('home')
-            ->with('message', 'Invitation rejected.');
+            ->with('message', __('messages.success.invitation_rejected'));
     }
 }

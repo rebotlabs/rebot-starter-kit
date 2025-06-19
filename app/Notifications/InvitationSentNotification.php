@@ -41,7 +41,7 @@ class InvitationSentNotification extends Notification
         ]);
 
         return (new MailMessage)
-            ->subject('You have been invited!')
+            ->subject(__('mail.subject.invited'))
             ->markdown('mail.invitation.sent', [
                 'invitation' => $notifiable,
                 'invitationUrl' => $invitationUrl,

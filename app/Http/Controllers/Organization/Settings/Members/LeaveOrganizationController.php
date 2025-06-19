@@ -26,7 +26,7 @@ class LeaveOrganizationController extends Controller
 
         if ($userOrganizations->isEmpty()) {
             return redirect()->route('onboarding.organization')
-                ->with('message', 'You have left the organization. Create or join a new organization to continue.');
+                ->with('message', __('messages.leave_organization.create_or_join'));
         }
 
         if ($userOrganizations->count() === 1) {
@@ -34,10 +34,10 @@ class LeaveOrganizationController extends Controller
             $request->user()->currentOrganization()->associate($nextOrganization)->save();
 
             return redirect()->route('organization.overview', $nextOrganization)
-                ->with('message', 'You have successfully left the organization.');
+                ->with('message', __('messages.leave_organization.success'));
         }
 
         return redirect()->route('organization.select')
-            ->with('message', 'You have successfully left the organization. Please select another organization to continue.');
+            ->with('message', __('messages.leave_organization.select_another'));
     }
 }
