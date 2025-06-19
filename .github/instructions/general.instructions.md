@@ -30,6 +30,8 @@ Ensure the code follows those standards:
 - Use Inertia.js best practices for authorization
 - Use Shadcn UI components for the frontend when possible before creating custom components
 - Keep colors consistent with the design system
+- Always use translations for strings that will be displayed to the user
+- Keep translations up to date with the latest changes in the code
 
 ## Testing
 The project uses [Pest](https://pestphp.com/) for testing. To run the tests, use `composer test`.
