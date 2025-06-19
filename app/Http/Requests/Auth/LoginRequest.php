@@ -51,7 +51,17 @@ class LoginRequest extends FormRequest
             ]);
         }
 
-        RateLimiter::clear($this->throttleKey());
+        RateLimiter::clear($this->throttleKey());        // If user has 2FA enabled, logout and store user ID in session for 2FA verification
+        $user = Auth::user();
+        if ($user && $user->hasEnabledTwoFactorAuthentication()) {
+            Auth::logout();
+
+            session(['2fa_user_id' => $user->id, '2fa_remember' => $this->boolean('remember')]);
+
+            throw ValidationException::withMessages([
+                'two_factor_required' => 'Two-factor authentication is required.',
+            ]);
+        }
     }
 
     /**

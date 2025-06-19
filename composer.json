@@ -14,6 +14,8 @@
         "laravel/cashier": "^15.6",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "pragmarx/google2fa": "^8.0",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-one-time-passwords": "^1.0",
         "spatie/laravel-permission": "^6.20",
         "tightenco/ziggy": "^2.4"

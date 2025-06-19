@@ -40,6 +40,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_secret',
+        'two_factor_recovery_codes',
     ];
 
     public function currentOrganization(): BelongsTo
@@ -79,6 +81,29 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'two_factor_recovery_codes' => 'json',
+            'two_factor_confirmed_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Check if two-factor authentication is enabled for the user.
+     */
+    public function hasEnabledTwoFactorAuthentication(): bool
+    {
+        return ! is_null($this->two_factor_secret) && ! is_null($this->two_factor_confirmed_at);
+    }
+
+    /**
+     * Generate new recovery codes for the user.
+     */
+    public function generateRecoveryCodes(): array
+    {
+        $codes = [];
+        for ($i = 0; $i < 8; $i++) {
+            $codes[] = sprintf('%s-%s', str_pad((string) random_int(0, 9999), 4, '0', STR_PAD_LEFT), str_pad((string) random_int(0, 9999), 4, '0', STR_PAD_LEFT));
+        }
+
+        return $codes;
     }
 }

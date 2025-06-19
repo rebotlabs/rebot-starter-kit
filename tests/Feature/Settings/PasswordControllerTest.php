@@ -14,18 +14,18 @@ beforeEach(function () {
 });
 
 describe('ShowPasswordController', function () {
-    it('displays the password settings page', function () {
+    it('displays the security settings page', function () {
         $response = $this->actingAs($this->user)
-            ->get(route('settings.password'));
+            ->get(route('settings.security'));
 
         $response->assertOk()
             ->assertInertia(fn (Assert $page) => $page
-                ->component('settings/password')
+                ->component('settings/security')
             );
     });
 
     it('redirects unauthenticated users to login', function () {
-        $response = $this->get(route('settings.password'));
+        $response = $this->get(route('settings.security'));
 
         $response->assertRedirect(route('login'));
     });
