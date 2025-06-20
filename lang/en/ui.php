@@ -13,6 +13,7 @@ return [
         'edit' => 'Edit',
         'add' => 'Add',
         'remove' => 'Remove',
+        'change' => 'Change',
         'confirm' => 'Confirm',
         'submit' => 'Submit',
         'close' => 'Close',
@@ -28,6 +29,8 @@ return [
         'decline' => 'Decline',
         'log_out' => 'Log out',
         'log_in' => 'Log in',
+        'upload' => 'Upload',
+        'choose_file' => 'Choose File',
     ],
 
     // Common labels
@@ -208,5 +211,44 @@ return [
         'results' => 'Search Results',
         'no_results' => 'No results found',
         'no_results_description' => 'Try adjusting your search terms for "{query}"',
+    ],
+
+    // Avatar
+    'avatar' => [
+        'title' => 'Avatar',
+        'description' => 'Update your profile picture',
+        'upload' => 'Upload Avatar',
+        'change' => 'Change Avatar',
+        'remove' => 'Remove Avatar',
+        'upload_success' => 'Avatar uploaded successfully!',
+        'delete_success' => 'Avatar removed successfully!',
+        'validation' => [
+            'required' => 'Please select an image to upload.',
+            'must_be_image' => 'The file must be an image.',
+            'invalid_type' => 'The avatar must be a file of type: jpeg, png, jpg, gif, webp.',
+            'max_size' => 'The avatar must not be larger than 2MB.',
+            'max_dimensions' => 'The avatar must not be larger than 1000x1000 pixels.',
+            'upload_failed' => 'Failed to upload avatar. Please try again.',
+            'delete_failed' => 'Failed to remove avatar. Please try again.',
+        ],
+    ],
+
+    // Logo
+    'logo' => [
+        'title' => 'Logo',
+        'description' => 'Update your organization logo',
+        'upload' => 'Upload Logo',
+        'change' => 'Change Logo',
+        'remove' => 'Remove Logo',
+        'upload_success' => 'Logo uploaded successfully!',
+        'delete_success' => 'Logo removed successfully!',
+        'validation' => [
+            'required' => 'Please select an image to upload.',
+            'must_be_image' => 'The file must be an image.',
+            'invalid_type' => 'The logo must be a file of type: jpeg, png, jpg, gif, webp, svg.',
+            'max_size' => 'The logo must not be larger than 2MB.',
+            'upload_failed' => 'Failed to upload logo. Please try again.',
+            'delete_failed' => 'Failed to remove logo. Please try again.',
+        ],
     ],
 ];

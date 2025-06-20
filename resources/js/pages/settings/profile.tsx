@@ -1,6 +1,7 @@
 import { Head } from "@inertiajs/react"
 
 import DeleteUser from "@/components/delete-user"
+import { AvatarUpload } from "@/components/settings/avatar-upload"
 import { ProfileForm } from "@/components/settings/profile-form"
 import { useTranslation } from "@/hooks/use-i18n"
 import AppLayout from "@/layouts/app-layout"
@@ -14,8 +15,11 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
       <Head title={t("settings.profile.title")} />
 
       <SettingsLayout>
-        <ProfileForm mustVerifyEmail={mustVerifyEmail} status={status} />
-        <DeleteUser />
+        <div className="space-y-6">
+          <AvatarUpload />
+          <ProfileForm mustVerifyEmail={mustVerifyEmail} status={status} />
+          <DeleteUser />
+        </div>
       </SettingsLayout>
     </AppLayout>
   )

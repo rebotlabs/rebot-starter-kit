@@ -7,6 +7,7 @@ use App\Http\Controllers\Organization\Settings\General\ChangeOwnershipController
 use App\Http\Controllers\Organization\Settings\General\DeleteOrganizationController;
 use App\Http\Controllers\Organization\Settings\General\ShowGeneralSettingsController;
 use App\Http\Controllers\Organization\Settings\General\UpdateGeneralSettingsController;
+use App\Http\Controllers\Organization\Settings\LogoController;
 use App\Http\Controllers\Organization\Settings\Members\DeleteInvitationController;
 use App\Http\Controllers\Organization\Settings\Members\InviteMemberController;
 use App\Http\Controllers\Organization\Settings\Members\LeaveOrganizationController;
@@ -36,6 +37,10 @@ Route::middleware(['auth', 'verified', EnsureCurrentOrganization::class])->group
         Route::patch('org/{organization}/settings', UpdateGeneralSettingsController::class)->name('organization.settings.update');
         Route::patch('org/{organization}/settings/ownership', ChangeOwnershipController::class)->name('organization.settings.ownership');
         Route::delete('org/{organization}', DeleteOrganizationController::class)->name('organization.delete');
+
+        // Logo routes
+        Route::post('org/{organization}/settings/logo', [LogoController::class, 'store'])->name('organization.settings.logo.store');
+        Route::delete('org/{organization}/settings/logo', [LogoController::class, 'destroy'])->name('organization.settings.logo.destroy');
 
         Route::get('org/{organization}/settings/members', ShowMembersController::class)->name('organization.settings.members');
         Route::post('org/{organization}/settings/members/invite', InviteMemberController::class)->name('organization.settings.members.invite');

@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
@@ -51,6 +51,7 @@ export const MembersList = () => {
             <li key={member.id} className="grid grid-cols-12">
               <div className="col-span-8 flex items-center gap-2">
                 <Avatar>
+                  <AvatarImage src={member.user.avatar} alt={member.user.name} />
                   <AvatarFallback>{getInitials(member.user.name)}</AvatarFallback>
                 </Avatar>
                 <div className="grid">

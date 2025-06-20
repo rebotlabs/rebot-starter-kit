@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Settings\Appearance\ShowAppearanceController;
+use App\Http\Controllers\Settings\AvatarController;
 use App\Http\Controllers\Settings\Profile\DeleteAccountController;
 use App\Http\Controllers\Settings\Profile\ShowProfileController;
 use App\Http\Controllers\Settings\Profile\UpdateProfileController;
@@ -13,6 +14,10 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/profile', ShowProfileController::class)->name('settings.profile');
     Route::patch('settings/profile', UpdateProfileController::class)->name('settings.profile.update');
     Route::delete('settings/profile', DeleteAccountController::class)->name('settings.profile.delete');
+
+    // Avatar routes
+    Route::post('settings/avatar', [AvatarController::class, 'store'])->name('settings.avatar.store');
+    Route::delete('settings/avatar', [AvatarController::class, 'destroy'])->name('settings.avatar.destroy');
 
     Route::get('settings/security', [TwoFactorAuthenticationController::class, 'show'])->name('settings.security');
     Route::put('settings/security/password', [TwoFactorAuthenticationController::class, 'updatePassword'])->name('settings.password.update');

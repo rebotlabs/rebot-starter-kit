@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent } from "@/components/ui/card"
 import { useInitials } from "@/hooks/use-initials"
 import type { Organization } from "@/types"
@@ -22,6 +22,7 @@ export function OrganizationList({ organizations }: OrganizationListProps) {
           <Link href={route("organization.switch", [organization])} method="post" className="block">
             <CardContent className="flex items-center space-x-4 p-4">
               <Avatar className="h-10 w-10">
+                <AvatarImage src={organization.logo} alt={organization.name} />
                 <AvatarFallback className="bg-blue-100 text-blue-600">{getInitials(organization.name)}</AvatarFallback>
               </Avatar>
               <div className="min-w-0 flex-1">
