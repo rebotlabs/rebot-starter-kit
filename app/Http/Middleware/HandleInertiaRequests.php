@@ -38,6 +38,9 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        // Ensure UI translations are always available for global components like search and notifications
+        syncLangFiles(['ui']);
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -60,6 +63,9 @@ class HandleInertiaRequests extends Middleware
                 $organization = $request->user()?->currentOrganization;
 
                 return $organization?->currentUserCanManage() ?? false;
+            },
+            'unreadNotificationsCount' => function () use ($request) {
+                return $request->user()?->unreadNotifications()->count() ?? 0;
             },
         ];
     }

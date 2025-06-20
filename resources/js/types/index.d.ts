@@ -48,6 +48,19 @@ export interface User {
   [key: string]: unknown // This allows for additional properties...
 }
 
+export interface Notification {
+  id: string
+  type: string
+  data: Record<string, unknown>
+  read_at: string | null
+  created_at: string
+}
+
+export interface NotificationData {
+  notifications: Notification[]
+  unread_count: number
+}
+
 export interface Organization {
   id: number
   name: string

@@ -163,4 +163,46 @@ return [
         'remove_description' => 'Are you sure you want to remove <strong>:name</strong> from this organization? This action cannot be undone.',
         'remove_button' => 'Remove Member',
     ],
+
+    // Notifications
+    'notifications' => [
+        'title' => 'Notifications',
+        'empty' => 'No notifications yet',
+        'mark_as_read' => 'Mark as read',
+        'mark_all_read' => 'Mark all as read',
+        'delete' => 'Delete',
+        'view_all' => 'View all notifications',
+        'invitation_sent' => 'Invitation sent',
+        'invitation_sent_message' => 'You have been invited to join {organization}',
+        'invitation_sent_general' => 'You have been invited to join an organization',
+        'email_verification' => 'Email verification',
+        'email_verification_message' => 'Please verify your email address',
+        'test' => 'Test Notification',
+        'test_message' => 'This is a test notification',
+        'general' => 'Notification',
+        'general_message' => 'You have a new notification',
+    ],
+
+    // Time formatting
+    'time' => [
+        'just_now' => 'Just now',
+        'minutes_ago' => '{count} minute ago|{count} minutes ago',
+        'hours_ago' => '{count} hour ago|{count} hours ago',
+        'days_ago' => '{count} day ago|{count} days ago',
+    ],
+
+    // Search
+    'search' => [
+        'placeholder' => 'Search in {organization}...',
+        'quick_actions' => 'Quick Actions',
+        'view_members' => 'View Members',
+        'view_members_description' => 'Manage organization members',
+        'organization_settings' => 'Organization Settings',
+        'organization_settings_description' => 'Configure organization preferences',
+        'recent' => 'Recent Searches',
+        'no_recent_searches' => 'No recent searches',
+        'results' => 'Search Results',
+        'no_results' => 'No results found',
+        'no_results_description' => 'Try adjusting your search terms for "{query}"',
+    ],
 ];

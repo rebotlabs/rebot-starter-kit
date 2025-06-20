@@ -64,6 +64,14 @@ Route::middleware(['signed'])->group(function () {
     Route::get('invitation/{token}', [App\Http\Controllers\Invitation\ShowInvitationController::class, '__invoke'])->name('invitation.handle');
 });
 
+// Notifications API
+Route::middleware(['auth'])->prefix('api/notifications')->group(function () {
+    Route::get('/', [App\Http\Controllers\NotificationController::class, 'index'])->name('api.notifications.index');
+    Route::patch('{id}/read', [App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('api.notifications.read');
+    Route::patch('read-all', [App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('api.notifications.read-all');
+    Route::delete('{id}', [App\Http\Controllers\NotificationController::class, 'destroy'])->name('api.notifications.destroy');
+});
+
 Route::post('invitation/{token}/accept', [App\Http\Controllers\Invitation\AcceptInvitationController::class, '__invoke'])->name('invitation.accept');
 Route::post('invitation/{token}/reject', [App\Http\Controllers\Invitation\RejectInvitationController::class, '__invoke'])->name('invitation.reject');
 
