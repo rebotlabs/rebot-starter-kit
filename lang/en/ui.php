@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'actions' => [
+        'warning' => 'Warning',
+    ],
+
     // Common buttons
     'buttons' => [
         'save' => 'Save',

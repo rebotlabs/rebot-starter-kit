@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 import type { Invitation } from "@/types"
 import { useForm } from "@inertiajs/react"
 import { MailIcon } from "lucide-react"
@@ -24,7 +24,7 @@ interface InvitationCardProps {
 
 export function InvitationCard({ invitation, existingUser, isAuthenticated, currentUserEmail }: InvitationCardProps) {
   const [mode, setMode] = useState<"view" | "register" | "login">("view")
-  const { __ } = useLang()
+  const t = useTranslation()
 
   const { post: postAccept, processing: acceptProcessing } = useForm()
   const { post: postReject, processing: rejectProcessing } = useForm()
@@ -48,17 +48,17 @@ export function InvitationCard({ invitation, existingUser, isAuthenticated, curr
         <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
           <MailIcon className="h-6 w-6 text-blue-600" />
         </div>
-        <CardTitle>{__("invitations.details.title")}</CardTitle>
-        <CardDescription>{__("invitations.details.invited_as_role", { role: invitation.role })}</CardDescription>
+        <CardTitle>{t("invitations.details.title")}</CardTitle>
+        <CardDescription>{t("invitations.details.invited_as_role", { role: invitation.role })}</CardDescription>
       </CardHeader>
 
       <CardContent className="space-y-6">
         <div className="space-y-2 text-center">
-          <p className="text-muted-foreground text-sm">{__("invitations.details.organization")}</p>
+          <p className="text-muted-foreground text-sm">{t("invitations.details.organization")}</p>
           <p className="font-semibold">{invitation.organization.name}</p>
-          <p className="text-muted-foreground text-sm">{__("invitations.details.email")}</p>
+          <p className="text-muted-foreground text-sm">{t("invitations.details.email")}</p>
           <p className="font-semibold">{invitation.email}</p>
-          <p className="text-muted-foreground text-sm">{__("invitations.details.role")}</p>
+          <p className="text-muted-foreground text-sm">{t("invitations.details.role")}</p>
           <p className="font-semibold capitalize">{invitation.role}</p>
         </div>
 

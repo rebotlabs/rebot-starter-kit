@@ -1,5 +1,5 @@
 import { InvitationCard } from "@/components/invitation/invitation-card"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 import type { Invitation } from "@/types"
 import { Head } from "@inertiajs/react"
 
@@ -16,25 +16,23 @@ interface InvitationHandleProps {
 }
 
 export default function InvitationHandle({ invitation, existingUser, isAuthenticated, currentUserEmail }: InvitationHandleProps) {
-  const { __ } = useLang()
+  const t = useTranslation()
 
   return (
     <>
-      <Head title={__("invitations.page.title")} />
+      <Head title={t("invitations.page.title")} />
 
       <div className="bg-background flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
-            <h1 className="text-foreground text-3xl font-bold">{__("invitations.page.youre_invited")}</h1>
-            <p className="text-muted-foreground mt-2">
-              {__("invitations.page.join_and_collaborate", { organization: invitation.organization.name })}
-            </p>
+            <h1 className="text-foreground text-3xl font-bold">{t("invitations.page.youre_invited")}</h1>
+            <p className="text-muted-foreground mt-2">{t("invitations.page.join_and_collaborate", { organization: invitation.organization.name })}</p>
           </div>
 
           <InvitationCard invitation={invitation} existingUser={existingUser} isAuthenticated={isAuthenticated} currentUserEmail={currentUserEmail} />
 
           <div className="text-center">
-            <p className="text-muted-foreground text-sm">{__("invitations.footer.terms_agreement")}</p>
+            <p className="text-muted-foreground text-sm">{t("invitations.footer.terms_agreement")}</p>
           </div>
         </div>
       </div>

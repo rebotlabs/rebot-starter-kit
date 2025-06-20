@@ -27,7 +27,6 @@ class TwoFactorAuthenticationController extends Controller
      */
     public function show(): Response
     {
-        syncLangFiles(['ui', 'settings']);
 
         $user = Auth::user();
 

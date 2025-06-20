@@ -2,8 +2,8 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import laravel from 'laravel-vite-plugin';
 import { resolve } from 'node:path';
-import { defineConfig } from 'vite';
-import { translationExport } from './vite-plugins/translation-export';
+import { defineConfig, type Plugin } from 'vite';
+import InertiaI18n from 'inertia-i18n/vite';
 
 export default defineConfig({
     plugins: [
@@ -14,7 +14,7 @@ export default defineConfig({
         }),
         react(),
         tailwindcss(),
-        translationExport(),
+        ...(InertiaI18n({ outputDirectory: 'public/lang'}) as Plugin[]),
     ],
     esbuild: {
         jsx: 'automatic',

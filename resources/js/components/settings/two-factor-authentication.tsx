@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Input } from "@/components/ui/input"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
 import { Label } from "@/components/ui/label"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 import { Check, Copy, Download, Printer, Shield, ShieldCheck } from "lucide-react"
 import { useState } from "react"
 
@@ -25,7 +25,7 @@ interface ConfirmResponse {
 }
 
 export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCodes }: Props) {
-  const { __ } = useLang()
+  const t = useTranslation()
 
   // Two-Factor Authentication state
   const [showSetupModal, setShowSetupModal] = useState(false)
@@ -214,18 +214,18 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             {twoFactorEnabled ? <ShieldCheck className="h-5 w-5 text-green-600" /> : <Shield className="h-5 w-5" />}
-            {__("ui.two_factor.title")}
+            {t("ui.two_factor.title")}
           </CardTitle>
-          <CardDescription>{__("ui.two_factor.description")}</CardDescription>
+          <CardDescription>{t("ui.two_factor.description")}</CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="space-y-1">
-              <p className="text-sm">{twoFactorEnabled ? __("ui.two_factor.enabled") : __("ui.two_factor.not_enabled")}</p>
+              <p className="text-sm">{twoFactorEnabled ? t("ui.two_factor.enabled") : t("ui.two_factor.not_enabled")}</p>
               {twoFactorEnabled && (
                 <Badge variant="secondary" className="bg-green-50 text-green-700">
-                  {__("ui.status.active")}
+                  {t("ui.status.active")}
                 </Badge>
               )}
             </div>
@@ -237,12 +237,12 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
                     View Recovery Codes
                   </Button>
                   <Button variant="destructive" onClick={() => setShowDisableModal(true)} disabled={isLoading}>
-                    {__("ui.two_factor.disable")}
+                    {t("ui.two_factor.disable")}
                   </Button>
                 </>
               ) : (
                 <Button onClick={enableTwoFactor} disabled={isLoading}>
-                  {isLoading ? __("ui.messages.loading") : __("ui.two_factor.enable")}
+                  {isLoading ? t("ui.messages.loading") : t("ui.two_factor.enable")}
                 </Button>
               )}
             </div>
@@ -256,9 +256,9 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
       <Dialog open={showSetupModal} onOpenChange={setShowSetupModal}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{__("ui.two_factor.setup_title")}</DialogTitle>
+            <DialogTitle>{t("ui.two_factor.setup_title")}</DialogTitle>
             <DialogDescription>
-              {setupStep === "qr" ? __("ui.two_factor.setup_description") : __("ui.two_factor.recovery_codes_description")}
+              {setupStep === "qr" ? t("ui.two_factor.setup_description") : t("ui.two_factor.recovery_codes_description")}
             </DialogDescription>
           </DialogHeader>
 
@@ -269,7 +269,7 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
                   <div className="rounded-lg border bg-white p-4" dangerouslySetInnerHTML={{ __html: qrCode }} />
 
                   <div className="w-full space-y-2">
-                    <Label htmlFor="secret">{__("ui.two_factor.secret_key")}</Label>
+                    <Label htmlFor="secret">{t("ui.two_factor.secret_key")}</Label>
                     <div className="flex gap-2">
                       <Input id="secret" value={secret} readOnly className="font-mono text-sm" />
                       <Button variant="outline" size="sm" onClick={() => copyToClipboard(secret, "secret")}>
@@ -281,7 +281,7 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="confirmation_code">{__("ui.two_factor.enter_code")}</Label>
+                <Label htmlFor="confirmation_code">{t("ui.two_factor.enter_code")}</Label>
                 <div className="flex justify-center">
                   <InputOTP
                     maxLength={6}
@@ -300,21 +300,21 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
                     </InputOTPGroup>
                   </InputOTP>
                 </div>
-                {isLoading && <div className="text-muted-foreground text-center text-sm">{__("ui.messages.loading")}</div>}
+                {isLoading && <div className="text-muted-foreground text-center text-sm">{t("ui.messages.loading")}</div>}
               </div>
 
               {twoFactorError && <div className="rounded-md bg-red-50 p-3 text-sm text-red-600">{twoFactorError}</div>}
 
               <div className="flex justify-end gap-2">
                 <Button variant="outline" onClick={() => setShowSetupModal(false)}>
-                  {__("ui.buttons.cancel")}
+                  {t("ui.buttons.cancel")}
                 </Button>
               </div>
             </div>
           ) : (
             <div className="space-y-4">
               <div className="rounded-lg border p-4">
-                <h4 className="text-primary mb-2 font-medium">{__("ui.two_factor.recovery_codes_title")}</h4>
+                <h4 className="text-primary mb-2 font-medium">{t("ui.two_factor.recovery_codes_title")}</h4>
                 <div className="grid grid-cols-2 gap-2 font-mono text-sm">
                   {currentRecoveryCodes.map((code, index) => (
                     <div key={index} className="rounded border p-2 text-center">
@@ -327,28 +327,28 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" onClick={() => copyToClipboard(currentRecoveryCodes.join("\n"), "codes")} className="flex-1">
                   {copiedItems.has("codes") ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
-                  {__("ui.two_factor.copy")}
+                  {t("ui.two_factor.copy")}
                 </Button>
                 <Button variant="outline" size="sm" onClick={downloadRecoveryCodes} className="flex-1">
                   <Download className="mr-2 h-4 w-4" />
-                  {__("ui.two_factor.download")}
+                  {t("ui.two_factor.download")}
                 </Button>
                 <Button variant="outline" size="sm" onClick={printRecoveryCodes} className="flex-1">
                   <Printer className="mr-2 h-4 w-4" />
-                  {__("ui.two_factor.print")}
+                  {t("ui.two_factor.print")}
                 </Button>
               </div>
 
               <div className="flex items-center space-x-2">
                 <Checkbox id="codes-saved" checked={codesSaved} onCheckedChange={(checked) => setCodesSaved(checked as boolean)} />
                 <Label htmlFor="codes-saved" className="text-sm">
-                  {__("ui.two_factor.recovery_codes_saved")}
+                  {t("ui.two_factor.recovery_codes_saved")}
                 </Label>
               </div>
 
               <div className="flex justify-end">
                 <Button onClick={completeTwoFactorSetup} disabled={!codesSaved}>
-                  {__("ui.buttons.close")}
+                  {t("ui.buttons.close")}
                 </Button>
               </div>
             </div>
@@ -360,11 +360,11 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
       <Dialog open={showDisableModal} onOpenChange={setShowDisableModal}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{__("ui.two_factor.disable_title")}</DialogTitle>
+            <DialogTitle>{t("ui.two_factor.disable_title")}</DialogTitle>
             <DialogDescription>
-              {__("ui.two_factor.disable_description")}
+              {t("ui.two_factor.disable_description")}
               <br />
-              <span className="font-medium text-red-600">{__("ui.two_factor.disable_warning")}</span>
+              <span className="font-medium text-red-600">{t("ui.two_factor.disable_warning")}</span>
             </DialogDescription>
           </DialogHeader>
 
@@ -384,10 +384,10 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
 
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={() => setShowDisableModal(false)}>
-                {__("ui.buttons.cancel")}
+                {t("ui.buttons.cancel")}
               </Button>
               <Button variant="destructive" onClick={disableTwoFactor} disabled={!disablePassword || isLoading}>
-                {isLoading ? __("ui.messages.loading") : __("ui.two_factor.disable")}
+                {isLoading ? t("ui.messages.loading") : t("ui.two_factor.disable")}
               </Button>
             </div>
           </div>
@@ -398,8 +398,8 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
       <Dialog open={showRecoveryCodesModal} onOpenChange={setShowRecoveryCodesModal}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{__("ui.two_factor.recovery_codes_title")}</DialogTitle>
-            <DialogDescription>{__("ui.two_factor.recovery_codes_description")}</DialogDescription>
+            <DialogTitle>{t("ui.two_factor.recovery_codes_title")}</DialogTitle>
+            <DialogDescription>{t("ui.two_factor.recovery_codes_description")}</DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
@@ -423,7 +423,7 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
                 className="flex-1"
               >
                 {copiedItems.has("existing-codes") ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
-                {__("ui.two_factor.copy")}
+                {t("ui.two_factor.copy")}
               </Button>
               <Button
                 variant="outline"
@@ -437,7 +437,7 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
                 className="flex-1"
               >
                 <Download className="mr-2 h-4 w-4" />
-                {__("ui.two_factor.download")}
+                {t("ui.two_factor.download")}
               </Button>
             </div>
 
@@ -465,11 +465,11 @@ export default function TwoFactorAuthentication({ twoFactorEnabled, recoveryCode
                 }
               }}
             >
-              {__("ui.two_factor.regenerate_recovery_codes")}
+              {t("ui.two_factor.regenerate_recovery_codes")}
             </Button>
 
             <div className="flex justify-end">
-              <Button onClick={() => setShowRecoveryCodesModal(false)}>{__("ui.buttons.close")}</Button>
+              <Button onClick={() => setShowRecoveryCodesModal(false)}>{t("ui.buttons.close")}</Button>
             </div>
           </div>
         </DialogContent>

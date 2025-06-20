@@ -2,8 +2,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from "@/components/ui/breadcrumb"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { useTranslation } from "@/hooks/use-i18n"
 import { useInitials } from "@/hooks/use-initials"
-import { useLang } from "@/hooks/useLang"
 import { cn } from "@/lib/utils"
 import { type SharedData } from "@/types"
 import { Link, router, usePage } from "@inertiajs/react"
@@ -13,7 +13,7 @@ import { useState } from "react"
 import { CreateOrganizationModal } from "./organization/create-organization-modal"
 
 export function Breadcrumbs() {
-  const { __ } = useLang()
+  const t = useTranslation()
   const getInitials = useInitials()
   const { currentOrganization, organizations } = usePage<SharedData>().props
   const [createModalOpen, setCreateModalOpen] = useState(false)
@@ -69,7 +69,7 @@ export function Breadcrumbs() {
                     <Plus className="size-4" />
                   </div>
                   <div className="flex-1">
-                    <div className="font-medium">{__("organizations.select.create_new")}</div>
+                    <div className="font-medium">{t("organizations.select.create_new")}</div>
                   </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>

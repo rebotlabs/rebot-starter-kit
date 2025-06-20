@@ -7,14 +7,14 @@ import TextLink from "@/components/text-link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 
 interface ForgotPasswordFormProps {
   status?: string
 }
 
 export function ForgotPasswordForm({ status }: ForgotPasswordFormProps) {
-  const { __ } = useLang()
+  const t = useTranslation()
   const { data, setData, post, processing, errors } = useForm<Required<{ email: string }>>({
     email: "",
   })
@@ -32,7 +32,7 @@ export function ForgotPasswordForm({ status }: ForgotPasswordFormProps) {
       <div className="space-y-6">
         <form onSubmit={submit}>
           <div className="grid gap-2">
-            <Label htmlFor="email">{__("auth.labels.email")}</Label>
+            <Label htmlFor="email">{t("auth.labels.email")}</Label>
             <Input
               id="email"
               type="email"
@@ -41,7 +41,7 @@ export function ForgotPasswordForm({ status }: ForgotPasswordFormProps) {
               value={data.email}
               autoFocus
               onChange={(e) => setData("email", e.target.value)}
-              placeholder={__("auth.placeholders.email")}
+              placeholder={t("auth.placeholders.email")}
             />
 
             <InputError message={errors.email} />
@@ -50,14 +50,14 @@ export function ForgotPasswordForm({ status }: ForgotPasswordFormProps) {
           <div className="my-6 flex items-center justify-start">
             <Button className="w-full" disabled={processing}>
               {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-              {__("auth.buttons.send_reset_link")}
+              {t("auth.buttons.send_reset_link")}
             </Button>
           </div>
         </form>
 
         <div className="text-muted-foreground space-x-1 text-center text-sm">
-          <span>{__("auth.links.remember_password")}</span>
-          <TextLink href={route("login")}>{__("auth.buttons.log_in")}</TextLink>
+          <span>{t("auth.links.remember_password")}</span>
+          <TextLink href={route("login")}>{t("auth.buttons.log_in")}</TextLink>
         </div>
       </div>
     </>

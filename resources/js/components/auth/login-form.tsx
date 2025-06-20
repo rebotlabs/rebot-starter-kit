@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 
 type LoginForm = {
   email: string
@@ -22,7 +22,7 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ status, canResetPassword }: LoginFormProps) {
-  const { __ } = useLang()
+  const t = useTranslation()
   const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
     email: "",
     password: "",
@@ -47,7 +47,7 @@ export function LoginForm({ status, canResetPassword }: LoginFormProps) {
       <form className="flex flex-col gap-6" onSubmit={submit}>
         <div className="grid gap-6">
           <div className="grid gap-2">
-            <Label htmlFor="email">{__("auth.labels.email")}</Label>
+            <Label htmlFor="email">{t("auth.labels.email")}</Label>
             <Input
               id="email"
               type="email"
@@ -57,17 +57,17 @@ export function LoginForm({ status, canResetPassword }: LoginFormProps) {
               autoComplete="email"
               value={data.email}
               onChange={(e) => setData("email", e.target.value)}
-              placeholder={__("auth.placeholders.email")}
+              placeholder={t("auth.placeholders.email")}
             />
             <InputError message={errors.email} />
           </div>
 
           <div className="grid gap-2">
             <div className="flex items-center">
-              <Label htmlFor="password">{__("auth.labels.password")}</Label>
+              <Label htmlFor="password">{t("auth.labels.password")}</Label>
               {canResetPassword && (
                 <TextLink href={route("password.request")} className="ml-auto text-sm" tabIndex={5}>
-                  {__("auth.links.forgot_password")}
+                  {t("auth.links.forgot_password")}
                 </TextLink>
               )}
             </div>
@@ -79,26 +79,26 @@ export function LoginForm({ status, canResetPassword }: LoginFormProps) {
               autoComplete="current-password"
               value={data.password}
               onChange={(e) => setData("password", e.target.value)}
-              placeholder={__("auth.placeholders.password")}
+              placeholder={t("auth.placeholders.password")}
             />
             <InputError message={errors.password} />
           </div>
 
           <div className="flex items-center space-x-3">
             <Checkbox id="remember" name="remember" checked={data.remember} onClick={() => setData("remember", !data.remember)} tabIndex={3} />
-            <Label htmlFor="remember">{__("auth.labels.remember_me")}</Label>
+            <Label htmlFor="remember">{t("auth.labels.remember_me")}</Label>
           </div>
 
           <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-            {__("auth.buttons.log_in")}
+            {t("auth.buttons.log_in")}
           </Button>
         </div>
 
         <div className="text-muted-foreground text-center text-sm">
-          {__("auth.links.no_account")}{" "}
+          {t("auth.links.no_account")}{" "}
           <TextLink href={route("register")} tabIndex={5}>
-            {__("auth.buttons.register")}
+            {t("auth.buttons.register")}
           </TextLink>
         </div>
       </form>

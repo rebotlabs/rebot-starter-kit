@@ -18,7 +18,6 @@ class EmailVerificationOtpController extends Controller
      */
     public function create(): Response
     {
-        syncLangFiles(['auth', 'ui']);
 
         return Inertia::render('auth/verify-email-otp');
     }

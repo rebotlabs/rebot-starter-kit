@@ -20,7 +20,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(Request $request): Response
     {
-        syncLangFiles(['auth', 'ui']);
 
         return Inertia::render('auth/login', [
             'canResetPassword' => Route::has('password.request'),

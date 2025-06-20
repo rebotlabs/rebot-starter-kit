@@ -12,7 +12,6 @@ class ShowPasswordController extends Controller
 {
     public function __invoke(): Response
     {
-        syncLangFiles(['ui', 'settings']);
 
         return Inertia::render('settings/password');
     }

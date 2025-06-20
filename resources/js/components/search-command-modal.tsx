@@ -1,5 +1,5 @@
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 import type { SharedData } from "@/types"
 import { usePage } from "@inertiajs/react"
 import { Search, Settings, Users } from "lucide-react"
@@ -18,7 +18,7 @@ interface SearchCommandModalProps {
 }
 
 export function SearchCommandModal({ open, onOpenChange }: SearchCommandModalProps) {
-  const { __ } = useLang()
+  const t = useTranslation()
   const { props } = usePage<SharedData>()
   const { currentOrganization } = props
 
@@ -34,12 +34,12 @@ export function SearchCommandModal({ open, onOpenChange }: SearchCommandModalPro
   // Quick access items - these will be expanded in the future
   const quickActions = [
     {
-      group: __("search.quick_actions"),
+      group: t("ui.search.quick_actions"),
       items: [
         {
           id: "members",
-          title: __("search.view_members"),
-          description: __("search.view_members_description"),
+          title: t("ui.search.view_members"),
+          description: t("ui.search.view_members_description"),
           icon: Users,
           action: () => {
             // Future: Navigate to members page
@@ -49,8 +49,8 @@ export function SearchCommandModal({ open, onOpenChange }: SearchCommandModalPro
         },
         {
           id: "settings",
-          title: __("search.organization_settings"),
-          description: __("search.organization_settings_description"),
+          title: t("ui.search.organization_settings"),
+          description: t("ui.search.organization_settings_description"),
           icon: Settings,
           action: () => {
             // Future: Navigate to organization settings
@@ -74,7 +74,7 @@ export function SearchCommandModal({ open, onOpenChange }: SearchCommandModalPro
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
       <CommandInput
-        placeholder={__("search.placeholder", { organization: currentOrganization?.name || "organization" })}
+        placeholder={t("ui.search.placeholder", { organization: currentOrganization?.name || "organization" })}
         value={searchQuery}
         onValueChange={setSearchQuery}
       />
@@ -95,9 +95,9 @@ export function SearchCommandModal({ open, onOpenChange }: SearchCommandModalPro
               </CommandGroup>
             ))}
             <CommandSeparator />
-            <CommandGroup heading={__("search.recent")}>
+            <CommandGroup heading={t("ui.search.recent")}>
               <CommandItem disabled className="text-muted-foreground text-center">
-                {__("search.no_recent_searches")}
+                {t("ui.search.no_recent_searches")}
               </CommandItem>
             </CommandGroup>
           </>
@@ -109,15 +109,15 @@ export function SearchCommandModal({ open, onOpenChange }: SearchCommandModalPro
               <div className="flex flex-col items-center gap-2 py-6">
                 <Search className="text-muted-foreground h-8 w-8" />
                 <div className="text-center">
-                  <p className="font-medium">{__("search.no_results")}</p>
-                  <p className="text-muted-foreground text-sm">{__("search.no_results_description", { query: searchQuery })}</p>
+                  <p className="font-medium">{t("ui.search.no_results")}</p>
+                  <p className="text-muted-foreground text-sm">{t("ui.search.no_results_description", { query: searchQuery })}</p>
                 </div>
               </div>
             </CommandEmpty>
 
             {/* Future: Real search results will be rendered here */}
             {searchResults.length > 0 && (
-              <CommandGroup heading={__("search.results")}>
+              <CommandGroup heading={t("ui.search.results")}>
                 {searchResults.map((result: SearchResult) => (
                   <CommandItem key={result.id}>
                     {/* Future: Render actual search result */}

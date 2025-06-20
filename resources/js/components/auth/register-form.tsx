@@ -7,7 +7,7 @@ import TextLink from "@/components/text-link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 
 type RegisterForm = {
   name: string
@@ -17,7 +17,7 @@ type RegisterForm = {
 }
 
 export function RegisterForm() {
-  const { __ } = useLang()
+  const t = useTranslation()
   const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
     name: "",
     email: "",
@@ -36,7 +36,7 @@ export function RegisterForm() {
     <form className="flex flex-col gap-6" onSubmit={submit}>
       <div className="grid gap-6">
         <div className="grid gap-2">
-          <Label htmlFor="name">{__("auth.labels.name")}</Label>
+          <Label htmlFor="name">{t("auth.labels.name")}</Label>
           <Input
             id="name"
             type="text"
@@ -47,13 +47,13 @@ export function RegisterForm() {
             value={data.name}
             onChange={(e) => setData("name", e.target.value)}
             disabled={processing}
-            placeholder={__("auth.placeholders.name")}
+            placeholder={t("auth.placeholders.name")}
           />
           <InputError message={errors.name} className="mt-2" />
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="email">{__("auth.labels.email")}</Label>
+          <Label htmlFor="email">{t("auth.labels.email")}</Label>
           <Input
             id="email"
             type="email"
@@ -63,13 +63,13 @@ export function RegisterForm() {
             value={data.email}
             onChange={(e) => setData("email", e.target.value)}
             disabled={processing}
-            placeholder={__("auth.placeholders.email")}
+            placeholder={t("auth.placeholders.email")}
           />
           <InputError message={errors.email} />
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="password">{__("auth.labels.password")}</Label>
+          <Label htmlFor="password">{t("auth.labels.password")}</Label>
           <Input
             id="password"
             type="password"
@@ -79,13 +79,13 @@ export function RegisterForm() {
             value={data.password}
             onChange={(e) => setData("password", e.target.value)}
             disabled={processing}
-            placeholder={__("auth.placeholders.password")}
+            placeholder={t("auth.placeholders.password")}
           />
           <InputError message={errors.password} />
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="password_confirmation">{__("auth.labels.confirm_password")}</Label>
+          <Label htmlFor="password_confirmation">{t("auth.labels.confirm_password")}</Label>
           <Input
             id="password_confirmation"
             type="password"
@@ -95,21 +95,21 @@ export function RegisterForm() {
             value={data.password_confirmation}
             onChange={(e) => setData("password_confirmation", e.target.value)}
             disabled={processing}
-            placeholder={__("auth.placeholders.confirm_password")}
+            placeholder={t("auth.placeholders.confirm_password")}
           />
           <InputError message={errors.password_confirmation} />
         </div>
 
         <Button type="submit" className="mt-2 w-full" tabIndex={5} disabled={processing}>
           {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-          {__("auth.buttons.register")}
+          {t("auth.buttons.register")}
         </Button>
       </div>
 
       <div className="text-muted-foreground text-center text-sm">
-        {__("auth.links.already_registered")}{" "}
+        {t("auth.links.already_registered")}{" "}
         <TextLink href={route("login")} tabIndex={6}>
-          {__("auth.buttons.log_in")}
+          {t("auth.buttons.log_in")}
         </TextLink>
       </div>
     </form>

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 import type { Organization } from "@/types"
 import { Transition } from "@headlessui/react"
 import { useForm, usePage } from "@inertiajs/react"
@@ -15,7 +15,7 @@ type OrganizationForm = {
 }
 
 export const OrganizationProfile = () => {
-  const { __ } = useLang()
+  const t = useTranslation()
   const { organization } = usePage<{ organization: Organization }>().props
 
   const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<Required<OrganizationForm>>({
@@ -35,13 +35,13 @@ export const OrganizationProfile = () => {
     <form onSubmit={submit}>
       <Card>
         <CardHeader>
-          <CardTitle>{__("organizations.settings.general_info")}</CardTitle>
-          <CardDescription>{__("organizations.settings.update_info")}</CardDescription>
+          <CardTitle>{t("organizations.settings.general_info")}</CardTitle>
+          <CardDescription>{t("organizations.settings.update_info")}</CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-6">
           <div className="grid gap-2">
-            <Label htmlFor="name">{__("organizations.settings.name_label")}</Label>
+            <Label htmlFor="name">{t("organizations.settings.name_label")}</Label>
 
             <Input
               id="name"
@@ -50,14 +50,14 @@ export const OrganizationProfile = () => {
               onChange={(e) => setData("name", e.target.value)}
               required
               autoComplete="off"
-              placeholder={__("organizations.settings.name_placeholder")}
+              placeholder={t("organizations.settings.name_placeholder")}
             />
 
             <InputError className="mt-2" message={errors.name} />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="slug">{__("organizations.settings.slug_label")}</Label>
+            <Label htmlFor="slug">{t("organizations.settings.slug_label")}</Label>
 
             <Input
               id="slug"
@@ -66,7 +66,7 @@ export const OrganizationProfile = () => {
               onChange={(e) => setData("slug", e.target.value)}
               required
               autoComplete="off"
-              placeholder={__("organizations.settings.slug_placeholder")}
+              placeholder={t("organizations.settings.slug_placeholder")}
             />
 
             <InputError className="mt-2" message={errors.slug} />
@@ -81,9 +81,9 @@ export const OrganizationProfile = () => {
             leave="transition ease-in-out"
             leaveTo="opacity-0"
           >
-            <p className="text-muted-foreground text-sm">{__("ui.actions.saved")}</p>
+            <p className="text-muted-foreground text-sm">{t("ui.actions.saved")}</p>
           </Transition>
-          <Button disabled={processing}>{__("ui.actions.save")}</Button>
+          <Button disabled={processing}>{t("ui.actions.save")}</Button>
         </CardFooter>
       </Card>
     </form>

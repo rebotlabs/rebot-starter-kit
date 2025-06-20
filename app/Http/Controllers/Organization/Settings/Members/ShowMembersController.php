@@ -14,7 +14,6 @@ class ShowMembersController extends Controller
 {
     public function __invoke(Request $request, Organization $organization): Response
     {
-        syncLangFiles(['ui', 'organizations', 'settings']);
 
         // Get all members
         $members = $organization->members()->with(['user.roles'])->get()->map(function ($member) use ($organization) {

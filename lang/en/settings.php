@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'title' => 'Settings',
+    'description' => 'Manage your account and organization settings.',
+
     'profile' => [
         'title' => 'Profile',
         'description' => 'Update your name and email address',

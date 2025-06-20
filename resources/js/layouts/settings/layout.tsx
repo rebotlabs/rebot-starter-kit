@@ -1,30 +1,32 @@
 import Heading from "@/components/heading"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
+import { useTranslation } from "@/hooks/use-i18n"
 import { cn } from "@/lib/utils"
 import { type NavItem } from "@/types"
 import { Link } from "@inertiajs/react"
 import { type PropsWithChildren } from "react"
 
-const sidebarNavItems: NavItem[] = [
-  {
-    title: "Profile",
-    href: "/settings/profile",
-    icon: null,
-  },
-  {
-    title: "Security",
-    href: "/settings/security",
-    icon: null,
-  },
-  {
-    title: "Appearance",
-    href: "/settings/appearance",
-    icon: null,
-  },
-]
-
 export default function SettingsLayout({ children }: PropsWithChildren) {
+  const t = useTranslation()
+
+  const sidebarNavItems: NavItem[] = [
+    {
+      title: t("settings.profile.title"),
+      href: "/settings/profile",
+      icon: null,
+    },
+    {
+      title: t("settings.security.title"),
+      href: "/settings/security",
+      icon: null,
+    },
+    {
+      title: t("settings.appearance.title"),
+      href: "/settings/appearance",
+      icon: null,
+    },
+  ]
   // When server-side rendering, we only render the layout on the client...
   if (typeof window === "undefined") {
     return null
@@ -34,7 +36,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
 
   return (
     <div className="px-4 py-6">
-      <Heading title="Settings" description="Manage your profile and account settings" />
+      <Heading title={t("settings.title")} description={t("settings.description")} />
 
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12">
         <aside className="w-full max-w-xl lg:w-48">

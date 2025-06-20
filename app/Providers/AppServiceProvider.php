@@ -8,6 +8,7 @@ use App\Models\Organization;
 use Illuminate\Support\Facades\Schedule;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
+use Spatie\OneTimePasswords\Models\OneTimePassword;
 
 class AppServiceProvider extends ServiceProvider
 {

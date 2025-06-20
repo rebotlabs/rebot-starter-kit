@@ -3,13 +3,13 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 import { Transition } from "@headlessui/react"
 import { useForm } from "@inertiajs/react"
 import { FormEventHandler, useRef } from "react"
 
 export default function PasswordManagement() {
-  const { __ } = useLang()
+  const t = useTranslation()
   const passwordInput = useRef<HTMLInputElement>(null)
   const currentPasswordInput = useRef<HTMLInputElement>(null)
 
@@ -43,7 +43,7 @@ export default function PasswordManagement() {
     <form onSubmit={updatePassword}>
       <Card>
         <CardHeader>
-          <CardTitle>{__("ui.buttons.update")} password</CardTitle>
+          <CardTitle>{t("ui.buttons.update")} password</CardTitle>
           <CardDescription>Ensure your account is using a long, random password to stay secure</CardDescription>
         </CardHeader>
 
@@ -100,7 +100,7 @@ export default function PasswordManagement() {
         </CardContent>
 
         <CardFooter className="flex items-center gap-4">
-          <Button disabled={processing}>{__("ui.buttons.save")} password</Button>
+          <Button disabled={processing}>{t("ui.buttons.save")} password</Button>
 
           <Transition
             show={recentlySuccessful}

@@ -19,7 +19,6 @@ class ConfirmablePasswordController extends Controller
      */
     public function show(): Response
     {
-        syncLangFiles(['auth', 'ui']);
 
         return Inertia::render('auth/confirm-password');
     }

@@ -12,7 +12,6 @@ final class ShowAppearanceController extends Controller
 {
     public function __invoke(): Response
     {
-        syncLangFiles(['ui', 'settings']);
 
         return Inertia::render('settings/appearance');
     }

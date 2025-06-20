@@ -4,15 +4,15 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useTranslation } from "@/hooks/use-i18n"
 import { useInitials } from "@/hooks/use-initials"
-import { useLang } from "@/hooks/useLang"
 import type { Member, SharedData } from "@/types"
 import { router, usePage } from "@inertiajs/react"
 import { LogOutIcon, MoreVerticalIcon, UserMinusIcon } from "lucide-react"
 import { useState } from "react"
 
 export const MembersList = () => {
-  const { __ } = useLang()
+  const t = useTranslation()
   const { members, auth, currentOrganization } = usePage<SharedData & { members: Member[] }>().props
   const getInitials = useInitials()
   const [memberToRemove, setMemberToRemove] = useState<Member | null>(null)
@@ -65,7 +65,7 @@ export const MembersList = () => {
               <div className="col-span-3">
                 {member.role === "owner" ? (
                   <div className="border-input bg-background ring-offset-background flex h-10 w-[100px] items-center justify-center rounded-md border px-3 py-2 text-sm">
-                    {__("ui.roles.owner")}
+                    {t("ui.roles.owner")}
                   </div>
                 ) : (
                   <Select
@@ -73,14 +73,14 @@ export const MembersList = () => {
                     disabled={member.user.id === auth.user.id || member.user.id === currentOrganization.owner_id || isRoleUpdating === member.id}
                     onValueChange={(value) => handleRoleChange(member, value)}
                   >
-                    <SelectTrigger className="w-[100px]" aria-label={__("organizations.members.role_label")}>
+                    <SelectTrigger className="w-[100px]" aria-label={t("organizations.members.role_label")}>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent align="end">
                       <SelectGroup>
-                        <SelectLabel>{__("ui.roles.role")}</SelectLabel>
-                        <SelectItem value="admin">{__("ui.roles.admin")}</SelectItem>
-                        <SelectItem value="member">{__("ui.roles.member")}</SelectItem>
+                        <SelectLabel>{t("ui.roles.role")}</SelectLabel>
+                        <SelectItem value="admin">{t("ui.roles.admin")}</SelectItem>
+                        <SelectItem value="member">{t("ui.roles.member")}</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -101,7 +101,7 @@ export const MembersList = () => {
                         onClick={() => (window.location.href = route("organization.settings.leave", [currentOrganization]))}
                       >
                         <LogOutIcon />
-                        {__("organizations.members.leave_action")}
+                        {t("organizations.members.leave_action")}
                       </DropdownMenuItem>
                     ) : (
                       <DropdownMenuItem
@@ -110,7 +110,7 @@ export const MembersList = () => {
                         onClick={() => setMemberToRemove(member)}
                       >
                         <UserMinusIcon />
-                        {__("ui.actions.remove")}
+                        {t("ui.actions.remove")}
                       </DropdownMenuItem>
                     )}
                   </DropdownMenuContent>
@@ -124,15 +124,15 @@ export const MembersList = () => {
       <Dialog open={!!memberToRemove} onOpenChange={() => setMemberToRemove(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{__("ui.members.remove_title")}</DialogTitle>
-            <DialogDescription>{memberToRemove && __("ui.members.remove_description", { name: memberToRemove.user.name })}</DialogDescription>
+            <DialogTitle>{t("ui.members.remove_title")}</DialogTitle>
+            <DialogDescription>{memberToRemove && t("ui.members.remove_description", { name: memberToRemove.user.name })}</DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setMemberToRemove(null)}>
-              {__("ui.actions.cancel")}
+              {t("ui.actions.cancel")}
             </Button>
             <Button variant="destructive" onClick={handleRemoveMember}>
-              {__("ui.members.remove_button")}
+              {t("ui.members.remove_button")}
             </Button>
           </DialogFooter>
         </DialogContent>

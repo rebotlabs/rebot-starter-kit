@@ -21,8 +21,6 @@ class EmailVerificationPromptController extends Controller
             return redirect()->intended(route('dashboard', absolute: false));
         }
 
-        syncLangFiles(['auth', 'ui']);
-
         return Inertia::render('auth/verify-email-otp', ['status' => $request->session()->get('status')]);
     }
 }

@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 import type { Organization } from "@/types"
 import { useForm } from "@inertiajs/react"
 import { type FormEventHandler, useRef } from "react"
@@ -14,7 +14,7 @@ interface LeaveOrganizationCardProps {
 }
 
 export function LeaveOrganizationCard({ organization }: LeaveOrganizationCardProps) {
-  const { __ } = useLang()
+  const t = useTranslation()
   const passwordInput = useRef<HTMLInputElement>(null)
 
   const { data, setData, processing, reset, errors, clearErrors, post } = useForm<{
@@ -41,31 +41,31 @@ export function LeaveOrganizationCard({ organization }: LeaveOrganizationCardPro
   return (
     <Card variant="destructive">
       <CardHeader>
-        <CardTitle>{__("organizations.leave.card_title")}</CardTitle>
-        <CardDescription>{__("organizations.leave.card_description")}</CardDescription>
+        <CardTitle>{t("organizations.leave.card_title")}</CardTitle>
+        <CardDescription>{t("organizations.leave.card_description")}</CardDescription>
       </CardHeader>
 
       <CardContent>
         <div className="relative space-y-0.5">
-          <p className="font-medium">{__("ui.actions.warning")}</p>
-          <p className="text-sm">{__("organizations.leave.card_warning")}</p>
+          <p className="font-medium">{t("ui.actions.warning")}</p>
+          <p className="text-sm">{t("organizations.leave.card_warning")}</p>
         </div>
       </CardContent>
 
       <CardFooter className="justify-end">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="destructive">{__("organizations.leave.button")}</Button>
+            <Button variant="destructive">{t("organizations.leave.button")}</Button>
           </DialogTrigger>
           <DialogContent>
-            <DialogTitle>{__("organizations.leave.confirm_dialog_title")}</DialogTitle>
+            <DialogTitle>{t("organizations.leave.confirm_dialog_title")}</DialogTitle>
             <DialogDescription
-              dangerouslySetInnerHTML={{ __html: __("organizations.leave.confirm_dialog_description", { name: organization.name }) }}
+              dangerouslySetInnerHTML={{ __html: t("organizations.leave.confirm_dialog_description", { name: organization.name }) }}
             />
             <form className="space-y-6" onSubmit={leaveOrganization}>
               <div className="grid gap-2">
                 <Label htmlFor="password" className="sr-only">
-                  {__("organizations.leave.password_label")}
+                  {t("organizations.leave.password_label")}
                 </Label>
 
                 <Input
@@ -75,7 +75,7 @@ export function LeaveOrganizationCard({ organization }: LeaveOrganizationCardPro
                   ref={passwordInput}
                   value={data.password}
                   onChange={(e) => setData("password", e.target.value)}
-                  placeholder={__("organizations.leave.password_placeholder")}
+                  placeholder={t("organizations.leave.password_placeholder")}
                   autoComplete="current-password"
                 />
 
@@ -85,12 +85,12 @@ export function LeaveOrganizationCard({ organization }: LeaveOrganizationCardPro
               <DialogFooter className="gap-2">
                 <DialogClose asChild>
                   <Button variant="link" onClick={closeModal}>
-                    {__("ui.actions.cancel")}
+                    {t("ui.actions.cancel")}
                   </Button>
                 </DialogClose>
 
                 <Button variant="destructive" type="submit" disabled={processing}>
-                  {__("organizations.leave.button")}
+                  {t("organizations.leave.button")}
                 </Button>
               </DialogFooter>
             </form>

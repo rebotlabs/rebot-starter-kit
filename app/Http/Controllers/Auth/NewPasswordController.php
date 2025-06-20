@@ -23,7 +23,6 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request): Response
     {
-        syncLangFiles(['auth', 'ui']);
 
         return Inertia::render('auth/reset-password', [
             'email' => $request->email,

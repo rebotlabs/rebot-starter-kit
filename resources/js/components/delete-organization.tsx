@@ -8,11 +8,11 @@ import { Label } from "@/components/ui/label"
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 import { SharedData } from "@/types"
 
 export const DeleteOrganization = () => {
-  const { __ } = useLang()
+  const t = useTranslation()
   const { currentOrganization } = usePage<SharedData>().props
   const passwordInput = useRef<HTMLInputElement>(null)
   const {
@@ -45,29 +45,29 @@ export const DeleteOrganization = () => {
   return (
     <Card variant="destructive">
       <CardHeader>
-        <CardTitle>{__("ui.organization.delete_title")}</CardTitle>
-        <CardDescription>{__("ui.organization.delete_description")}</CardDescription>
+        <CardTitle>{t("ui.organization.delete_title")}</CardTitle>
+        <CardDescription>{t("ui.organization.delete_description")}</CardDescription>
       </CardHeader>
 
       <CardContent>
         <div className="relative space-y-0.5">
-          <p className="font-medium">{__("ui.actions.warning")}</p>
-          <p className="text-sm">{__("ui.organization.delete_warning")}</p>
+          <p className="font-medium">{t("ui.actions.warning")}</p>
+          <p className="text-sm">{t("ui.organization.delete_warning")}</p>
         </div>
       </CardContent>
 
       <CardFooter className="justify-end">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="destructive">{__("ui.organization.delete_button")}</Button>
+            <Button variant="destructive">{t("ui.organization.delete_button")}</Button>
           </DialogTrigger>
           <DialogContent>
-            <DialogTitle>{__("ui.organization.delete_confirm_title")}</DialogTitle>
-            <DialogDescription>{__("ui.organization.delete_confirm_description")}</DialogDescription>
+            <DialogTitle>{t("ui.organization.delete_confirm_title")}</DialogTitle>
+            <DialogDescription>{t("ui.organization.delete_confirm_description")}</DialogDescription>
             <form className="space-y-6" onSubmit={deleteOrganization}>
               <div className="grid gap-2">
                 <Label htmlFor="password" className="sr-only">
-                  {__("auth.labels.password")}
+                  {t("auth.labels.password")}
                 </Label>
 
                 <Input
@@ -77,7 +77,7 @@ export const DeleteOrganization = () => {
                   ref={passwordInput}
                   value={data.password}
                   onChange={(e) => setData("password", e.target.value)}
-                  placeholder={__("ui.password.password_placeholder")}
+                  placeholder={t("ui.password.password_placeholder")}
                   autoComplete="current-password"
                 />
 
@@ -87,12 +87,12 @@ export const DeleteOrganization = () => {
               <DialogFooter className="gap-2">
                 <DialogClose asChild>
                   <Button variant="link" onClick={closeModal}>
-                    {__("ui.actions.cancel")}
+                    {t("ui.actions.cancel")}
                   </Button>
                 </DialogClose>
 
                 <Button variant="destructive" type="submit" disabled={processing}>
-                  {__("ui.organization.delete_button")}
+                  {t("ui.organization.delete_button")}
                 </Button>
               </DialogFooter>
             </form>

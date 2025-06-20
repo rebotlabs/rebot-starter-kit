@@ -2,7 +2,7 @@ import InputError from "@/components/input-error"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 import type { Invitation } from "@/types"
 import { useForm } from "@inertiajs/react"
 import { CheckCircleIcon, XCircleIcon } from "lucide-react"
@@ -26,7 +26,7 @@ interface InvitationRegisterFormProps {
 }
 
 export function InvitationRegisterForm({ invitation, onReject, rejectProcessing }: InvitationRegisterFormProps) {
-  const { __ } = useLang()
+  const t = useTranslation()
 
   const {
     data: acceptData,
@@ -48,7 +48,7 @@ export function InvitationRegisterForm({ invitation, onReject, rejectProcessing 
   return (
     <form onSubmit={handleAccept} className="space-y-4">
       <div>
-        <Label htmlFor="name">{__("invitations.form.full_name")}</Label>
+        <Label htmlFor="name">{t("invitations.form.full_name")}</Label>
         <Input
           id="name"
           type="text"
@@ -56,13 +56,13 @@ export function InvitationRegisterForm({ invitation, onReject, rejectProcessing 
           onChange={(e) => setAcceptData("name", e.target.value)}
           required
           disabled={acceptProcessing}
-          placeholder={__("invitations.form.full_name_placeholder")}
+          placeholder={t("invitations.form.full_name_placeholder")}
         />
         <InputError className="mt-2" message={acceptErrors.name} />
       </div>
 
       <div>
-        <Label htmlFor="password">{__("invitations.form.password")}</Label>
+        <Label htmlFor="password">{t("invitations.form.password")}</Label>
         <Input
           id="password"
           type="password"
@@ -70,13 +70,13 @@ export function InvitationRegisterForm({ invitation, onReject, rejectProcessing 
           onChange={(e) => setAcceptData("password", e.target.value)}
           required
           disabled={acceptProcessing}
-          placeholder={__("invitations.form.password_placeholder")}
+          placeholder={t("invitations.form.password_placeholder")}
         />
         <InputError className="mt-2" message={acceptErrors.password} />
       </div>
 
       <div>
-        <Label htmlFor="password_confirmation">{__("invitations.form.confirm_password")}</Label>
+        <Label htmlFor="password_confirmation">{t("invitations.form.confirm_password")}</Label>
         <Input
           id="password_confirmation"
           type="password"
@@ -84,7 +84,7 @@ export function InvitationRegisterForm({ invitation, onReject, rejectProcessing 
           onChange={(e) => setAcceptData("password_confirmation", e.target.value)}
           required
           disabled={acceptProcessing}
-          placeholder={__("invitations.form.confirm_password_placeholder")}
+          placeholder={t("invitations.form.confirm_password_placeholder")}
         />
         <InputError className="mt-2" message={acceptErrors.password_confirmation} />
       </div>
@@ -92,11 +92,11 @@ export function InvitationRegisterForm({ invitation, onReject, rejectProcessing 
       <div className="flex space-x-3">
         <Button type="submit" disabled={acceptProcessing} className="flex-1">
           <CheckCircleIcon className="mr-2 h-4 w-4" />
-          {__("invitations.buttons.create_account_accept")}
+          {t("invitations.buttons.create_account_accept")}
         </Button>
         <Button type="button" variant="outline" onClick={onReject} disabled={rejectProcessing}>
           <XCircleIcon className="mr-2 h-4 w-4" />
-          {__("invitations.buttons.reject")}
+          {t("invitations.buttons.reject")}
         </Button>
       </div>
     </form>

@@ -13,7 +13,6 @@ class ShowBillingController extends Controller
 {
     public function __invoke(Organization $organization): Response
     {
-        syncLangFiles(['ui', 'organizations', 'settings']);
 
         return Inertia::render('organization/settings/billing');
     }

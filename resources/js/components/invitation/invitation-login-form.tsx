@@ -3,7 +3,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 import type { Invitation } from "@/types"
 import { useForm } from "@inertiajs/react"
 import { LockIcon } from "lucide-react"
@@ -25,7 +25,7 @@ interface InvitationLoginFormProps {
 }
 
 export function InvitationLoginForm({ invitation, onCancel }: InvitationLoginFormProps) {
-  const { __ } = useLang()
+  const t = useTranslation()
 
   const {
     data: loginData,
@@ -49,12 +49,12 @@ export function InvitationLoginForm({ invitation, onCancel }: InvitationLoginFor
     <div className="space-y-4">
       <Alert>
         <LockIcon className="h-4 w-4" />
-        <AlertDescription>{__("invitations.alerts.login_to_accept")}</AlertDescription>
+        <AlertDescription>{t("invitations.alerts.login_to_accept")}</AlertDescription>
       </Alert>
 
       <form onSubmit={handleLogin} className="space-y-4">
         <div>
-          <Label htmlFor="login-email">{__("invitations.form.email")}</Label>
+          <Label htmlFor="login-email">{t("invitations.form.email")}</Label>
           <Input
             id="login-email"
             type="email"
@@ -69,7 +69,7 @@ export function InvitationLoginForm({ invitation, onCancel }: InvitationLoginFor
         </div>
 
         <div>
-          <Label htmlFor="login-password">{__("invitations.form.password")}</Label>
+          <Label htmlFor="login-password">{t("invitations.form.password")}</Label>
           <Input
             id="login-password"
             type="password"
@@ -77,7 +77,7 @@ export function InvitationLoginForm({ invitation, onCancel }: InvitationLoginFor
             onChange={(e) => setLoginData("password", e.target.value)}
             required
             disabled={loginProcessing}
-            placeholder={__("invitations.form.password_login_placeholder")}
+            placeholder={t("invitations.form.password_login_placeholder")}
           />
           <InputError className="mt-2" message={loginErrors.password} />
         </div>
@@ -85,10 +85,10 @@ export function InvitationLoginForm({ invitation, onCancel }: InvitationLoginFor
         <div className="flex space-x-3">
           <Button type="submit" disabled={loginProcessing} className="flex-1">
             <LockIcon className="mr-2 h-4 w-4" />
-            {__("invitations.buttons.log_in")}
+            {t("invitations.buttons.log_in")}
           </Button>
           <Button type="button" variant="outline" onClick={onCancel} disabled={loginProcessing}>
-            {__("invitations.buttons.cancel")}
+            {t("invitations.buttons.cancel")}
           </Button>
         </div>
       </form>

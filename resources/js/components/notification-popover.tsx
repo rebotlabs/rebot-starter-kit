@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
+import { useTranslation } from "@/hooks/use-i18n"
 import { useNotifications } from "@/hooks/use-notifications"
-import { useLang } from "@/hooks/useLang"
 import { cn } from "@/lib/utils"
 import type { Notification } from "@/types"
 import { Bell, Check, Trash2, X } from "lucide-react"
@@ -15,19 +15,19 @@ interface NotificationItemProps {
 }
 
 function NotificationItem({ notification, onMarkAsRead, onDelete }: NotificationItemProps) {
-  const { __ } = useLang()
+  const t = useTranslation()
   const isUnread = !notification.read_at
 
   const getNotificationTitle = (type: string) => {
     switch (type) {
       case "App\\Notifications\\InvitationSentNotification":
-        return __("notifications.invitation_sent")
+        return t("ui.notifications.invitation_sent")
       case "App\\Notifications\\EmailVerificationOtpNotification":
-        return __("notifications.email_verification")
+        return t("ui.notifications.email_verification")
       case "App\\Notifications\\TestNotification":
-        return __("notifications.test")
+        return t("ui.notifications.test")
       default:
-        return __("notifications.general")
+        return t("ui.notifications.general")
     }
   }
 
@@ -35,14 +35,14 @@ function NotificationItem({ notification, onMarkAsRead, onDelete }: Notification
     switch (type) {
       case "App\\Notifications\\InvitationSentNotification":
         return typeof data.organization === "string"
-          ? __("notifications.invitation_sent_message", { organization: data.organization })
-          : __("notifications.invitation_sent_general")
+          ? t("ui.notifications.invitation_sent_message", { organization: data.organization })
+          : t("ui.notifications.invitation_sent_general")
       case "App\\Notifications\\EmailVerificationOtpNotification":
-        return __("notifications.email_verification_message")
+        return t("ui.notifications.email_verification_message")
       case "App\\Notifications\\TestNotification":
-        return typeof data.message === "string" ? data.message : __("notifications.test_message")
+        return typeof data.message === "string" ? data.message : t("ui.notifications.test_message")
       default:
-        return __("notifications.general_message")
+        return t("ui.notifications.general_message")
     }
   }
 
@@ -54,10 +54,10 @@ function NotificationItem({ notification, onMarkAsRead, onDelete }: Notification
     const diffInHours = Math.floor(diffInMinutes / 60)
     const diffInDays = Math.floor(diffInHours / 24)
 
-    if (diffInMinutes < 1) return __("ui.time.just_now")
-    if (diffInMinutes < 60) return __("ui.time.minutes_ago", { count: diffInMinutes })
-    if (diffInHours < 24) return __("ui.time.hours_ago", { count: diffInHours })
-    if (diffInDays < 7) return __("ui.time.days_ago", { count: diffInDays })
+    if (diffInMinutes < 1) return t("ui.time.just_now")
+    if (diffInMinutes < 60) return t("ui.time.minutes_ago", { count: diffInMinutes })
+    if (diffInHours < 24) return t("ui.time.hours_ago", { count: diffInHours })
+    if (diffInDays < 7) return t("ui.time.days_ago", { count: diffInDays })
 
     return date.toLocaleDateString()
   }
@@ -81,7 +81,7 @@ function NotificationItem({ notification, onMarkAsRead, onDelete }: Notification
                 size="icon"
                 className="h-6 w-6"
                 onClick={() => onMarkAsRead(notification.id)}
-                title={__("notifications.mark_as_read")}
+                title={t("ui.notifications.mark_as_read")}
               >
                 <Check className="h-3 w-3" />
               </Button>
@@ -91,7 +91,7 @@ function NotificationItem({ notification, onMarkAsRead, onDelete }: Notification
               size="icon"
               className="text-destructive hover:text-destructive h-6 w-6"
               onClick={() => onDelete(notification.id)}
-              title={__("notifications.delete")}
+              title={t("ui.notifications.delete")}
             >
               <Trash2 className="h-3 w-3" />
             </Button>
@@ -103,7 +103,7 @@ function NotificationItem({ notification, onMarkAsRead, onDelete }: Notification
 }
 
 export function NotificationPopover() {
-  const { __ } = useLang()
+  const t = useTranslation()
   const [open, setOpen] = useState(false)
   const { notifications, unreadCount, loading, markAsRead, markAllAsRead, deleteNotification } = useNotifications()
 
@@ -122,11 +122,11 @@ export function NotificationPopover() {
 
       <PopoverContent className="w-80 p-0" align="end">
         <div className="flex items-center justify-between border-b p-4">
-          <h3 className="font-semibold">{__("notifications.title")}</h3>
+          <h3 className="font-semibold">{t("ui.notifications.title")}</h3>
           <div className="flex items-center gap-2">
             {unreadCount > 0 && (
               <Button variant="ghost" size="sm" onClick={markAllAsRead} className="text-xs">
-                {__("notifications.mark_all_read")}
+                {t("ui.notifications.mark_all_read")}
               </Button>
             )}
             <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setOpen(false)}>
@@ -138,12 +138,12 @@ export function NotificationPopover() {
         <div className="max-h-96 overflow-y-auto">
           {loading ? (
             <div className="flex items-center justify-center p-8">
-              <div className="text-muted-foreground text-sm">{__("ui.messages.loading")}</div>
+              <div className="text-muted-foreground text-sm">{t("ui.messages.loading")}</div>
             </div>
           ) : notifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center p-8">
               <Bell className="text-muted-foreground mb-2 h-8 w-8" />
-              <p className="text-muted-foreground text-center text-sm">{__("notifications.empty")}</p>
+              <p className="text-muted-foreground text-center text-sm">{t("ui.notifications.empty")}</p>
             </div>
           ) : (
             <div className="divide-y">
@@ -159,7 +159,7 @@ export function NotificationPopover() {
             <Separator />
             <div className="p-2">
               <Button variant="ghost" className="w-full text-sm" size="sm">
-                {__("notifications.view_all")}
+                {t("ui.notifications.view_all")}
               </Button>
             </div>
           </>

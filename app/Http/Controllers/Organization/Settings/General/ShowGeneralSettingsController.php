@@ -13,7 +13,6 @@ class ShowGeneralSettingsController extends Controller
 {
     public function __invoke(Organization $organization): Response
     {
-        syncLangFiles(['ui', 'organizations', 'settings']);
 
         $members = $organization->members()->with(['user'])->get()->map(function ($member) {
             return [

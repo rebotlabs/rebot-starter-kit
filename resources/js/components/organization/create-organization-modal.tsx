@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 import { useForm } from "@inertiajs/react"
 import { LoaderCircle } from "lucide-react"
 import { useEffect } from "react"
@@ -20,7 +20,7 @@ interface CreateOrganizationModalProps {
 }
 
 export function CreateOrganizationModal({ open, onOpenChange }: CreateOrganizationModalProps) {
-  const { __ } = useLang()
+  const t = useTranslation()
   const { data, setData, errors, post, processing, reset } = useForm<FormData>({
     name: "",
     slug: "",
@@ -48,19 +48,19 @@ export function CreateOrganizationModal({ open, onOpenChange }: CreateOrganizati
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{__("organizations.create.title")}</DialogTitle>
-          <DialogDescription>{__("organizations.create.description")}</DialogDescription>
+          <DialogTitle>{t("organizations.create.title")}</DialogTitle>
+          <DialogDescription>{t("organizations.create.description")}</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={submit} className="space-y-6">
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="name">{__("organizations.create.name_label")}</Label>
+              <Label htmlFor="name">{t("organizations.create.name_label")}</Label>
               <Input
                 id="name"
                 type="text"
                 name="name"
-                placeholder={__("organizations.create.name_placeholder")}
+                placeholder={t("organizations.create.name_placeholder")}
                 autoComplete="organization-name"
                 value={data.name}
                 autoFocus
@@ -73,12 +73,12 @@ export function CreateOrganizationModal({ open, onOpenChange }: CreateOrganizati
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="slug">{__("organizations.create.slug_label")}</Label>
+              <Label htmlFor="slug">{t("organizations.create.slug_label")}</Label>
               <Input
                 id="slug"
                 type="text"
                 name="slug"
-                placeholder={__("organizations.create.slug_placeholder")}
+                placeholder={t("organizations.create.slug_placeholder")}
                 autoComplete="organization-slug"
                 value={data.slug}
                 onChange={(e) => setData("slug", e.target.value)}
@@ -89,11 +89,11 @@ export function CreateOrganizationModal({ open, onOpenChange }: CreateOrganizati
 
           <div className="flex justify-end gap-3">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={processing}>
-              {__("ui.actions.cancel")}
+              {t("ui.actions.cancel")}
             </Button>
             <Button type="submit" disabled={processing}>
               {processing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
-              {__("organizations.create.create_button")}
+              {t("organizations.create.create_button")}
             </Button>
           </div>
         </form>

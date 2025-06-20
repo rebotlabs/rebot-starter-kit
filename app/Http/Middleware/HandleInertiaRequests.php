@@ -38,14 +38,16 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        // Ensure UI translations are always available for global components like search and notifications
-        syncLangFiles(['ui']);
-
         return [
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
+            ],
+            'i18n' => [
+                'current' => app()->getLocale(),
+                'default' => config('app.fallback_locale'),
+                'messages' => $this->getTranslationMessages(app()->getLocale()),
             ],
             'ziggy' => fn (): array => [
                 ...(new Ziggy)->toArray(),
@@ -68,5 +70,25 @@ class HandleInertiaRequests extends Middleware
                 return $request->user()?->unreadNotifications()->count() ?? 0;
             },
         ];
+    }
+
+    /**
+     * Get translation messages for SSR hydration
+     */
+    private function getTranslationMessages(string $locale): array
+    {
+        $filePath = public_path("lang/php_{$locale}.json");
+
+        if (! file_exists($filePath)) {
+            return [];
+        }
+
+        $contents = file_get_contents($filePath);
+
+        if ($contents === false) {
+            return [];
+        }
+
+        return json_decode($contents, true) ?? [];
     }
 }

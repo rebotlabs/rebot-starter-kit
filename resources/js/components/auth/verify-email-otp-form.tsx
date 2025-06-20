@@ -6,14 +6,14 @@ import InputError from "@/components/input-error"
 import TextLink from "@/components/text-link"
 import { Button } from "@/components/ui/button"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
-import { useLang } from "@/hooks/useLang"
+import { useTranslation } from "@/hooks/use-i18n"
 
 interface VerifyEmailOtpFormProps {
   status?: string
 }
 
 export function VerifyEmailOtpForm({ status }: VerifyEmailOtpFormProps) {
-  const { __ } = useLang()
+  const t = useTranslation()
   const [otpValue, setOtpValue] = useState("")
   const { setData, post, processing, errors, reset } = useForm({
     otp: "",
@@ -65,12 +65,12 @@ export function VerifyEmailOtpForm({ status }: VerifyEmailOtpFormProps) {
 
       {status === "verification-code-sent" && (
         <div className="rounded-md bg-green-50 p-4 text-center">
-          <div className="text-sm font-medium text-green-800">{__("ui.verification.code_sent")}</div>
+          <div className="text-sm font-medium text-green-800">{t("ui.verification.code_sent")}</div>
         </div>
       )}
 
       <div className="text-center">
-        <p className="text-muted-foreground text-sm">{__("ui.verification.enter_code")}</p>
+        <p className="text-muted-foreground text-sm">{t("ui.verification.enter_code")}</p>
       </div>
 
       <form onSubmit={submit} className="w-full space-y-6">
@@ -92,14 +92,14 @@ export function VerifyEmailOtpForm({ status }: VerifyEmailOtpFormProps) {
         <div className="flex flex-col space-y-4">
           <Button type="submit" disabled={processing || otpValue.length !== 6} className="w-full">
             {processing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
-            {__("ui.verification.verify_email")}
+            {t("ui.verification.verify_email")}
           </Button>
 
           <div className="space-y-2 text-center">
-            <p className="text-muted-foreground text-sm">{__("ui.verification.didnt_receive")}</p>
+            <p className="text-muted-foreground text-sm">{t("ui.verification.didnt_receive")}</p>
             <Button type="button" variant="ghost" onClick={resendOtp} disabled={resendProcessing} className="h-auto p-0 text-sm font-normal">
               {resendProcessing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
-              {__("ui.verification.resend_code")}
+              {t("ui.verification.resend_code")}
             </Button>
           </div>
         </div>
