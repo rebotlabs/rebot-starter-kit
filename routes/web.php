@@ -20,6 +20,7 @@ use App\Http\Controllers\Organization\ShowOrganizationOverviewController;
 use App\Http\Controllers\Organization\ShowOrganizationSelectController;
 use App\Http\Controllers\Organization\SwitchOrganizationController;
 use App\Http\Controllers\ShowDashboardController;
+use App\Http\Controllers\Stripe\WebhookController;
 use App\Http\Middleware\EnsureCurrentOrganization;
 use Illuminate\Support\Facades\Route;
 
@@ -79,6 +80,11 @@ Route::middleware(['auth'])->prefix('api/notifications')->group(function () {
 
 Route::post('invitation/{token}/accept', [App\Http\Controllers\Invitation\AcceptInvitationController::class, '__invoke'])->name('invitation.accept');
 Route::post('invitation/{token}/reject', [App\Http\Controllers\Invitation\RejectInvitationController::class, '__invoke'])->name('invitation.reject');
+
+// Stripe Webhooks
+Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook'])
+    ->middleware(\App\Http\Middleware\VerifyStripeWebhookSignature::class)
+    ->name('stripe.webhook');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

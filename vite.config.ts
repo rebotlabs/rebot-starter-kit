@@ -14,7 +14,7 @@ export default defineConfig({
         }),
         react(),
         tailwindcss(),
-        ...(InertiaI18n({ outputDirectory: 'public/lang'}) as Plugin[]),
+        ...(InertiaI18n({ outputDirectory: 'public/lang' }) as Plugin[]),
     ],
     esbuild: {
         jsx: 'automatic',

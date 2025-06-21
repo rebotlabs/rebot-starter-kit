@@ -1,6 +1,5 @@
 <?php
 
-use Laravel\Cashier\Console\WebhookCommand;
 use Laravel\Cashier\Invoices\DompdfInvoiceRenderer;
 
 return [
@@ -47,7 +46,36 @@ return [
     'webhook' => [
         'secret' => env('STRIPE_WEBHOOK_SECRET'),
         'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
-        'events' => WebhookCommand::DEFAULT_EVENTS,
+        'events' => [
+            // Customer events
+            'customer.subscription.created',
+            'customer.subscription.updated',
+            'customer.subscription.deleted',
+            'customer.subscription.trial_will_end',
+
+            // Invoice events
+            'invoice.payment_succeeded',
+            'invoice.payment_failed',
+            'invoice.upcoming',
+            'invoice.created',
+            'invoice.finalized',
+
+            // Payment events
+            'payment_method.attached',
+            'payment_method.detached',
+            'payment_method.updated',
+            'payment_intent.succeeded',
+            'payment_intent.payment_failed',
+
+            // Setup events
+            'setup_intent.succeeded',
+            'setup_intent.setup_failed',
+
+            // Charge events
+            'charge.succeeded',
+            'charge.failed',
+            'charge.dispute.created',
+        ],
     ],
 
     /*
