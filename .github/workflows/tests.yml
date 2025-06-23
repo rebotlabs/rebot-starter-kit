@@ -36,9 +36,7 @@ jobs:
           bun-version: latest
 
       - name: Install Node Dependencies
-        run: |
-          bun pm trust --all
-          bun install
+        run: bun install --trust
 
       - name: Build Assets
         run: bun run build
@@ -53,4 +51,4 @@ jobs:
         run: php artisan key:generate
 
       - name: Tests
-        run: ./vendor/bin/phpunit
+        run: composer test
