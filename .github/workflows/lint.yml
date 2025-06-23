@@ -37,6 +37,7 @@ jobs:
       - name: Install Dependencies
         run: |
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+          bun pm trust --all
           bun install
 
       - name: Run Pint
