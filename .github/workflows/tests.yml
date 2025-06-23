@@ -36,11 +36,7 @@ jobs:
           bun-version: latest
 
       - name: Install Node Dependencies
-        run: |
-          # Create bun config to trust only esbuild in CI
-          mkdir -p ~/.bun
-          echo '{"install": {"trustedDependencies": ["esbuild"]}}' > ~/.bun/bunfig.toml
-          bun install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Build Assets
         run: bun run build
