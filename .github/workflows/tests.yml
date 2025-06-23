@@ -35,14 +35,13 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Install Node Dependencies
-        run: bun install --frozen-lockfile
+      - name: Install Dependencies
+        run: |
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+          bun install --frozen-lockfile
 
       - name: Build Assets
         run: bun run build
-
-      - name: Install Dependencies
-        run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Copy Environment File
         run: cp .env.example .env
