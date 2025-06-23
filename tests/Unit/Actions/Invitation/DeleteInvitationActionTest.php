@@ -25,7 +25,7 @@ describe('DeleteInvitationAction', function () {
 
         $invitationId = $invitation->id;
 
-        $this->action->execute($invitation);
+        $this->action->execute(invitation: $invitation);
 
         expect(Invitation::find($invitationId))->toBeNull();
     });
@@ -38,7 +38,7 @@ describe('DeleteInvitationAction', function () {
 
         $invitationId = $invitation->id;
 
-        $this->action->execute($invitation);
+        $this->action->execute(invitation: $invitation);
 
         expect(Invitation::find($invitationId))->toBeNull()
             ->and(Invitation::withTrashed()->find($invitationId))->not->toBeNull();
@@ -55,8 +55,8 @@ describe('DeleteInvitationAction', function () {
             'email' => 'test2@example.com',
         ]);
 
-        $this->action->execute($invitation1);
-        $this->action->execute($invitation2);
+        $this->action->execute(invitation: $invitation1);
+        $this->action->execute(invitation: $invitation2);
 
         expect(Invitation::find($invitation1->id))->toBeNull()
             ->and(Invitation::find($invitation2->id))->toBeNull();
@@ -73,8 +73,8 @@ describe('DeleteInvitationAction', function () {
             'status' => 'accepted',
         ]);
 
-        $this->action->execute($pendingInvitation);
-        $this->action->execute($acceptedInvitation);
+        $this->action->execute(invitation: $pendingInvitation);
+        $this->action->execute(invitation: $acceptedInvitation);
 
         expect(Invitation::find($pendingInvitation->id))->toBeNull()
             ->and(Invitation::find($acceptedInvitation->id))->toBeNull();

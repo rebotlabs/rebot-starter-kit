@@ -13,7 +13,7 @@ class UpdatePasswordController extends Controller
 {
     public function __invoke(UpdatePasswordRequest $request, UpdateUserPasswordAction $action): RedirectResponse
     {
-        $action->execute($request->user(), $request->validated()['password']);
+        $action->execute(user: $request->user(), password: $request->validated()['password']);
 
         return back();
     }

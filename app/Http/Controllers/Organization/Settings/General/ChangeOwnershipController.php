@@ -14,7 +14,7 @@ class ChangeOwnershipController extends Controller
 {
     public function __invoke(ChangeOwnershipRequest $request, Organization $organization, ChangeOrganizationOwnershipAction $action): RedirectResponse
     {
-        $action->execute($organization, $request->input('member_id'));
+        $action->execute(organization: $organization, memberId: $request->input('member_id'));
 
         return back();
     }

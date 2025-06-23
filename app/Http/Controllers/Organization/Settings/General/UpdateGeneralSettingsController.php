@@ -17,7 +17,7 @@ class UpdateGeneralSettingsController extends Controller
         $originalSlug = $organization->slug;
         $validatedData = $request->validated();
 
-        $action->execute($organization, $validatedData);
+        $action->execute(organization: $organization, data: $validatedData);
 
         // Refresh the organization model to get the updated data
         $organization->refresh();

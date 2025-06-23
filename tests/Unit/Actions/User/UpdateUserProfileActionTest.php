@@ -20,7 +20,7 @@ it('updates user profile with provided data', function () {
         'name' => 'Jane Smith',
     ];
 
-    $result = $this->action->execute($this->user, $data);
+    $result = $this->action->execute(user: $this->user, data: $data);
 
     expect($result)->toBeInstanceOf(User::class);
     expect($this->user->fresh()->name)->toBe('Jane Smith');
@@ -32,7 +32,7 @@ it('resets email verification when email is changed', function () {
         'email' => 'newemail@example.com',
     ];
 
-    $this->action->execute($this->user, $data);
+    $this->action->execute(user: $this->user, data: $data);
 
     $this->user->refresh();
     expect($this->user->email)->toBe('newemail@example.com');
@@ -45,7 +45,7 @@ it('preserves email verification when email is not changed', function () {
         'name' => 'Updated Name',
     ];
 
-    $this->action->execute($this->user, $data);
+    $this->action->execute(user: $this->user, data: $data);
 
     $this->user->refresh();
     expect($this->user->email_verified_at)->toEqual($originalVerifiedAt);
@@ -57,7 +57,7 @@ it('updates multiple fields at once', function () {
         'email' => 'updated@example.com',
     ];
 
-    $this->action->execute($this->user, $data);
+    $this->action->execute(user: $this->user, data: $data);
 
     $this->user->refresh();
     expect($this->user->name)->toBe('Updated Name');
@@ -68,7 +68,7 @@ it('updates multiple fields at once', function () {
 it('returns the updated user instance', function () {
     $data = ['name' => 'New Name'];
 
-    $result = $this->action->execute($this->user, $data);
+    $result = $this->action->execute(user: $this->user, data: $data);
 
     expect($result)->toBeInstanceOf(User::class);
     expect($result->id)->toBe($this->user->id);

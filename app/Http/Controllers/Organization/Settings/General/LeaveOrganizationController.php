@@ -13,7 +13,7 @@ class LeaveOrganizationController extends Controller
 {
     public function __invoke(Organization $organization, LeaveOrganizationAction $action): RedirectResponse
     {
-        $action->execute(auth()->user(), $organization);
+        $action->execute(user: auth()->user(), organization: $organization);
 
         return redirect()->route('dashboard');
     }

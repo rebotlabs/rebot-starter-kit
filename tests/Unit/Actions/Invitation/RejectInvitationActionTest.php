@@ -25,14 +25,14 @@ describe('RejectInvitationAction', function () {
             'status' => 'pending',
         ]);
 
-        $this->action->execute((string) $invitation->reject_token);
+        $this->action->execute(token: (string) $invitation->reject_token);
 
         // Invitation should be deleted after rejection
         expect(Invitation::find($invitation->id))->toBeNull();
     });
 
     it('throws exception for invalid token', function () {
-        expect(fn () => $this->action->execute('invalid-token'))
+        expect(fn () => $this->action->execute(token: 'invalid-token'))
             ->toThrow(ModelNotFoundException::class);
     });
 
@@ -42,7 +42,7 @@ describe('RejectInvitationAction', function () {
             'status' => 'accepted',
         ]);
 
-        expect(fn () => $this->action->execute((string) $invitation->reject_token))
+        expect(fn () => $this->action->execute(token: (string) $invitation->reject_token))
             ->toThrow(ModelNotFoundException::class);
     });
 
@@ -52,7 +52,7 @@ describe('RejectInvitationAction', function () {
             'status' => 'rejected',
         ]);
 
-        expect(fn () => $this->action->execute((string) $invitation->reject_token))
+        expect(fn () => $this->action->execute(token: (string) $invitation->reject_token))
             ->toThrow(ModelNotFoundException::class);
     });
 
@@ -67,8 +67,8 @@ describe('RejectInvitationAction', function () {
             'email' => 'test2@example.com',
         ]);
 
-        $this->action->execute((string) $invitation1->reject_token);
-        $this->action->execute((string) $invitation2->reject_token);
+        $this->action->execute(token: (string) $invitation1->reject_token);
+        $this->action->execute(token: (string) $invitation2->reject_token);
 
         // Both invitations should be deleted after rejection
         expect(Invitation::find($invitation1->id))->toBeNull()

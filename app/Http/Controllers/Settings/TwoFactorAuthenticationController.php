@@ -137,7 +137,7 @@ class TwoFactorAuthenticationController extends Controller
      */
     public function updatePassword(UpdatePasswordRequest $request, UpdateUserPasswordAction $action): RedirectResponse
     {
-        $action->execute($request->user(), $request->validated()['password']);
+        $action->execute(user: $request->user(), password: $request->validated()['password']);
 
         return back();
     }

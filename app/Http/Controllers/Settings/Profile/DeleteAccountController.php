@@ -13,7 +13,7 @@ class DeleteAccountController extends Controller
 {
     public function __invoke(DeleteAccountRequest $request, DeleteUserAccountAction $action): RedirectResponse
     {
-        $action->execute($request->user());
+        $action->execute(user: $request->user());
 
         return redirect('/');
     }

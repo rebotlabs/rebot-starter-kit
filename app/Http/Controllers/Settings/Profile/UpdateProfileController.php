@@ -13,7 +13,7 @@ class UpdateProfileController extends Controller
 {
     public function __invoke(ProfileUpdateRequest $request, UpdateUserProfileAction $action): RedirectResponse
     {
-        $action->execute($request->user(), $request->validated());
+        $action->execute(user: $request->user(), data: $request->validated());
 
         return to_route('settings.profile');
     }

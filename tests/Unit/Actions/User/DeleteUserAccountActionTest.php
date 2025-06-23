@@ -14,7 +14,7 @@ beforeEach(function () {
 it('deletes the user account', function () {
     expect(User::where('id', $this->user->id)->exists())->toBeTrue();
 
-    $this->action->execute($this->user);
+    $this->action->execute(user: $this->user);
 
     expect(User::where('id', $this->user->id)->exists())->toBeFalse();
 });
@@ -22,7 +22,7 @@ it('deletes the user account', function () {
 it('logs out the user before deletion', function () {
     Auth::shouldReceive('logout')->once();
 
-    $this->action->execute($this->user);
+    $this->action->execute(user: $this->user);
 
     expect(User::where('id', $this->user->id)->exists())->toBeFalse();
 });

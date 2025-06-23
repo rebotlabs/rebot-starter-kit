@@ -14,7 +14,7 @@ class DeleteInvitationController extends Controller
 {
     public function __invoke(Organization $organization, Invitation $invitation, DeleteInvitationAction $action): RedirectResponse
     {
-        $action->execute($invitation);
+        $action->execute(invitation: $invitation);
 
         return redirect()->route('organization.settings.members', $organization)->with('message', __('messages.success.invitation_deleted'));
     }

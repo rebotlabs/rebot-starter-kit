@@ -13,7 +13,7 @@ class DeleteOrganizationController extends Controller
 {
     public function __invoke(Organization $organization, DeleteOrganizationAction $action): RedirectResponse
     {
-        $result = $action->execute($organization, auth()->user());
+        $result = $action->execute(organization: $organization, user: auth()->user());
 
         // Reload the user to get the updated current_organization_id
         $user = auth()->user()->fresh();

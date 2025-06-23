@@ -13,7 +13,7 @@ class RejectInvitationController extends Controller
 {
     public function __invoke(Request $request, string $token, RejectInvitationAction $action): RedirectResponse
     {
-        $action->execute($token);
+        $action->execute(token: $token);
 
         return redirect()->route('home')
             ->with('message', __('messages.success.invitation_rejected'));

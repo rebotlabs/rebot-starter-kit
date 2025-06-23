@@ -14,7 +14,7 @@ beforeEach(function () {
 it('updates user password with hashed value', function () {
     $newPassword = 'new-password-123';
 
-    $this->action->execute($this->user, $newPassword);
+    $this->action->execute(user: $this->user, password: $newPassword);
 
     $this->user->refresh();
     expect(Hash::check($newPassword, $this->user->password))->toBeTrue();
@@ -24,7 +24,7 @@ it('updates user password with hashed value', function () {
 it('properly hashes the password', function () {
     $plainPassword = 'test-password-123';
 
-    $this->action->execute($this->user, $plainPassword);
+    $this->action->execute(user: $this->user, password: $plainPassword);
 
     $this->user->refresh();
     expect($this->user->password)->not->toBe($plainPassword);

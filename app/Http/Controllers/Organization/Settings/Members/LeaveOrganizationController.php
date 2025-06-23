@@ -15,7 +15,7 @@ class LeaveOrganizationController extends Controller
     public function __invoke(LeaveOrganizationRequest $request, Organization $organization, LeaveMembershipAction $action): RedirectResponse
     {
         try {
-            $action->execute($organization, $request->user());
+            $action->execute(organization: $organization, user: $request->user());
         } catch (\Exception $e) {
             return back()->withErrors([
                 'password' => $e->getMessage(),
