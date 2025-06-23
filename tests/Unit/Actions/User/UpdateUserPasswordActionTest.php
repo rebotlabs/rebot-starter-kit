@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-use App\Jobs\User\UpdateUserPasswordJob;
+use App\Actions\User\UpdateUserPasswordAction;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 beforeEach(function () {
     $this->user = User::factory()->create(['password' => Hash::make('old-password')]);
+    $this->action = new UpdateUserPasswordAction;
 });
 
 it('updates user password with hashed value', function () {
     $newPassword = 'new-password-123';
 
-    $job = new UpdateUserPasswordJob($this->user, $newPassword);
-    $job->handle();
+    $this->action->execute($this->user, $newPassword);
 
     $this->user->refresh();
     expect(Hash::check($newPassword, $this->user->password))->toBeTrue();
@@ -24,8 +24,7 @@ it('updates user password with hashed value', function () {
 it('properly hashes the password', function () {
     $plainPassword = 'test-password-123';
 
-    $job = new UpdateUserPasswordJob($this->user, $plainPassword);
-    $job->handle();
+    $this->action->execute($this->user, $plainPassword);
 
     $this->user->refresh();
     expect($this->user->password)->not->toBe($plainPassword);

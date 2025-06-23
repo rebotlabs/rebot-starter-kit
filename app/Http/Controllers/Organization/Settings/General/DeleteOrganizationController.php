@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Organization\Settings\General;
 
+use App\Actions\Organization\DeleteOrganizationAction;
 use App\Http\Controllers\Controller;
-use App\Jobs\Organization\DeleteOrganizationJob;
 use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
 
 class DeleteOrganizationController extends Controller
 {
-    public function __invoke(Organization $organization): RedirectResponse
+    public function __invoke(Organization $organization, DeleteOrganizationAction $action): RedirectResponse
     {
-        $result = DeleteOrganizationJob::dispatchSync(
-            $organization,
-            auth()->user()
-        );
+        $result = $action->execute($organization, auth()->user());
 
         // Reload the user to get the updated current_organization_id
         $user = auth()->user()->fresh();

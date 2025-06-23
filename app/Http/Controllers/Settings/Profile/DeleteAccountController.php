@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Settings\Profile;
 
+use App\Actions\User\DeleteUserAccountAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\DeleteAccountRequest;
-use App\Jobs\User\DeleteUserAccountJob;
 use Illuminate\Http\RedirectResponse;
 
 class DeleteAccountController extends Controller
 {
-    public function __invoke(DeleteAccountRequest $request): RedirectResponse
+    public function __invoke(DeleteAccountRequest $request, DeleteUserAccountAction $action): RedirectResponse
     {
-        DeleteUserAccountJob::dispatch($request->user());
+        $action->execute($request->user());
 
         return redirect('/');
     }

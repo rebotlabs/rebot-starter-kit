@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-use App\Jobs\User\DeleteUserAccountJob;
+use App\Actions\User\DeleteUserAccountAction;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 beforeEach(function () {
     $this->user = User::factory()->create();
+    $this->action = new DeleteUserAccountAction;
 });
 
 it('deletes the user account', function () {
     expect(User::where('id', $this->user->id)->exists())->toBeTrue();
 
-    $job = new DeleteUserAccountJob($this->user);
-    $job->handle();
+    $this->action->execute($this->user);
 
     expect(User::where('id', $this->user->id)->exists())->toBeFalse();
 });
@@ -22,8 +22,7 @@ it('deletes the user account', function () {
 it('logs out the user before deletion', function () {
     Auth::shouldReceive('logout')->once();
 
-    $job = new DeleteUserAccountJob($this->user);
-    $job->handle();
+    $this->action->execute($this->user);
 
     expect(User::where('id', $this->user->id)->exists())->toBeFalse();
 });

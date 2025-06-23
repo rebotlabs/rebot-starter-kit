@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Jobs\Invitation\RejectInvitationJob;
+use App\Actions\Invitation\RejectInvitationAction;
 use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\User;
@@ -11,10 +11,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-describe('RejectInvitationJob', function () {
+describe('RejectInvitationAction', function () {
     beforeEach(function () {
         $this->user = User::factory()->create();
         $this->organization = Organization::factory()->create(['owner_id' => $this->user->id]);
+        $this->action = new RejectInvitationAction;
     });
 
     it('rejects invitation with valid token', function () {
@@ -24,15 +25,14 @@ describe('RejectInvitationJob', function () {
             'status' => 'pending',
         ]);
 
-        $job = new RejectInvitationJob((string) $invitation->reject_token);
-        $job->handle();
+        $this->action->execute((string) $invitation->reject_token);
 
         // Invitation should be deleted after rejection
         expect(Invitation::find($invitation->id))->toBeNull();
     });
 
     it('throws exception for invalid token', function () {
-        expect(fn () => (new RejectInvitationJob('invalid-token'))->handle())
+        expect(fn () => $this->action->execute('invalid-token'))
             ->toThrow(ModelNotFoundException::class);
     });
 
@@ -42,7 +42,7 @@ describe('RejectInvitationJob', function () {
             'status' => 'accepted',
         ]);
 
-        expect(fn () => (new RejectInvitationJob((string) $invitation->reject_token))->handle())
+        expect(fn () => $this->action->execute((string) $invitation->reject_token))
             ->toThrow(ModelNotFoundException::class);
     });
 
@@ -52,7 +52,7 @@ describe('RejectInvitationJob', function () {
             'status' => 'rejected',
         ]);
 
-        expect(fn () => (new RejectInvitationJob((string) $invitation->reject_token))->handle())
+        expect(fn () => $this->action->execute((string) $invitation->reject_token))
             ->toThrow(ModelNotFoundException::class);
     });
 
@@ -67,11 +67,8 @@ describe('RejectInvitationJob', function () {
             'email' => 'test2@example.com',
         ]);
 
-        $job1 = new RejectInvitationJob((string) $invitation1->reject_token);
-        $job2 = new RejectInvitationJob((string) $invitation2->reject_token);
-
-        $job1->handle();
-        $job2->handle();
+        $this->action->execute((string) $invitation1->reject_token);
+        $this->action->execute((string) $invitation2->reject_token);
 
         // Both invitations should be deleted after rejection
         expect(Invitation::find($invitation1->id))->toBeNull()

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Jobs\Invitation\DeleteInvitationJob;
+use App\Actions\Invitation\DeleteInvitationAction;
 use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\User;
@@ -10,10 +10,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-describe('DeleteInvitationJob', function () {
+describe('DeleteInvitationAction', function () {
     beforeEach(function () {
         $this->user = User::factory()->create();
         $this->organization = Organization::factory()->create(['owner_id' => $this->user->id]);
+        $this->action = new DeleteInvitationAction;
     });
 
     it('deletes invitation successfully', function () {
@@ -24,8 +25,7 @@ describe('DeleteInvitationJob', function () {
 
         $invitationId = $invitation->id;
 
-        $job = new DeleteInvitationJob($invitation);
-        $job->handle();
+        $this->action->execute($invitation);
 
         expect(Invitation::find($invitationId))->toBeNull();
     });
@@ -38,8 +38,7 @@ describe('DeleteInvitationJob', function () {
 
         $invitationId = $invitation->id;
 
-        $job = new DeleteInvitationJob($invitation);
-        $job->handle();
+        $this->action->execute($invitation);
 
         expect(Invitation::find($invitationId))->toBeNull()
             ->and(Invitation::withTrashed()->find($invitationId))->not->toBeNull();
@@ -56,11 +55,8 @@ describe('DeleteInvitationJob', function () {
             'email' => 'test2@example.com',
         ]);
 
-        $job1 = new DeleteInvitationJob($invitation1);
-        $job2 = new DeleteInvitationJob($invitation2);
-
-        $job1->handle();
-        $job2->handle();
+        $this->action->execute($invitation1);
+        $this->action->execute($invitation2);
 
         expect(Invitation::find($invitation1->id))->toBeNull()
             ->and(Invitation::find($invitation2->id))->toBeNull();
@@ -77,11 +73,8 @@ describe('DeleteInvitationJob', function () {
             'status' => 'accepted',
         ]);
 
-        $job1 = new DeleteInvitationJob($pendingInvitation);
-        $job2 = new DeleteInvitationJob($acceptedInvitation);
-
-        $job1->handle();
-        $job2->handle();
+        $this->action->execute($pendingInvitation);
+        $this->action->execute($acceptedInvitation);
 
         expect(Invitation::find($pendingInvitation->id))->toBeNull()
             ->and(Invitation::find($acceptedInvitation->id))->toBeNull();

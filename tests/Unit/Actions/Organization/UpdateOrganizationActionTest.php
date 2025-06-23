@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Jobs\Organization\UpdateOrganizationJob;
+use App\Actions\Organization\UpdateOrganizationAction;
 use App\Models\Organization;
 use App\Models\User;
 
@@ -12,6 +12,7 @@ beforeEach(function () {
         'owner_id' => $this->owner->id,
         'name' => 'Original Name',
     ]);
+    $this->action = new UpdateOrganizationAction;
 });
 
 it('updates organization with provided data', function () {
@@ -19,8 +20,7 @@ it('updates organization with provided data', function () {
         'name' => 'Updated Organization Name',
     ];
 
-    $job = new UpdateOrganizationJob($this->organization, $data);
-    $result = $job->handle();
+    $result = $this->action->execute($this->organization, $data);
 
     expect($result)->toBeInstanceOf(Organization::class);
     expect($result->name)->toBe('Updated Organization Name');
@@ -35,8 +35,7 @@ it('updates multiple fields at once', function () {
         'slug' => 'new-slug',
     ];
 
-    $job = new UpdateOrganizationJob($this->organization, $data);
-    $result = $job->handle();
+    $result = $this->action->execute($this->organization, $data);
 
     $this->organization->refresh();
     expect($this->organization->name)->toBe('New Name');
@@ -46,8 +45,7 @@ it('updates multiple fields at once', function () {
 it('returns the updated organization instance', function () {
     $data = ['name' => 'Updated Name'];
 
-    $job = new UpdateOrganizationJob($this->organization, $data);
-    $result = $job->handle();
+    $result = $this->action->execute($this->organization, $data);
 
     expect($result)->toBeInstanceOf(Organization::class);
     expect($result->id)->toBe($this->organization->id);
@@ -58,8 +56,7 @@ it('handles empty data array gracefully', function () {
     $originalName = $this->organization->name;
     $data = [];
 
-    $job = new UpdateOrganizationJob($this->organization, $data);
-    $result = $job->handle();
+    $result = $this->action->execute($this->organization, $data);
 
     $this->organization->refresh();
     expect($this->organization->name)->toBe($originalName);

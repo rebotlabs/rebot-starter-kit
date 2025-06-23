@@ -420,8 +420,9 @@ describe('LeaveOrganizationController', function () {
         $this->actingAs($member);
 
         // Test by directly calling the controller since no route exists
-        $controller = new \App\Http\Controllers\Organization\Settings\General\LeaveOrganizationController;
-        $response = $controller($this->organization);
+        $controller = app(\App\Http\Controllers\Organization\Settings\General\LeaveOrganizationController::class);
+        $action = app(\App\Actions\Organization\LeaveOrganizationAction::class);
+        $response = $controller($this->organization, $action);
 
         expect($response)->toBeInstanceOf(\Illuminate\Http\RedirectResponse::class);
         expect($response->getTargetUrl())->toBe(route('dashboard'));
@@ -437,8 +438,9 @@ describe('LeaveOrganizationController', function () {
 
         $this->actingAs($admin);
 
-        $controller = new \App\Http\Controllers\Organization\Settings\General\LeaveOrganizationController;
-        $response = $controller($this->organization);
+        $controller = app(\App\Http\Controllers\Organization\Settings\General\LeaveOrganizationController::class);
+        $action = app(\App\Actions\Organization\LeaveOrganizationAction::class);
+        $response = $controller($this->organization, $action);
 
         expect($response)->toBeInstanceOf(\Illuminate\Http\RedirectResponse::class);
         expect($response->getTargetUrl())->toBe(route('dashboard'));
@@ -447,19 +449,21 @@ describe('LeaveOrganizationController', function () {
     it('works for organization owners', function () {
         $this->actingAs($this->user);
 
-        $controller = new \App\Http\Controllers\Organization\Settings\General\LeaveOrganizationController;
-        $response = $controller($this->organization);
+        $controller = app(\App\Http\Controllers\Organization\Settings\General\LeaveOrganizationController::class);
+        $action = app(\App\Actions\Organization\LeaveOrganizationAction::class);
+        $response = $controller($this->organization, $action);
 
         expect($response)->toBeInstanceOf(\Illuminate\Http\RedirectResponse::class);
         expect($response->getTargetUrl())->toBe(route('dashboard'));
     });
 
     it('requires authentication', function () {
-        $controller = new \App\Http\Controllers\Organization\Settings\General\LeaveOrganizationController;
+        $controller = app(\App\Http\Controllers\Organization\Settings\General\LeaveOrganizationController::class);
+        $action = app(\App\Actions\Organization\LeaveOrganizationAction::class);
 
         // When no user is authenticated, auth()->user() returns null
-        // This would cause a TypeError when passed to the job
-        expect(fn () => $controller($this->organization))
+        // This would cause a TypeError when passed to the action
+        expect(fn () => $controller($this->organization, $action))
             ->toThrow(\TypeError::class);
     });
 });

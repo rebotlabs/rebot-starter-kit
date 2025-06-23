@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Organization\Settings\Members;
 
+use App\Actions\Member\LeaveMembershipAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Organization\LeaveOrganizationRequest;
-use App\Jobs\Member\LeaveMembershipJob;
 use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
 
 class LeaveOrganizationController extends Controller
 {
-    public function __invoke(LeaveOrganizationRequest $request, Organization $organization): RedirectResponse
+    public function __invoke(LeaveOrganizationRequest $request, Organization $organization, LeaveMembershipAction $action): RedirectResponse
     {
         try {
-            LeaveMembershipJob::dispatch($organization, $request->user());
+            $action->execute($organization, $request->user());
         } catch (\Exception $e) {
             return back()->withErrors([
                 'password' => $e->getMessage(),

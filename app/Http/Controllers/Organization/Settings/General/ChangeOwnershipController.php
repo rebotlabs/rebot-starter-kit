@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Organization\Settings\General;
 
+use App\Actions\Organization\ChangeOrganizationOwnershipAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Organization\ChangeOwnershipRequest;
-use App\Jobs\Organization\ChangeOrganizationOwnershipJob;
 use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
 
 class ChangeOwnershipController extends Controller
 {
-    public function __invoke(ChangeOwnershipRequest $request, Organization $organization): RedirectResponse
+    public function __invoke(ChangeOwnershipRequest $request, Organization $organization, ChangeOrganizationOwnershipAction $action): RedirectResponse
     {
-        ChangeOrganizationOwnershipJob::dispatch(
-            $organization,
-            $request->input('member_id')
-        );
+        $action->execute($organization, $request->input('member_id'));
 
         return back();
     }

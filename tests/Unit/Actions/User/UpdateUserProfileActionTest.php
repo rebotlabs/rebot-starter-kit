@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Jobs\User\UpdateUserProfileJob;
+use App\Actions\User\UpdateUserProfileAction;
 use App\Models\User;
 
 beforeEach(function () {
@@ -11,6 +11,8 @@ beforeEach(function () {
         'email' => 'john@example.com',
         'email_verified_at' => now(),
     ]);
+
+    $this->action = new UpdateUserProfileAction;
 });
 
 it('updates user profile with provided data', function () {
@@ -18,8 +20,7 @@ it('updates user profile with provided data', function () {
         'name' => 'Jane Smith',
     ];
 
-    $job = new UpdateUserProfileJob($this->user, $data);
-    $result = $job->handle();
+    $result = $this->action->execute($this->user, $data);
 
     expect($result)->toBeInstanceOf(User::class);
     expect($this->user->fresh()->name)->toBe('Jane Smith');
@@ -31,8 +32,7 @@ it('resets email verification when email is changed', function () {
         'email' => 'newemail@example.com',
     ];
 
-    $job = new UpdateUserProfileJob($this->user, $data);
-    $job->handle();
+    $this->action->execute($this->user, $data);
 
     $this->user->refresh();
     expect($this->user->email)->toBe('newemail@example.com');
@@ -45,8 +45,7 @@ it('preserves email verification when email is not changed', function () {
         'name' => 'Updated Name',
     ];
 
-    $job = new UpdateUserProfileJob($this->user, $data);
-    $job->handle();
+    $this->action->execute($this->user, $data);
 
     $this->user->refresh();
     expect($this->user->email_verified_at)->toEqual($originalVerifiedAt);
@@ -58,8 +57,7 @@ it('updates multiple fields at once', function () {
         'email' => 'updated@example.com',
     ];
 
-    $job = new UpdateUserProfileJob($this->user, $data);
-    $job->handle();
+    $this->action->execute($this->user, $data);
 
     $this->user->refresh();
     expect($this->user->name)->toBe('Updated Name');
@@ -70,8 +68,7 @@ it('updates multiple fields at once', function () {
 it('returns the updated user instance', function () {
     $data = ['name' => 'New Name'];
 
-    $job = new UpdateUserProfileJob($this->user, $data);
-    $result = $job->handle();
+    $result = $this->action->execute($this->user, $data);
 
     expect($result)->toBeInstanceOf(User::class);
     expect($result->id)->toBe($this->user->id);

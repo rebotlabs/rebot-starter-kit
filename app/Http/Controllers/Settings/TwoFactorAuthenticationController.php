@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Settings;
 
+use App\Actions\User\UpdateUserPasswordAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\UpdatePasswordRequest;
-use App\Jobs\User\UpdateUserPasswordJob;
 use App\Services\TwoFactorAuthenticationService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -135,9 +135,9 @@ class TwoFactorAuthenticationController extends Controller
     /**
      * Update the user's password.
      */
-    public function updatePassword(UpdatePasswordRequest $request): RedirectResponse
+    public function updatePassword(UpdatePasswordRequest $request, UpdateUserPasswordAction $action): RedirectResponse
     {
-        UpdateUserPasswordJob::dispatch($request->user(), $request->validated()['password']);
+        $action->execute($request->user(), $request->validated()['password']);
 
         return back();
     }

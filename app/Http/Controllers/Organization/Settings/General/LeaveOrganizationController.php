@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Organization\Settings\General;
 
+use App\Actions\Organization\LeaveOrganizationAction;
 use App\Http\Controllers\Controller;
-use App\Jobs\Organization\LeaveOrganizationJob;
 use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
 
 class LeaveOrganizationController extends Controller
 {
-    public function __invoke(Organization $organization): RedirectResponse
+    public function __invoke(Organization $organization, LeaveOrganizationAction $action): RedirectResponse
     {
-        LeaveOrganizationJob::dispatch(
-            auth()->user(),
-            $organization
-        );
+        $action->execute(auth()->user(), $organization);
 
         return redirect()->route('dashboard');
     }
